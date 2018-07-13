@@ -19,3 +19,6 @@ dist
 
 # log files
 *.log*
+
+# NextJS build files
+.next
