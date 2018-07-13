@@ -8,7 +8,9 @@
   "license": "GPL-3.0",
   "private": true,
   "scripts": {
-    "start": "next"
+    "build": "next build",
+    "dev": "next",
+    "start": "next start"
   },
   "dependencies": {
     "next": "^6.1.1",
