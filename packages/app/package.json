@@ -1,0 +1,20 @@
+{
+  "name": "@interactivemap/app",
+  "version": "0.1.0",
+  "description": "Front-end of the Interactive Map",
+  "main": "index.js",
+  "repository": "https://github.com/interactivemap/frontend",
+  "author": "Amaury Martiny <amaury.martiny@protonmail.com>",
+  "license": "GPL-3.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^6.1.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  }
+}
