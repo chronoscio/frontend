@@ -12,7 +12,14 @@
     ]
   },
   "scripts": {
+    "lint": "eslint --ext .jsx --ext .js packages/",
     "start": "lerna exec yarn start --scope @interactivemap/app"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0"
+  }
 }
