@@ -22,3 +22,6 @@ dist
 
 # NextJS build files
 .next
+
+# secrets
+now-secrets.json

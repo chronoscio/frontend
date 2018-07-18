@@ -1,6 +1,1 @@
-{
-  "env": {
-    "MAPBOX_ACCESS_TOKEN": "@mapbox-access-token"
-  },
-  "name": "frontend"
-}
+packages/app/now.json

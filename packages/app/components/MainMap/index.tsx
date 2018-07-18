@@ -1,8 +1,6 @@
 import * as React from 'react';
 import ReactMapboxGl from 'react-mapbox-gl';
 
-console.log(process.env);
-
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
 });
