@@ -12,7 +12,7 @@
     ]
   },
   "scripts": {
-    "prebuild": "yarn install",
+    "prebuild": "if test \"$NOW\" = 1 ; then yarn install ; fi",
     "build": "lerna exec yarn build --scope @interactivemap/app",
     "dev": "lerna exec yarn dev --scope @interactivemap/app",
     "lint": "tslint packages/**/*.tsx?",

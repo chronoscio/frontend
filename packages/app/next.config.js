@@ -18,6 +18,12 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = withCss(
   withTypescript({
     webpack: config => {
+      // Remove UglifyJsPlugin
+      // @see https://github.com/zeit/next.js/issues/1195
+      config.plugins = config.plugins.filter(
+        plugin => plugin.constructor.name !== 'UglifyJsPlugin'
+      );
+
       config.plugins.push(
         new webpack.EnvironmentPlugin(['MAPBOX_ACCESS_TOKEN'])
       );
