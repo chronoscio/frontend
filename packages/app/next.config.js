@@ -1,3 +1,4 @@
+const withCss = require('@zeit/next-css');
 const withTypescript = require('@zeit/next-typescript');
 const webpack = require('webpack');
 
@@ -14,9 +15,13 @@ if (process.env.NODE_ENV !== 'production') {
  * want to keep them secret from the repo, the following code will allow you
  * to share some variables with the client, configured at compile time.
  */
-module.exports = withTypescript({
-  webpack: config => {
-    config.plugins.push(new webpack.EnvironmentPlugin(['MAPBOX_ACCESS_TOKEN']));
-    return config;
-  }
-});
+module.exports = withCss(
+  withTypescript({
+    webpack: config => {
+      config.plugins.push(
+        new webpack.EnvironmentPlugin(['MAPBOX_ACCESS_TOKEN'])
+      );
+      return config;
+    }
+  })
+);
