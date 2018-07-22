@@ -14,8 +14,8 @@
   "scripts": {
     "prebuild": "if test \"$NOW\" = 1 ; then yarn install ; fi",
     "build": "lerna exec yarn build --scope @interactivemap/app",
-    "dev": "lerna exec yarn dev --scope @interactivemap/app",
     "lint": "tslint packages/**/*.tsx?",
+    "now-start": "lerna exec yarn now-start --scope @interactivemap/app",
     "start": "lerna exec yarn start --scope @interactivemap/app",
     "test": "echo Skipped for now."
   },
