@@ -5,5 +5,10 @@
 ```bash
 git clone https://github.com/interactivemap/frontend
 yarn install
-yarn dev
+
+# Add secrets
+cp packages/app/now-secrets.example.json packages/app/now-secrets.json
+# Edit now-secrets.json to add your own secrets
+
+yarn start
 ```

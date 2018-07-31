@@ -1,0 +1,6 @@
+{
+  "env": {
+    "MAPBOX_ACCESS_TOKEN": "@mapbox-access-token"
+  },
+  "name": "interactivemap-frontend"
+}
