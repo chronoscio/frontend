@@ -33,6 +33,21 @@ module.exports = withCss(
         // @see https://github.com/zeit/next.js/tree/canary/examples/with-now-env
         new webpack.EnvironmentPlugin(['MAPBOX_ACCESS_TOKEN'])
       );
+
+      // Make Next.js work with Semantic-UI
+      // https://github.com/zeit/next.js/blob/canary/examples/with-semantic-ui/next.config.js
+      config.module.rules.push({
+        test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 100000,
+            publicPath: './',
+            outputPath: 'static/',
+            name: '[name].[ext]'
+          }
+        }
+      });
       return config;
     }
   })

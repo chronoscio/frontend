@@ -1,4 +1,5 @@
 import * as React from 'react';
+import DrawControl from 'react-mapbox-gl-draw';
 import ReactMapboxGl from 'react-mapbox-gl';
 
 const Map = ReactMapboxGl({
@@ -14,5 +15,7 @@ export default () => (
   <Map
     style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
     containerStyle={mapContainerStyle}
-  />
+  >
+    <DrawControl />
+  </Map>
 );
