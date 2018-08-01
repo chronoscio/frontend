@@ -19,12 +19,12 @@ export default compose(
       auth0.parseHash((err, authResult) => {
         if (err) {
           console.error(err);
-          // router.push('/');
+          router.push('/');
           return;
         }
 
         updateAuth(authResult);
-        // router.push('/');
+        router.push('/');
       });
     },
     login: () => () => {
