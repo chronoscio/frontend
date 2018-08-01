@@ -1,5 +1,6 @@
 import { WebAuth } from 'auth0-js';
-import { compose, withHandlers, withProps, withState } from 'recompose';
+import { compose, withHandlers, withProps } from 'recompose';
+import * as localForage from 'localforage';
 import { withRouter } from 'next/router';
 
 const auth0 = new WebAuth({
@@ -12,18 +13,17 @@ const auth0 = new WebAuth({
 });
 
 export default compose(
-  withState('auth', 'updateAuth', undefined),
   withRouter,
   withHandlers({
-    handleAuthentication: ({ router, updateAuth }) => () => {
-      auth0.parseHash((err, authResult) => {
+    handleAuthentication: ({ router }) => () => {
+      auth0.parseHash(async (err, authResult) => {
         if (err) {
           console.error(err);
           router.push('/');
           return;
         }
 
-        updateAuth(authResult);
+        await localForage.setItem('auth', authResult);
         router.push('/');
       });
     },
