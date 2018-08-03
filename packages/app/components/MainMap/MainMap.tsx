@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { Button } from 'semantic-ui-react';
 import { compose } from 'recompose';
 import ReactMapboxGl, { GeoJSONLayer } from 'react-mapbox-gl';
 import { SourceOptionData } from 'react-mapbox-gl/lib/util/types';
+import styled from 'styled-components';
 
-import Edit from './Edit';
+import Draw from './Draw';
 import fetchFromGithub from './decorators/fetchFromGithub';
 import isEditing, {
   IsEditingStateHandlerProps,
@@ -35,19 +37,28 @@ const mapContainerStyle = {
   width: '100vw'
 };
 
+const Wrapper = styled.div`
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+`;
+
 const MainMap: React.SFC<EnhancedMainMapProps> = ({
   closeIsEditing,
   geoJson,
   isEditing,
-  openIsEditing
+  openIsEditing,
+  updateGeoJson
 }) => (
   <div>
     <Map
       style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
       containerStyle={mapContainerStyle}
     >
-      <Edit geoJson={geoJson} isEditing={isEditing} />
+      <Draw geoJson={geoJson} isEditing={isEditing} onUpdate={updateGeoJson} />
 
+      {/* Show the GeoJSONLayer when there's a geoJson, and when we're not in editing mode*/}
       {geoJson &&
         !isEditing && (
           <GeoJSONLayer
@@ -61,11 +72,16 @@ const MainMap: React.SFC<EnhancedMainMapProps> = ({
           />
         )}
     </Map>
-    <SaveToGithub
-      geoJson={geoJson}
-      isEditing={isEditing}
-      onClick={closeIsEditing}
-    />
+    <Wrapper>
+      <SaveToGithub
+        geoJson={geoJson}
+        disabled={!isEditing}
+        onClick={closeIsEditing}
+      />
+      <Button disabled={!isEditing} onClick={closeIsEditing}>
+        Cancel
+      </Button>
+    </Wrapper>
   </div>
 );
 

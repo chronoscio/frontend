@@ -15,10 +15,6 @@ export default lifecycle<
       'https://raw.githubusercontent.com/amaurymartiny/interactivemap/master/territory.json'
     )
       .then(response => response.json())
-      .then(response => {
-        console.log(response);
-        return response;
-      })
       .then(this.props.updateGeoJson);
   }
 });

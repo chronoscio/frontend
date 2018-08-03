@@ -5,14 +5,14 @@ import { SourceOptionData } from 'react-mapbox-gl/lib/util/types';
 interface EditProps {
   geoJson: SourceOptionData;
   isEditing: boolean;
+  onUpdate: (geoJson: SourceOptionData) => void;
 }
 
-class Edit extends React.PureComponent<EditProps, {}> {
+class Draw extends React.PureComponent<EditProps, {}> {
   private drawControl: React.RefObject<any>;
 
   componentDidUpdate(prevProps: EditProps) {
     if (prevProps.isEditing !== this.props.isEditing && this.props.isEditing) {
-      console.log(this.props.geoJson);
       //@ts-ignore TODO Add typings to react-mapbox-gl-draw
       this.drawControl.draw.add(this.props.geoJson);
     }
@@ -29,10 +29,11 @@ class Edit extends React.PureComponent<EditProps, {}> {
           point: false,
           uncombine_features: false
         }}
+        onDrawUpdate={this.props.onUpdate}
         ref={this.handleRef}
       />
     );
   }
 }
 
-export default Edit;
+export default Draw;

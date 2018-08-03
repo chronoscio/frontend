@@ -1,27 +1,23 @@
 import * as React from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, ButtonProps } from 'semantic-ui-react';
 import { SourceOptionData } from 'react-mapbox-gl/lib/util/types';
-import styled from 'styled-components';
+
+import withUpdateGithub from './decorators/withUpdateGithub';
 
 interface SaveToGithubProps {
+  disabled: boolean; // TODO Take this from ButtonProps
   geoJson: SourceOptionData;
-  isEditing: boolean;
-  onClick: Function;
+  onClick: (event: any, data: ButtonProps) => void;
+  updateGithub: (event: any, data: ButtonProps) => void;
 }
 
-const Wrapper = styled.div`
-  padding: 20px;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-`;
-
-const SaveToGithub: React.SFC<SaveToGithubProps> = ({ isEditing }) => (
-  <Wrapper>
-    <Button disabled={!isEditing} primary>
-      Save to Github
-    </Button>
-  </Wrapper>
+const SaveToGithub: React.SFC<SaveToGithubProps> = ({
+  updateGithub,
+  ...otherProps
+}) => (
+  <Button onClick={updateGithub} primary {...otherProps}>
+    Save to Github
+  </Button>
 );
 
-export default SaveToGithub;
+export default withUpdateGithub(SaveToGithub);
