@@ -1,13 +1,19 @@
 import * as React from 'react';
-import DrawControl from 'react-mapbox-gl-draw';
+import { compose } from 'recompose';
 import ReactMapboxGl, { GeoJSONLayer } from 'react-mapbox-gl';
 import { SourceOptionData } from 'react-mapbox-gl/lib/util/types';
 
+import Edit from './Edit';
+import fetchFromGithub from './decorators/fetchFromGithub';
+import isEditing, {
+  IsEditingStateHandlerProps,
+  IsEditingStateProps
+} from './decorators/isEditing';
 import SaveToGithub from './SaveToGithub';
 import withGeoJson, {
   WithGeoJsonStateProps,
   WithGeoJsonStateHandlerProps
-} from './decorators/withGeoJson.decorator';
+} from './decorators/withGeoJson';
 
 interface MainMapProps {
   geoJson: SourceOptionData;
@@ -15,8 +21,10 @@ interface MainMapProps {
 }
 
 type EnhancedMainMapProps = MainMapProps &
-  WithGeoJsonStateProps &
-  WithGeoJsonStateHandlerProps;
+  IsEditingStateHandlerProps &
+  IsEditingStateProps &
+  WithGeoJsonStateHandlerProps &
+  WithGeoJsonStateProps;
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
@@ -28,35 +36,41 @@ const mapContainerStyle = {
 };
 
 const MainMap: React.SFC<EnhancedMainMapProps> = ({
+  closeIsEditing,
   geoJson,
-  updateGeoJson
+  isEditing,
+  openIsEditing
 }) => (
   <div>
     <Map
       style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
       containerStyle={mapContainerStyle}
     >
-      <DrawControl
-        controls={{
-          combine_features: false,
-          line_string: false,
-          point: false,
-          uncombine_features: false
-        }}
-        onDrawCreate={updateGeoJson}
-      />
+      <Edit geoJson={geoJson} isEditing={isEditing} />
 
-      <GeoJSONLayer
-        data="https://raw.githubusercontent.com/amaurymartiny/interactivemap/master/territory.json"
-        fillLayout={{ visibility: 'visible' }}
-        fillPaint={{
-          'fill-color': '#4169E1',
-          'fill-opacity': 0.7
-        }}
-      />
+      {geoJson &&
+        !isEditing && (
+          <GeoJSONLayer
+            data={geoJson}
+            fillLayout={{ visibility: 'visible' }}
+            fillOnClick={openIsEditing}
+            fillPaint={{
+              'fill-color': '#4169E1',
+              'fill-opacity': 0.7
+            }}
+          />
+        )}
     </Map>
-    <SaveToGithub geoJson={geoJson} />
+    <SaveToGithub
+      geoJson={geoJson}
+      isEditing={isEditing}
+      onClick={closeIsEditing}
+    />
   </div>
 );
 
-export default withGeoJson(MainMap);
+export default compose(
+  withGeoJson,
+  fetchFromGithub,
+  isEditing
+)(MainMap);

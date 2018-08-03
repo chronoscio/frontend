@@ -3,11 +3,10 @@ import { Button } from 'semantic-ui-react';
 import { SourceOptionData } from 'react-mapbox-gl/lib/util/types';
 import styled from 'styled-components';
 
-import logGeoJson from './decorators/logGeoJson.decorator';
-
 interface SaveToGithubProps {
   geoJson: SourceOptionData;
-  log(): void;
+  isEditing: boolean;
+  onClick: Function;
 }
 
 const Wrapper = styled.div`
@@ -17,12 +16,12 @@ const Wrapper = styled.div`
   bottom: 0;
 `;
 
-const SaveToGithub: React.SFC<SaveToGithubProps> = ({ geoJson, log }) => (
+const SaveToGithub: React.SFC<SaveToGithubProps> = ({ isEditing }) => (
   <Wrapper>
-    <Button disabled={!geoJson} onClick={log} primary>
+    <Button disabled={!isEditing} primary>
       Save to Github
     </Button>
   </Wrapper>
 );
 
-export default logGeoJson(SaveToGithub);
+export default SaveToGithub;
