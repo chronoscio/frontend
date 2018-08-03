@@ -24,31 +24,18 @@ export default compose(
           return;
         }
 
-        console.log('authResult', authResult);
-        await localForage.setItem('auth', authResult);
-
-        const {
-          data: { identities }
-        } = await axios.get(
-          `https://amaurymartiny.auth0.com/api/v2/users/${
+        const { data: githubIdentity } = await axios.get(
+          `https://wt-37cf1f65543181db5247750abf73fd32-0.sandbox.auth0-extend.com/auth0-github?userId=${
             authResult.idTokenPayload.sub
           }`,
           {
             headers: {
-              Authorization: `TODO`
+              Authorization: `Bearer ${authResult.idToken}`
             }
           }
         );
 
-        const githubIdentity: {
-          connection: string;
-          isSocial: boolean;
-          provider: string;
-          user_id: number;
-        } = identities.find(
-          ({ connection }: { connection: string }) => connection === 'github'
-        );
-        console.log('Got github identity', githubIdentity);
+        await localForage.setItem('auth', { ...authResult, githubIdentity });
 
         router.push('/');
       });
