@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import withLogin from '../components/Login/withLogin.decorator';
+import withLogin from '../components/Login/decorators/withLogin';
 
 interface CallbackProps {
   handleAuthentication: Function;

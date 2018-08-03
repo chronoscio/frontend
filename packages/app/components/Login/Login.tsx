@@ -3,7 +3,7 @@ import { Auth0DecodedHash } from 'auth0-js';
 import { Button, ButtonProps } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import withLogin from './withLogin.decorator';
+import withLogin from './decorators/withLogin';
 
 interface LoginProps {
   auth: Auth0DecodedHash;
@@ -20,7 +20,6 @@ const Wrapper = styled.div`
 
 const Login: React.SFC<LoginProps> = ({ auth, isLoggedIn, login }) => (
   <Wrapper>
-    {JSON.stringify(auth)}
     <Button onClick={login} primary>
       {isLoggedIn ? 'Logout' : 'Login'}
     </Button>
