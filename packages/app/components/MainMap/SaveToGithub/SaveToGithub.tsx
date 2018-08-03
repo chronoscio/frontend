@@ -12,6 +12,8 @@ interface SaveToGithubProps {
 }
 
 const SaveToGithub: React.SFC<SaveToGithubProps> = ({
+  geoJson,
+  onClick,
   updateGithub,
   ...otherProps
 }) => (
