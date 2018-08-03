@@ -23,12 +23,7 @@ class Draw extends React.PureComponent<EditProps, {}> {
   render() {
     return (
       <DrawControl
-        controls={{
-          combine_features: false,
-          line_string: false,
-          point: false,
-          uncombine_features: false
-        }}
+        displayControlsDefault={false}
         onDrawUpdate={this.props.onUpdate}
         ref={this.handleRef}
       />
