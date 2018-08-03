@@ -8,7 +8,7 @@ interface SaveToGithubProps {
   disabled: boolean; // TODO Take this from ButtonProps
   geoJson: SourceOptionData;
   onClick: (event: any, data: ButtonProps) => void;
-  updateGithub: (event: any, data: ButtonProps) => void;
+  updateGithub: (event: any, data: ButtonProps) => Promise<void>;
 }
 
 const SaveToGithub: React.SFC<SaveToGithubProps> = ({
