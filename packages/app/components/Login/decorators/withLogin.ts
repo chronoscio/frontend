@@ -4,6 +4,8 @@ import * as localForage from 'localforage';
 import { WebAuth } from 'auth0-js';
 import { withRouter } from 'next/router';
 
+import './withAuth';
+
 const auth0 = new WebAuth({
   domain: 'amaurymartiny.auth0.com',
   clientID: 'o85SlnfmIdeW50gQenv4S9KbSFJDDihZ',
@@ -35,14 +37,15 @@ export default compose(
           }
         );
 
-        await localForage.setItem('auth', { ...authResult, githubIdentity });
+        await localForage.setItem('auth', authResult);
 
         router.push('/');
       });
     },
     login: () => () => {
       auth0.authorize();
-    }
+    },
+    logout: () => () => localForage.removeItem('auth')
   }),
   withProps(({ auth }) => ({ isLoggedIn: !!auth }))
 );

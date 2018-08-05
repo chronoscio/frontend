@@ -1,20 +1,9 @@
-import { PureComponent } from 'react';
+import dynamic from 'next/dynamic';
 
-import withLogin from '../components/Login/decorators/withLogin';
+// Lazy-load the map on the client-side
+// @TODO Figure how to dynamic import with TypeScript
+// @ts-ignore
+// @see https://github.com/zeit/next.js/issues/4515
+const Callback = dynamic(import('../components/Callback'), { ssr: false });
 
-interface CallbackProps {
-  handleAuthentication: Function;
-}
-
-class Callback extends PureComponent<CallbackProps> {
-  componentDidMount() {
-    // componentDidMount not called on server-side
-    this.props.handleAuthentication();
-  }
-
-  render() {
-    return <div />;
-  }
-}
-
-export default withLogin(Callback);
+export default Callback;
