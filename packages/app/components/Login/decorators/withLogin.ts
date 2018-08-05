@@ -9,7 +9,9 @@ import './withAuth';
 const auth0 = new WebAuth({
   domain: 'amaurymartiny.auth0.com',
   clientID: 'o85SlnfmIdeW50gQenv4S9KbSFJDDihZ',
-  redirectUri: 'http://localhost:3000/callback',
+  redirectUri: `${window.location.protocol}//${window.location.hostname}:${
+    window.location.port
+  }/callback`,
   audience: 'https://amaurymartiny.auth0.com/userinfo',
   responseType: 'token id_token',
   scope: 'openid'

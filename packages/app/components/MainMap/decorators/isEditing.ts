@@ -18,10 +18,10 @@ export default withStateHandlers<
 >(
   { isEditing: false },
   {
-    closeIsEditing: ({ isEditing }) => () => ({
+    closeIsEditing: () => () => ({
       isEditing: false
     }),
-    openIsEditing: ({ isEditing }) => () => ({
+    openIsEditing: () => () => ({
       isEditing: true
     })
   }
