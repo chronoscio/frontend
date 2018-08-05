@@ -26,17 +26,6 @@ export default compose(
           return;
         }
 
-        const { data: githubIdentity } = await axios.get(
-          `https://wt-37cf1f65543181db5247750abf73fd32-0.sandbox.auth0-extend.com/auth0-github?userId=${
-            authResult.idTokenPayload.sub
-          }`,
-          {
-            headers: {
-              Authorization: `Bearer ${authResult.idToken}`
-            }
-          }
-        );
-
         await localForage.setItem('auth', authResult);
 
         router.push('/');

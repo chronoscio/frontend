@@ -7,12 +7,14 @@ import withUpdateGithub from './decorators/withUpdateGithub';
 interface SaveToGithubProps {
   disabled: boolean; // TODO Take this from ButtonProps
   geoJson: SourceOptionData;
+  isLoggedIn: boolean;
   onClick: (event: any, data: ButtonProps) => void;
   updateGithub: (event: any, data: ButtonProps) => Promise<void>;
 }
 
 const SaveToGithub: React.SFC<SaveToGithubProps> = ({
   geoJson,
+  isLoggedIn,
   onClick,
   updateGithub,
   ...otherProps

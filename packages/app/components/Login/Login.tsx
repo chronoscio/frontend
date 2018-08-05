@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   top: 0;
 `;
 
-const Login: React.SFC<LoginProps> = ({ auth, isLoggedIn, login, logout }) => (
+const Login: React.SFC<LoginProps> = ({ isLoggedIn, login, logout }) => (
   <Wrapper>
     {isLoggedIn ? (
       <Button onClick={logout} primary>

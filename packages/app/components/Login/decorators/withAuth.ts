@@ -6,8 +6,6 @@ import { setObservableConfig } from 'recompose';
 import { startWith, switchMap } from 'rxjs/operators';
 import 'localforage-observable';
 
-import onlyClient from '../../decorators/onlyClient';
-
 // Set recompose to use RxJS
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setobservableconfig
 setObservableConfig({
@@ -29,7 +27,6 @@ const localForage$ = from(localForage.ready()).pipe(
 );
 
 export default compose(
-  onlyClient,
   mapPropsStream((props$: Observable<any>) =>
     props$.pipe(
       combineLatest(localForage$, (props, auth) => ({ ...props, auth }))
