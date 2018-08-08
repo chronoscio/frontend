@@ -3,6 +3,8 @@ import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
+    // Make NextJs work with styled components
+    // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
     const sheet = new ServerStyleSheet();
     const page = renderPage(App => props =>
       sheet.collectStyles(<App {...props} />)
