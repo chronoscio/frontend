@@ -2599,6 +2599,10 @@ fill-range@^4.0.0:
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
 
+final-form@^4.9.1:
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.9.1.tgz#1afd6c61b4946b153b592c07eba7440979f257ed"
+
 find-cache-dir@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/find-cache-dir/-/find-cache-dir-1.0.0.tgz#9288e3e9e3cc3748717d39eade17cf71fc30ee6f"
@@ -5061,6 +5065,10 @@ react-dom@^16.4.1:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-final-form@^3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/react-final-form/-/react-final-form-3.6.5.tgz#191324bc686b20e9e49c929a79949f34b38ba8e5"
+
 react-is@^16.3.1:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.1.tgz#d624c4650d2c65dbd52c72622bbf389435d9776e"
@@ -5481,6 +5489,12 @@ seedrandom@^2.4.2:
 semantic-ui-css@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/semantic-ui-css/-/semantic-ui-css-2.3.3.tgz#134794cde03344092f2728ff61bf9203cf172834"
+  dependencies:
+    jquery x.*
+
+semantic-ui-forest-themes@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/semantic-ui-forest-themes/-/semantic-ui-forest-themes-1.0.3.tgz#cead7116ff34edeacf7f7fb68f6ff3e3ae66cdfd"
   dependencies:
     jquery x.*
 

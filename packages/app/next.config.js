@@ -25,13 +25,20 @@ module.exports = withCss(
         plugin => plugin.constructor.name !== 'UglifyJsPlugin'
       );
 
+      // Set an UglifyJsPlugin without typeofs
+      // @see https://github.com/alex3165/react-mapbox-gl/issues/200#issuecomment-370175270
+      if (process.env.NODE_ENV === 'production') {
+        config.plugins.push(
+          new UglifyJsPlugin({
+            uglifyOptions: { compress: { typeofs: false } }
+          })
+        );
+      }
+
+      // Set env variables on the client side
+      // @see https://github.com/zeit/next.js/tree/canary/examples/with-now-env
       config.plugins.push(
-        // Set an UglifyJsPlugin without typeofs
-        // @see https://github.com/alex3165/react-mapbox-gl/issues/200#issuecomment-370175270
-        new UglifyJsPlugin({ uglifyOptions: { compress: { typeofs: false } } }),
-        // Set env variables on the client side
-        // @see https://github.com/zeit/next.js/tree/canary/examples/with-now-env
-        new webpack.EnvironmentPlugin(['MAPBOX_ACCESS_TOKEN'])
+        new webpack.EnvironmentPlugin(['BACKEND_API', 'MAPBOX_ACCESS_TOKEN'])
       );
 
       // Make Next.js work with Semantic-UI
