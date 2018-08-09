@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Button, ButtonProps, Modal } from 'semantic-ui-react';
-import { compose } from 'recompose';
+import { Button, Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { Auth } from './types';
 import EmailLogin from './EmailLogin';
 import withAuth from './decorators/withAuth';
-import withLogout from './decorators/withLogout';
+import LoggedInMenu from './LoggedInMenu';
 
 /**
  * Center modal vertically on the screen.
@@ -28,13 +27,12 @@ const Wrapper = styled.div`
 interface LoginProps {
   auth: Auth;
   isLoggedIn: boolean;
-  logout: (event: any, data: ButtonProps) => void;
 }
 
-const Login: React.SFC<LoginProps> = ({ isLoggedIn, logout }) => (
+const Login: React.SFC<LoginProps> = ({ isLoggedIn }) => (
   <Wrapper>
-    {!isLoggedIn ? (
-      <Button onClick={logout}>Logout</Button>
+    {isLoggedIn ? (
+      <LoggedInMenu />
     ) : (
       <CenteredModal size="tiny" trigger={<Button primary>Login</Button>}>
         <Modal.Content>
@@ -47,7 +45,4 @@ const Login: React.SFC<LoginProps> = ({ isLoggedIn, logout }) => (
   </Wrapper>
 );
 
-export default compose(
-  withAuth,
-  withLogout
-)(Login);
+export default withAuth(Login);

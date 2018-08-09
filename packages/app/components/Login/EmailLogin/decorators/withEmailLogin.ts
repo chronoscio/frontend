@@ -3,7 +3,6 @@ import { compose, withHandlers } from 'recompose';
 import * as localForage from 'localforage';
 
 import { Auth } from '../../types';
-import '../../decorators/withAuth';
 
 export default compose(
   withHandlers({

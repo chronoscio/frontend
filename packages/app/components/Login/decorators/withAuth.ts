@@ -18,7 +18,9 @@ setObservableConfig({
 localForage.newObservable.factory = subscribeFn =>
   Observable.create(subscribeFn);
 
-const localForage$ = from(localForage.ready()).pipe(
+const localForage$ = from(
+  localForage.ready())
+).pipe(
   // From localforage-observable:
   // Property '_isScalar' is missing in type 'Observable<LocalForageObservableChange>'
   // @ts-ignore TODO
@@ -26,6 +28,11 @@ const localForage$ = from(localForage.ready()).pipe(
   startWith(undefined)
 );
 
+/**
+ * Decorator which gives information about auth:
+ * - auth.accessToken: access token for our backend
+ * - isLoggedIn
+ */
 export default compose(
   mapPropsStream((props$: Observable<any>) =>
     props$.pipe(
