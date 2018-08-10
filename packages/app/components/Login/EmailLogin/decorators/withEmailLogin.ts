@@ -7,18 +7,17 @@ import { Auth } from '../../types';
 export default compose(
   withHandlers({
     login: () => async ({
-      username,
-      password
+      password,
+      username
     }: {
-      username: string;
       password: string;
+      username: string;
     }) => {
-      console.log(username, password);
       const { data: accessToken } = await axios.post(
         `${process.env.BACKEND_API}/api-token-auth/`,
         {
-          password: 'amaAMA112',
-          username: 'ama'
+          password,
+          username
         }
       );
       localForage.setItem('auth', { accessToken } as Auth);

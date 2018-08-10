@@ -4,13 +4,15 @@ import * as md5 from 'md5';
 
 interface GravatarProps {
   email: string;
+  size?: number;
 }
 
-const Gravatar = ({ email }: GravatarProps) => (
+const Gravatar = ({ email, size = 48 }: GravatarProps) => (
   <Image
+    circular
     src={`https://www.gravatar.com/avatar/${md5(
       email.toLowerCase().trim()
-    )}?size=32`}
+    )}?size=${size}`}
   />
 );
 
