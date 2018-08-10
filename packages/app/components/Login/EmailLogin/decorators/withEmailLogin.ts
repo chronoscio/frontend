@@ -3,22 +3,20 @@ import { compose, withHandlers } from 'recompose';
 import * as localForage from 'localforage';
 
 import { Auth } from '../../types';
+import { EmailLoginProps } from '../EmailLogin';
 
-export default compose(
+interface LoginData {
+  email: string;
+  password: string;
+  username: string;
+}
+
+export default compose<EmailLoginProps, {}>(
   withHandlers({
-    login: () => async ({
-      password,
-      username
-    }: {
-      password: string;
-      username: string;
-    }) => {
+    login: () => async (loginData: LoginData) => {
       const { data: accessToken } = await axios.post(
         `${process.env.BACKEND_API}/api-token-auth/`,
-        {
-          password,
-          username
-        }
+        loginData
       );
       localForage.setItem('auth', { accessToken } as Auth);
     }

@@ -12,7 +12,7 @@ const LoggedInMenu = ({ logout }: LoggedInMenuProps) => (
   <Dropdown
     direction="left"
     icon={null}
-    trigger={<Gravatar email="amaury.martiny@protonmail.com" />}
+    trigger={<Gravatar email="amaury.martiny@protonmail.com" />} // TODO Get email from backend
   >
     <Dropdown.Menu>
       <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>

@@ -16,7 +16,7 @@ import withEmailLogin from './decorators/withEmailLogin';
  * @param T - The SUI component to use as a form field.
  * @TODO Put this elsewhere when we need it in other forms in the app.
  */
-const SuiFieldAdapter = (T: React.Component<any, any>) => ({
+const SuiFieldAdapter = (T: React.ComponentClass) => ({
   input,
   meta,
   ...rest
@@ -50,7 +50,7 @@ const renderForm = ({ handleSubmit, pristine, invalid }: FormRenderProps) => (
   </SuiForm>
 );
 
-interface EmailLoginProps {
+export interface EmailLoginProps {
   login: () => Promise<void>;
 }
 
