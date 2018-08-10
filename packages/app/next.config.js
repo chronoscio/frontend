@@ -38,7 +38,10 @@ module.exports = withCss(
       // Set env variables on the client side
       // @see https://github.com/zeit/next.js/tree/canary/examples/with-now-env
       config.plugins.push(
-        new webpack.EnvironmentPlugin(['BACKEND_API', 'MAPBOX_ACCESS_TOKEN'])
+        new webpack.EnvironmentPlugin([
+          'BACKEND_API_URL',
+          'MAPBOX_ACCESS_TOKEN'
+        ])
       );
 
       // Make Next.js work with Semantic-UI

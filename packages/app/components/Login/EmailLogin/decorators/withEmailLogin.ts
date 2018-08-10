@@ -15,7 +15,7 @@ export default compose<EmailLoginProps, {}>(
   withHandlers({
     login: () => async (loginData: LoginData) => {
       const { data: accessToken } = await axios.post(
-        `${process.env.BACKEND_API}/api-token-auth/`,
+        `${process.env.BACKEND_API_URL}/api-token-auth/`,
         loginData
       );
       localForage.setItem('auth', { accessToken } as Auth);

@@ -1,6 +1,6 @@
 {
   "env": {
-    "BACKEND_API": "http://localhost",
+    "BACKEND_API_URL": "@backend-api-url",
     "MAPBOX_ACCESS_TOKEN": "@mapbox-access-token"
   },
   "name": "interactivemap-frontend"
