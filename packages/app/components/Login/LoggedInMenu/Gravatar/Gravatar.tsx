@@ -7,6 +7,11 @@ interface GravatarProps {
   size?: number;
 }
 
+/**
+ * Show the Gravatar of an email.
+ * @note Might be temporary, we can let the user upload his picture when the
+ * backend is ready for it.
+ */
 const Gravatar = ({ email, size = 48 }: GravatarProps) => (
   <Image
     circular

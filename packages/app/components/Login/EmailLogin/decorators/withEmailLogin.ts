@@ -11,6 +11,9 @@ interface LoginData {
   username: string;
 }
 
+/**
+ * Decorator which makes a backend call to login with username and password.
+ */
 export default compose<EmailLoginProps, {}>(
   withHandlers({
     login: () => async (loginData: LoginData) => {
