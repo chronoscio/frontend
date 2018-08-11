@@ -29,7 +29,7 @@ export default compose(
         await localForage.setItem('auth', authResult);
       });
     },
-    login: () => () => {
+    login: () => async () => {
       auth0.authorize({
         redirectUri: `${window.location.protocol}//${
           window.location.hostname
