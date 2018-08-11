@@ -1,18 +1,13 @@
 import * as React from 'react';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, ButtonProps } from 'semantic-ui-react';
+import { compose } from 'recompose';
 import styled from 'styled-components';
 
 import { Auth } from './types';
-import EmailLogin from './EmailLogin';
-import withAuth from './decorators/withAuth';
-import LoggedInMenu from './LoggedInMenu';
 
-/**
- * Center modal vertically on the screen.
- */
-const CenteredModal = styled(Modal)`
-  margin-top: -10% !important;
-`;
+import LoggedInMenu from './LoggedInMenu';
+import withAuth from './decorators/withAuth';
+import withLogin from './decorators/withLogin';
 
 /**
  * Wrapper to create a div on the top right corner.
@@ -27,22 +22,22 @@ const Wrapper = styled.div`
 interface LoginProps {
   auth: Auth;
   isLoggedIn: boolean;
+  login(buttonProps: ButtonProps): void;
 }
 
-const Login: React.SFC<LoginProps> = ({ isLoggedIn }) => (
+const Login: React.SFC<LoginProps> = ({ isLoggedIn, login }) => (
   <Wrapper>
     {isLoggedIn ? (
       <LoggedInMenu />
     ) : (
-      <CenteredModal size="tiny" trigger={<Button primary>Login</Button>}>
-        <Modal.Content>
-          <Modal.Description>
-            <EmailLogin />
-          </Modal.Description>
-        </Modal.Content>
-      </CenteredModal>
+      <Button onClick={login} primary>
+        Login
+      </Button>
     )}
   </Wrapper>
 );
 
-export default withAuth(Login);
+export default compose(
+  withAuth,
+  withLogin
+)(Login);

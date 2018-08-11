@@ -18,6 +18,17 @@ setObservableConfig({
 localForage.newObservable.factory = subscribeFn =>
   Observable.create(subscribeFn);
 
+/**
+ * Make localForage available in browser console for easier debug.
+ */
+if (process.env.NODE_ENV !== 'production') {
+  interface WindowWithLocalForage extends Window {
+    localForage: LocalForage;
+  }
+
+  (window as WindowWithLocalForage).localForage = localForage;
+}
+
 const localForage$ = from(localForage.ready()).pipe(
   // From localforage-observable:
   // Property '_isScalar' is missing in type 'Observable<LocalForageObservableChange>'

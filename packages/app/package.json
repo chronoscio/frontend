@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.0.9",
+    "auth0-js": "^9.7.3",
     "axios": "^0.18.0",
     "final-form": "^4.9.1",
     "localforage": "^1.7.2",
@@ -35,6 +36,7 @@
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
+    "@types/auth0-js": "^8.11.4",
     "@types/md5": "^2.1.32",
     "@types/next": "^6.0.4",
     "@types/node": "^10.5.2",
