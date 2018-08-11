@@ -1,7 +1,7 @@
 # Building ChronoScio Frontend
 
-Note: this document is still in a draft state, and ideas are for now just
-thrown out one after the other. As the project grows, the organization of this
+Note: this document is still in a draft state, ideas are for now just thrown
+out one after the other. As the project grows, the organization of this
 document should be perfected as well.
 
 ## Next.js
