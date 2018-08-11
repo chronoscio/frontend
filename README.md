@@ -1,5 +1,7 @@
 # InteractiveMap Front-end
 
+[![Travis (.org)](https://img.shields.io/travis/interactivemap/frontend.svg)](https://travis-ci.org/interactivemap/frontend)
+
 ## Getting Started
 
 ```bash
