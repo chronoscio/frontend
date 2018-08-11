@@ -1,16 +1,20 @@
-import { compose, withHandlers, withProps } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import * as localForage from 'localforage';
 import { WebAuth } from 'auth0-js';
 
 import './withAuth';
 
 export const auth0 = new WebAuth({
-  domain: 'amaurymartiny.auth0.com',
-  clientID: 'o85SlnfmIdeW50gQenv4S9KbSFJDDihZ',
-  audience: 'https://amaurymartiny.auth0.com/userinfo',
+  domain: process.env.AUTH0_DOMAIN,
+  clientID: process.env.AUTH0_CLIENT_ID,
+  audience: `https://${process.env.AUTH0_DOMAIN}/userinfo`,
   responseType: 'token id_token',
   scope: 'openid email profile'
 });
+
+const currentHost = `${window.location.protocol}//${window.location.hostname}:${
+  window.location.port
+}`;
 
 export interface WithLoginProps {
   handleAuthentication(): Promise<void>;
@@ -31,17 +35,13 @@ export default compose(
     },
     login: () => async () => {
       auth0.authorize({
-        redirectUri: `${window.location.protocol}//${
-          window.location.hostname
-        }:${window.location.port}/callback`
+        redirectUri: `${currentHost}/callback`
       });
     },
     logout: () => async () => {
       await localForage.removeItem('auth');
       auth0.logout({
-        returnTo: `${window.location.protocol}//${window.location.hostname}:${
-          window.location.port
-        }`
+        returnTo: currentHost
       });
     }
   })

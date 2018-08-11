@@ -1,5 +1,7 @@
 {
   "env": {
+    "AUTH0_CLIENT_ID": "Qt7ZGwABOvZK465ZJagV1Xn71K0ZuFS7",
+    "AUTH0_DOMAIN": "chronoscio.eu.auth0.com",
     "BACKEND_API_URL": "@backend-api-url",
     "MAPBOX_ACCESS_TOKEN": "@mapbox-access-token"
   },
