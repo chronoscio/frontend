@@ -12,7 +12,7 @@ interface GravatarProps {
  * @note Might be temporary, we can let the user upload his picture when the
  * backend is ready for it.
  */
-const Gravatar = ({ email, size = 48 }: GravatarProps) => (
+const Gravatar: React.SFC<GravatarProps> = ({ email, size = 48 }) => (
   <Image
     circular
     src={`https://www.gravatar.com/avatar/${md5(

@@ -39,8 +39,8 @@ const localForage$ = from(localForage.ready()).pipe(
 
 /**
  * Decorator which gives information about auth:
- * - auth.accessToken: access token for our backend
- * - isLoggedIn
+ * - auth: the decoded JWT
+ * - isLoggedIn: if the user is currently logged in
  */
 export default compose(
   mapPropsStream((props$: Observable<any>) =>

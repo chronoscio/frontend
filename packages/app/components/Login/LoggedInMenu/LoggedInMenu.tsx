@@ -1,14 +1,15 @@
 import * as React from 'react';
+import { compose } from 'recompose';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
 
 import Gravatar from './Gravatar';
-import withLogout from './decorators/withLogout';
+import withLogin from '../decorators/withLogin';
 
 interface LoggedInMenuProps {
   logout: (event: any, data: DropdownItemProps) => void;
 }
 
-const LoggedInMenu = ({ logout }: LoggedInMenuProps) => (
+const LoggedInMenu: React.SFC<LoggedInMenuProps> = ({ logout }) => (
   <Dropdown
     direction="left"
     icon={null}
@@ -20,4 +21,4 @@ const LoggedInMenu = ({ logout }: LoggedInMenuProps) => (
   </Dropdown>
 );
 
-export default withLogout(LoggedInMenu);
+export default withLogin(LoggedInMenu);

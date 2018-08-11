@@ -4,12 +4,9 @@ import { WebAuth } from 'auth0-js';
 
 import './withAuth';
 
-const auth0 = new WebAuth({
+export const auth0 = new WebAuth({
   domain: 'amaurymartiny.auth0.com',
   clientID: 'o85SlnfmIdeW50gQenv4S9KbSFJDDihZ',
-  redirectUri: `${window.location.protocol}//${window.location.hostname}:${
-    window.location.port
-  }/callback`,
   audience: 'https://amaurymartiny.auth0.com/userinfo',
   responseType: 'token id_token',
   scope: 'openid'
@@ -27,9 +24,20 @@ export default compose(
       });
     },
     login: () => () => {
-      auth0.authorize();
+      auth0.authorize({
+        redirectUri: `${window.location.protocol}//${
+          window.location.hostname
+        }:${window.location.port}/callback`
+      });
     },
-    logout: () => () => localForage.removeItem('auth')
+    logout: () => async () => {
+      await localForage.removeItem('auth');
+      auth0.logout({
+        returnTo: `${window.location.protocol}//${window.location.hostname}:${
+          window.location.port
+        }`
+      });
+    }
   }),
   withProps(({ auth }) => ({ isLoggedIn: !!auth }))
 );
