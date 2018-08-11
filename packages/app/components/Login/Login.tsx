@@ -3,11 +3,9 @@ import { Button, ButtonProps } from 'semantic-ui-react';
 import { compose } from 'recompose';
 import styled from 'styled-components';
 
-import { Auth } from './types';
-
 import LoggedInMenu from './LoggedInMenu';
-import withAuth from './decorators/withAuth';
-import withLogin from './decorators/withLogin';
+import withAuth, { WithAuthProps } from './decorators/withAuth';
+import withLogin, { WithLoginProps } from './decorators/withLogin';
 
 /**
  * Wrapper to create a div on the top right corner.
@@ -19,11 +17,7 @@ const Wrapper = styled.div`
   top: 0;
 `;
 
-interface LoginProps {
-  auth: Auth;
-  isLoggedIn: boolean;
-  login(buttonProps: ButtonProps): void;
-}
+interface LoginProps extends WithAuthProps, WithLoginProps {}
 
 const Login: React.SFC<LoginProps> = ({ isLoggedIn, login }) => (
   <Wrapper>

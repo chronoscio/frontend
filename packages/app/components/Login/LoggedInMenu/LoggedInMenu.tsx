@@ -1,20 +1,11 @@
 import * as React from 'react';
-import { compose } from 'recompose';
-import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
-import Gravatar from './Gravatar';
-import withLogin from '../decorators/withLogin';
+import Avatar from './Avatar';
+import withLogin, { WithLoginProps } from '../decorators/withLogin';
 
-interface LoggedInMenuProps {
-  logout: (event: any, data: DropdownItemProps) => void;
-}
-
-const LoggedInMenu: React.SFC<LoggedInMenuProps> = ({ logout }) => (
-  <Dropdown
-    direction="left"
-    icon={null}
-    trigger={<Gravatar email="amaury.martiny@protonmail.com" />} // TODO Get email from backend
-  >
+const LoggedInMenu: React.SFC<WithLoginProps> = ({ logout }) => (
+  <Dropdown direction="left" icon={null} trigger={<Avatar />}>
     <Dropdown.Menu>
       <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
     </Dropdown.Menu>

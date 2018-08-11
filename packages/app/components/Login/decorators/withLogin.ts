@@ -9,8 +9,14 @@ export const auth0 = new WebAuth({
   clientID: 'o85SlnfmIdeW50gQenv4S9KbSFJDDihZ',
   audience: 'https://amaurymartiny.auth0.com/userinfo',
   responseType: 'token id_token',
-  scope: 'openid'
+  scope: 'openid email profile'
 });
+
+export interface WithLoginProps {
+  handleAuthentication(): Promise<void>;
+  login(): Promise<void>;
+  logout(): Promise<void>;
+}
 
 export default compose(
   withHandlers({
@@ -38,6 +44,5 @@ export default compose(
         }`
       });
     }
-  }),
-  withProps(({ auth }) => ({ isLoggedIn: !!auth }))
+  })
 );

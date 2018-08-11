@@ -1,3 +1,4 @@
+import { Auth0DecodedHash, Auth0UserProfile } from 'auth0-js';
 import { combineLatest } from 'rxjs/operators';
 import { compose, mapPropsStream, withProps } from 'recompose';
 import { from, Observable } from 'rxjs';
@@ -37,16 +38,27 @@ const localForage$ = from(localForage.ready()).pipe(
   startWith(undefined)
 );
 
+export interface WithAuthProps {
+  auth: Auth0DecodedHash;
+  loggedInUser: Auth0UserProfile;
+  isLoggedIn: boolean;
+}
+
 /**
  * Decorator which gives information about auth:
- * - auth: the decoded JWT
+ * - auth: the decoded auth0 hash
+ * - loggedInUser: the logged in user profile
  * - isLoggedIn: if the user is currently logged in
  */
-export default compose(
+
+export default compose<{}, {}>(
   mapPropsStream((props$: Observable<any>) =>
     props$.pipe(
       combineLatest(localForage$, (props, auth) => ({ ...props, auth }))
     )
   ),
-  withProps(({ auth }) => ({ isLoggedIn: !!auth }))
+  withProps(({ auth }) => ({
+    loggedInUser: auth && auth.idTokenPayload,
+    isLoggedIn: !!auth
+  }))
 );
