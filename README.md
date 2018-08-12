@@ -1,4 +1,4 @@
-# chronoscio Front-end
+# ChronoScio Front-end
 
 ## Getting Started
 
