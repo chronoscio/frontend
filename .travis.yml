@@ -9,8 +9,14 @@ install:
   - yarn install
 language: node_js
 node_js:
-  - "10"
+  - '10'
 script:
   - yarn lint
   - yarn test
   - yarn build
+deploy:
+  - provider: script
+    script: now --token $NOW_TOKEN && now alias --token $NOW_TOKEN
+    skip_cleanup: true
+    on:
+      master: true

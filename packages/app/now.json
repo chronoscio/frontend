@@ -1,4 +1,5 @@
 {
+  "alias": "chronoscio",
   "env": {
     "AUTH0_CLIENT_ID": "Qt7ZGwABOvZK465ZJagV1Xn71K0ZuFS7",
     "AUTH0_DOMAIN": "chronoscio.eu.auth0.com",
