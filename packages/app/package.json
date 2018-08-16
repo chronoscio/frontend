@@ -1,9 +1,9 @@
 {
-  "name": "@interactivemap/app",
+  "name": "@chronoscio/app",
   "version": "0.1.0",
-  "description": "Front-end of the Interactive Map",
+  "description": "Front-end of the ChronoScio project",
   "main": "index.js",
-  "repository": "https://github.com/interactivemap/frontend",
+  "repository": "https://github.com/chronoscio/frontend",
   "author": "Amaury Martiny <amaury.martiny@protonmail.com>",
   "license": "GPL-3.0",
   "private": true,
@@ -13,18 +13,35 @@
     "start": "next"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-draw": "^1.0.9",
+    "auth0-js": "^9.7.3",
+    "final-form": "^4.9.1",
+    "localforage": "^1.7.2",
+    "localforage-observable": "^1.4.0",
     "mapbox-gl": "^0.47.0-beta.1",
     "next": "^6.1.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-mapbox-gl": "^3.8.0"
+    "react-mapbox-gl": "^3.8.0",
+    "react-mapbox-gl-draw": "^1.0.4",
+    "recompose": "^0.28.0",
+    "rxjs": "^6.2.2",
+    "semantic-ui-css": "^2.3.3",
+    "semantic-ui-forest-themes": "^1.0.3",
+    "semantic-ui-react": "^0.82.1",
+    "styled-components": "^3.3.3"
   },
   "devDependencies": {
+    "@types/auth0-js": "^8.11.4",
     "@types/next": "^6.0.4",
     "@types/node": "^10.5.2",
     "@types/react": "^16.4.6",
+    "@types/recompose": "^0.26.3",
     "@zeit/next-css": "^0.2.0",
     "@zeit/next-typescript": "^1.1.0",
-    "now-env": "^3.1.0"
+    "babel-plugin-styled-components": "^1.5.1",
+    "file-loader": "^1.1.11",
+    "now-env": "^3.1.0",
+    "url-loader": "^1.0.1"
   }
 }

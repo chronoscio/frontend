@@ -1,9 +1,9 @@
-# InteractiveMap Front-end
+# ChronoScio Front-end
 
 ## Getting Started
 
 ```bash
-git clone https://github.com/interactivemap/frontend
+git clone https://github.com/chronoscio/frontend
 yarn install
 
 # Add secrets
