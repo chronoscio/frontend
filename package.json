@@ -12,7 +12,6 @@
     ]
   },
   "scripts": {
-    "prebuild": "if test \"$NOW\" = 1 ; then yarn install ; fi",
     "build": "lerna exec yarn build --scope @chronoscio/app",
     "lint": "tslint packages/**/*.tsx?",
     "now-start": "lerna exec yarn now-start --scope @chronoscio/app",
