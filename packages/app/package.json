@@ -1,9 +1,9 @@
 {
-  "name": "@interactivemap/app",
+  "name": "@chronoscio/app",
   "version": "0.1.0",
-  "description": "Front-end of the Interactive Map",
+  "description": "Front-end of the ChronoScio project",
   "main": "index.js",
-  "repository": "https://github.com/interactivemap/frontend",
+  "repository": "https://github.com/chronoscio/frontend",
   "author": "Amaury Martiny <amaury.martiny@protonmail.com>",
   "license": "GPL-3.0",
   "private": true,
