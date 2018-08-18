@@ -1,19 +1,18 @@
 import * as React from 'react';
 import { Button, Icon, List, ListProps } from 'semantic-ui-react';
 import Routes from '../../../routes';
-import { withRouter, WithRouterProps } from 'next/router';
+import { WithRouterProps } from 'next/router';
 
 import mockData from '../../mockData';
+import withCurrentDate from '../../decorators/withCurrentDate';
+
 const Territories: React.SFC<ListProps & WithRouterProps> = ({
-  router: {
-    query: { day, month, year }
-  }
+  currentDate: current
 }) => (
   <List selection={true}>
     {mockData.map(({ endDate, id, startDate }) => {
       const start = new Date(startDate);
       const end = endDate ? new Date(endDate) : new Date();
-      const current = new Date(`${day}-${month}-${year}`);
 
       // Convert `currentData` to yyyy/mm/dd format
       const url = startDate
@@ -43,4 +42,4 @@ const Territories: React.SFC<ListProps & WithRouterProps> = ({
   </List>
 );
 
-export default withRouter(Territories);
+export default withCurrentDate(Territories);
