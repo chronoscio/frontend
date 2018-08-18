@@ -11,10 +11,14 @@ interface DrawProps {
 
 const Draw = ({ handleDrawUpdate }: DrawProps & DrawUpdateProps) => (
   <DrawControl
-    controls={{ line_string: false, point: false }}
+    controls={{
+      polygon: true,
+      trash: true
+    }}
+    displayControlsDefault={false}
     onDrawCreate={handleDrawUpdate}
     onDrawUpdate={handleDrawUpdate}
-    position="top-right"
+    position="top-left"
   />
 );
 
