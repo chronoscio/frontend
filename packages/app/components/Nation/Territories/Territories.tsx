@@ -1,54 +1,38 @@
 import * as React from 'react';
-import {
-  Accordion,
-  AccordionAccordionProps,
-  Button,
-  Icon
-} from 'semantic-ui-react';
+import { Button, Icon, List, ListProps } from 'semantic-ui-react';
+import { withRouter, WithRouterProps } from 'next/router';
 
-import withAccordion, { WithAccordionProps } from './decorators/withAccordion';
+import mockData from '../../mockData';
 
-const Territories: React.SFC<AccordionAccordionProps & WithAccordionProps> = ({
-  activeIndex,
-  setActiveIndex
+const Territories: React.SFC<ListProps & WithRouterProps> = ({
+  router: {
+    query: { day, month, year }
+  }
 }) => (
-  <Accordion>
-    <Accordion.Title
-      active={activeIndex === 0}
-      index={0}
-      onClick={setActiveIndex}
-    >
-      {activeIndex === 0 && <Icon name="caret right" />}
-      From 395 to 881
-    </Accordion.Title>
-    <Accordion.Content active={activeIndex === 0}>
-      <Button size="mini">Edit</Button>
-    </Accordion.Content>
+  <List selection={true}>
+    {mockData.map(({ endDate, id, startDate }) => {
+      const start = new Date(startDate);
+      const end = endDate ? new Date(endDate) : new Date();
+      const currentDate = new Date(`${year}-${month}-${day}`);
 
-    <Accordion.Title
-      active={activeIndex === 1}
-      index={1}
-      onClick={setActiveIndex}
-    >
-      {activeIndex === 1 && <Icon name="caret right" />}
-      From 881 to 923
-    </Accordion.Title>
-    <Accordion.Content active={activeIndex === 1}>
-      <Button size="mini">Edit</Button>
-    </Accordion.Content>
-
-    <Accordion.Title
-      active={activeIndex === 2}
-      index={2}
-      onClick={setActiveIndex}
-    >
-      {activeIndex === 2 && <Icon name="caret right" />}
-      From 923 to 1024
-    </Accordion.Title>
-    <Accordion.Content active={activeIndex === 2}>
-      <Button size="mini">Edit</Button>
-    </Accordion.Content>
-  </Accordion>
+      const isActive = currentDate >= start && currentDate <= end;
+      return (
+        <List.Item key={id}>
+          {isActive && (
+            <List.Content floated="right">
+              <Button size="mini">Edit</Button>
+            </List.Content>
+          )}
+          <List.Header>
+            {isActive && <Icon name="caret right" />}
+            From {new Date(startDate).getFullYear()} to{' '}
+            {endDate ? new Date(endDate).getFullYear() : 'today'}
+          </List.Header>
+          {isActive && <List.Content>Shown on map</List.Content>}
+        </List.Item>
+      );
+    })}
+  </List>
 );
 
-export default withAccordion(Territories);
+export default withRouter(Territories);
