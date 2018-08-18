@@ -1,8 +1,13 @@
 import * as React from 'react';
-import ReactMapboxGl, { ZoomControl } from 'react-mapbox-gl';
+import { compose } from 'recompose';
+import ReactMapboxGl, { GeoJSONLayer, ZoomControl } from 'react-mapbox-gl';
 import styled from 'styled-components';
 
 import Draw from './Draw';
+import territoriesToGeoJson, {
+  TerritoriesToGeoJsonProps
+} from './decorators/territoriesToGeoJson';
+import withFetchTerritories from './decorators/withFetchTerritories';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
@@ -25,24 +30,25 @@ const mapContainerStyle = {
   width: '100vw'
 };
 
-const MainMap: React.SFC<{}> = ({}) => (
+const MainMap: React.SFC<TerritoriesToGeoJsonProps> = ({ geojson }) => (
   <StyledMap
     style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
     containerStyle={mapContainerStyle}
   >
     <Draw geoJson={{}} onUpdate={console.log} />
     <StyledZoomControl position="bottom-right" />
-
-    {/* Once we fetch the GeoJson from the backend, we put it here */}
-    {/* <GeoJSONLayer
-        data={geoJson}
-        fillLayout={{ visibility: 'visible' }}
-        fillPaint={{
-          'fill-color': '#4169E1',
-          'fill-opacity': 0.7
-        }}
-      /> */}
+    <GeoJSONLayer
+      data={geojson}
+      fillLayout={{ visibility: 'visible' }}
+      fillPaint={{
+        'fill-color': '#4169E1',
+        'fill-opacity': 0.7
+      }}
+    />
   </StyledMap>
 );
 
-export default MainMap;
+export default compose(
+  withFetchTerritories,
+  territoriesToGeoJson
+)(MainMap);

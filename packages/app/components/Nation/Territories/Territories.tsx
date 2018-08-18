@@ -35,7 +35,7 @@ const Territories: React.SFC<ListProps & WithRouterProps> = ({
               From {new Date(startDate).getFullYear()} to{' '}
               {endDate ? new Date(endDate).getFullYear() : 'today'}
             </List.Header>
-            {isActive && <List.Content>Shown on map</List.Content>}
+            {isActive && <List.Content>Currently shown on map</List.Content>}
           </List.Item>
         </Routes.Link>
       );

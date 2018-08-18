@@ -1,5 +1,13 @@
 // MOCK DATA to build UI elements, while the backend gets populated
-export default [
+
+export interface Territory {
+  endDate?: string;
+  geometry: any;
+  id: number;
+  startDate: string;
+}
+
+const mockData: Territory[] = [
   {
     endDate: '01-01-534',
     geometry: {
@@ -50,9 +58,12 @@ export default [
           [-0.02352538167630769, 51.555550674721445],
           [-0.09863823779190284, 51.57033718557744]
         ]
-      ]
+      ],
+      type: 'Polygon'
     },
     id: 3,
     startDate: '02-01-921'
   }
 ];
+
+export default mockData;
