@@ -14,6 +14,7 @@ const Draw = ({ handleDrawUpdate }: DrawProps & DrawUpdateProps) => (
     controls={{ line_string: false, point: false }}
     onDrawCreate={handleDrawUpdate}
     onDrawUpdate={handleDrawUpdate}
+    position="top-right"
   />
 );
 

@@ -4,6 +4,8 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'semantic-ui-forest-themes/semantic.chubby.min.css';
 
+import LeftPane from '../components/LeftPane';
+
 // Lazy-load the map on the client-side
 // @TODO Figure how to dynamic import with TypeScript
 // @ts-ignore
@@ -14,8 +16,10 @@ const Login = dynamic(import('../components/Login'), { ssr: false });
 
 const Index = () => (
   <div>
-    <MainMap />
-    <Login />
+    <LeftPane>
+      <MainMap />
+      <Login />
+    </LeftPane>
   </div>
 );
 

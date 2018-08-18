@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactMapboxGl from 'react-mapbox-gl';
+import ReactMapboxGl, { ZoomControl } from 'react-mapbox-gl';
 
 import Draw from './Draw';
 
@@ -19,6 +19,7 @@ const MainMap: React.SFC<{}> = ({}) => (
       containerStyle={mapContainerStyle}
     >
       <Draw geoJson={{}} onUpdate={console.log} />
+      <ZoomControl position="bottom-right" />
 
       {/* Once we fetch the GeoJson from the backend, we put it here */}
       {/* <GeoJSONLayer
