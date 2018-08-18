@@ -4,6 +4,7 @@ import ReactMapboxGl, { GeoJSONLayer, ZoomControl } from 'react-mapbox-gl';
 import styled from 'styled-components';
 
 import Draw from './Draw';
+import onlyCurrentTerritories from './decorators/onlyCurrentTerritories';
 import territoriesToGeoJson, {
   TerritoriesToGeoJsonProps
 } from './decorators/territoriesToGeoJson';
@@ -50,5 +51,6 @@ const MainMap: React.SFC<TerritoriesToGeoJsonProps> = ({ geojson }) => (
 
 export default compose(
   withFetchTerritories,
+  onlyCurrentTerritories,
   territoriesToGeoJson
 )(MainMap);

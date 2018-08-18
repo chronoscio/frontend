@@ -2,7 +2,7 @@ import { withProps } from 'recompose';
 
 import mockData, { Territory } from '../../mockData';
 
-export interface withFetchTerritoriesProps {
+export interface WithFetchTerritoriesProps {
   territories: Territory[];
 }
 

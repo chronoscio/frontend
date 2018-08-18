@@ -1,6 +1,6 @@
 import { withProps } from 'recompose';
 
-import { withFetchTerritoriesProps } from './withFetchTerritories';
+import { WithFetchTerritoriesProps } from './withFetchTerritories';
 
 export interface TerritoriesToGeoJsonProps {
   geojson: any;
@@ -9,7 +9,7 @@ export interface TerritoriesToGeoJsonProps {
 /**
  * Convert territories from the backend to GeoJson features.
  */
-export default withProps<TerritoriesToGeoJsonProps, withFetchTerritoriesProps>(
+export default withProps<TerritoriesToGeoJsonProps, WithFetchTerritoriesProps>(
   ({ territories }) => ({
     geojson: {
       type: 'FeatureCollection',
