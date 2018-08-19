@@ -6,9 +6,9 @@ import styled from 'styled-components';
 import closeEditMode from './decorators/closeEditMode';
 import Draw from './Draw';
 import onlyCurrentTerritories from './decorators/onlyCurrentTerritories';
-import territoriesToGeoJson, {
-  TerritoriesToGeoJsonProps
-} from './decorators/territoriesToGeoJson';
+import territoriesToGeojson, {
+  TerritoriesToGeojsonProps
+} from './decorators/territoriesToGeojson';
 import withEditMode, { WithEditModeProps } from '../decorators/withEditMode';
 import withFetchTerritories from './decorators/withFetchTerritories';
 import withCurrentDate from '../decorators/withCurrentDate';
@@ -34,7 +34,7 @@ const mapContainerStyle = {
   width: '100vw'
 };
 
-const MainMap: React.SFC<TerritoriesToGeoJsonProps & WithEditModeProps> = ({
+const MainMap: React.SFC<TerritoriesToGeojsonProps & WithEditModeProps> = ({
   isEditMode,
   geojson
 }) => (
@@ -42,7 +42,7 @@ const MainMap: React.SFC<TerritoriesToGeoJsonProps & WithEditModeProps> = ({
     style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
     containerStyle={mapContainerStyle}
   >
-    {isEditMode && <Draw geoJson={{}} onUpdate={console.log} />}
+    {isEditMode && <Draw geojson={geojson} onUpdate={console.log} />}
     <StyledZoomControl position="bottom-right" />
     <GeoJSONLayer
       data={geojson}
@@ -61,5 +61,5 @@ export default compose(
   closeEditMode,
   withFetchTerritories,
   onlyCurrentTerritories,
-  territoriesToGeoJson
+  territoriesToGeojson
 )(MainMap);

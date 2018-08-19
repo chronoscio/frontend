@@ -1,18 +1,20 @@
-import { SourceOptionData } from 'react-mapbox-gl/lib/util/types';
 import { withHandlers } from 'recompose';
 
-export interface DrawUpdateProps {
-  onUpdate: (geoJson: SourceOptionData) => void;
+import { DrawProps } from '../Draw';
+import { Geojson } from '../../../../types';
+
+export interface WithDrawUpdateProps {
+  handleDrawUpdate: (drawObject: { features: Geojson[] }) => void;
 }
 
 /**
  * Decorator to add a handler when we update the polygon we draw on the map.
  */
-export default withHandlers({
-  handleDrawUpdate: ({ onUpdate }: DrawUpdateProps) => ({
+export default withHandlers<DrawProps, WithDrawUpdateProps>({
+  handleDrawUpdate: ({ onUpdate }) => ({
     features
   }: {
-    features: SourceOptionData[];
+    features: Geojson[];
   }) => {
     // The onDrawUpdate prop on the DrawControl gives back an object like
     // {
