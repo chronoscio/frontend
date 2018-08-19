@@ -1,4 +1,4 @@
-import { compose, withProps } from 'recompose';
+import { compose, mapProps } from 'recompose';
 import { withRouter } from 'next/router';
 
 export interface WithCurrentDateProps {
@@ -11,7 +11,8 @@ export interface WithCurrentDateProps {
  */
 export default compose(
   withRouter,
-  withProps(({ router: { query: { day, month, year } } }) => ({
+  mapProps(({ router: { query: { day, month, year } }, ...otherProps }) => ({
+    ...otherProps,
     currentDate: new Date(`${day}-${month}-${year}`)
   }))
 );

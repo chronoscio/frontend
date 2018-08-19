@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { compose } from 'recompose';
+import { compose, withProps } from 'recompose';
 import ReactMapboxGl, { GeoJSONLayer, ZoomControl } from 'react-mapbox-gl';
 import styled from 'styled-components';
 
+import closeEditMode from './decorators/closeEditMode';
 import Draw from './Draw';
 import onlyCurrentTerritories from './decorators/onlyCurrentTerritories';
 import territoriesToGeoJson, {
   TerritoriesToGeoJsonProps
 } from './decorators/territoriesToGeoJson';
+import withEditMode, { withEditModeProps } from '../decorators/withEditMode';
 import withFetchTerritories from './decorators/withFetchTerritories';
+import withCurrentDate from '../decorators/withCurrentDate';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
@@ -31,12 +34,15 @@ const mapContainerStyle = {
   width: '100vw'
 };
 
-const MainMap: React.SFC<TerritoriesToGeoJsonProps> = ({ geojson }) => (
+const MainMap: React.SFC<TerritoriesToGeoJsonProps & withEditModeProps> = ({
+  isEditMode,
+  geojson
+}) => (
   <StyledMap
     style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
     containerStyle={mapContainerStyle}
   >
-    <Draw geoJson={{}} onUpdate={console.log} />
+    {isEditMode && <Draw geoJson={{}} onUpdate={console.log} />}
     <StyledZoomControl position="bottom-right" />
     <GeoJSONLayer
       data={geojson}
@@ -50,6 +56,9 @@ const MainMap: React.SFC<TerritoriesToGeoJsonProps> = ({ geojson }) => (
 );
 
 export default compose(
+  withCurrentDate,
+  withEditMode,
+  closeEditMode,
   withFetchTerritories,
   onlyCurrentTerritories,
   territoriesToGeoJson

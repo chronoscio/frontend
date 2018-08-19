@@ -23,6 +23,7 @@
     "next-routes": "^1.4.2",
     "rc-slider": "^8.6.1",
     "react": "^16.4.1",
+    "react-contextual": "^5.0.2",
     "react-dom": "^16.4.1",
     "react-mapbox-gl": "^3.8.0",
     "react-mapbox-gl-draw": "^1.0.4",
