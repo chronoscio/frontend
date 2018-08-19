@@ -20,6 +20,9 @@ const StyledSlider = styled(Slider)`
   width: 600px;
 `;
 
+const handleChangeYear = (year: number) =>
+  Routes.Router.pushRoute(`/map/${year}/01/01`);
+
 const YearSlider: React.SFC<WithCurrentDateProps> = ({ currentDate }) => (
   <Wrapper fluid>
     <StyledSlider
@@ -30,13 +33,13 @@ const YearSlider: React.SFC<WithCurrentDateProps> = ({ currentDate }) => (
         width: 28,
         marginLeft: -14,
         marginTop: -9,
-        backgroundColor: 'black'
+        backgroundColor: '#4a88cb'
       }}
       max={2018}
       min={0}
-      onAfterChange={year => Routes.Router.push(`/map/${year}/01/01/`)}
+      onChange={handleChangeYear}
       railStyle={{ backgroundColor: 'grey', height: 10 }}
-      trackStyle={{ backgroundColor: 'black', height: 10 }}
+      trackStyle={{ backgroundColor: '#4a88cb', height: 10 }}
     />
   </Wrapper>
 );

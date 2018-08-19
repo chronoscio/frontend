@@ -22,7 +22,7 @@ const Nation: React.SFC<{}> = () => (
   <Wrapper>
     <div>
       <NationHeader as="h1" size="huge">
-        The Byzantine Empire n{Math.round(Math.random() * 100)}
+        The Byzantine Empire
       </NationHeader>
       <Card fluid={true}>
         <Card.Content>

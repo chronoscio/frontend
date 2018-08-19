@@ -1,6 +1,8 @@
 import { compose, mapProps } from 'recompose';
-import { withRouter, WithRouterProps } from 'next/router';
 
+import withCurrentDate, {
+  WithCurrentDateProps
+} from '../../decorators/withCurrentDate';
 import { WithFetchTerritoriesProps } from './withFetchTerritories';
 
 /**
@@ -8,22 +10,15 @@ import { WithFetchTerritoriesProps } from './withFetchTerritories';
  * the URL.
  */
 export default compose(
-  withRouter,
-  mapProps<{}, WithRouterProps & WithFetchTerritoriesProps>(
-    ({
-      router: {
-        query: { day, month, year }
-      },
-      territories,
-      ...otherProps
-    }) => ({
+  withCurrentDate,
+  mapProps<{}, WithCurrentDateProps & WithFetchTerritoriesProps>(
+    ({ currentDate, territories, ...otherProps }) => ({
       ...otherProps,
       territories: territories.filter(({ endDate, startDate }) => {
         const start = new Date(startDate);
         const end = endDate ? new Date(endDate) : new Date();
-        const current = new Date(`${day}-${month}-${year}`);
 
-        return current >= start && current <= end;
+        return currentDate >= start && currentDate <= end;
       })
     })
   )
