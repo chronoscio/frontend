@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { compose, withProps } from 'recompose';
+import { compose } from 'recompose';
 import ReactMapboxGl, { GeoJSONLayer, ZoomControl } from 'react-mapbox-gl';
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ import onlyCurrentTerritories from './decorators/onlyCurrentTerritories';
 import territoriesToGeoJson, {
   TerritoriesToGeoJsonProps
 } from './decorators/territoriesToGeoJson';
-import withEditMode, { withEditModeProps } from '../decorators/withEditMode';
+import withEditMode, { WithEditModeProps } from '../decorators/withEditMode';
 import withFetchTerritories from './decorators/withFetchTerritories';
 import withCurrentDate from '../decorators/withCurrentDate';
 
@@ -34,7 +34,7 @@ const mapContainerStyle = {
   width: '100vw'
 };
 
-const MainMap: React.SFC<TerritoriesToGeoJsonProps & withEditModeProps> = ({
+const MainMap: React.SFC<TerritoriesToGeoJsonProps & WithEditModeProps> = ({
   isEditMode,
   geojson
 }) => (

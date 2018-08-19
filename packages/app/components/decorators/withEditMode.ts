@@ -1,6 +1,6 @@
 import { subscribe } from 'react-contextual';
 
-export interface withEditModeProps {
+export interface WithEditModeProps {
   closeEditMode(): void;
   isEditMode: boolean;
   openEditMode(): void;
@@ -13,7 +13,7 @@ export const withEditModeStore = {
 };
 
 /**
- * HOC which globally subscribed to withEditMode, to see if we're currently in
+ * HOC which globally subscribes to withEditMode, to see if we're currently in
  * edit mode or not.
  */
 export default subscribe('withEditModeStore');

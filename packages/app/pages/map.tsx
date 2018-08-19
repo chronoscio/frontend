@@ -15,6 +15,8 @@ import { withEditModeStore } from '../components/decorators/withEditMode';
 // @see https://github.com/zeit/next.js/issues/4515
 const MainMap = dynamic(import('../components/MainMap'), { ssr: false });
 // @ts-ignore
+const Edit = dynamic(import('../components/MainMap/Edit'), { ssr: false });
+// @ts-ignore
 const Login = dynamic(import('../components/Login'), { ssr: false });
 // @ts-ignore
 const YearSlider = dynamic(import('../components/YearSlider'), { ssr: false });
@@ -24,6 +26,7 @@ const Map = () => (
     <LeftPane>
       <MainMap />
     </LeftPane>
+    <Edit />
     <YearSlider />
     <Login />
   </Provider>
