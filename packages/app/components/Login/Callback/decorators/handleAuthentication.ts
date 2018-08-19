@@ -1,21 +1,17 @@
 import { compose, lifecycle } from 'recompose';
-import { withRouter, RouterProps } from 'next/router';
 
-interface HandleAuthenticationProps {
-  handleAuthentication: () => void;
-  router: RouterProps;
-}
+import Routes from '../../../../routes';
+import { WithLoginProps } from '../../decorators/withLogin';
 
 export default compose(
-  withRouter,
-  lifecycle<HandleAuthenticationProps, {}>({
+  lifecycle<WithLoginProps, {}>({
     async componentDidMount() {
       try {
         await this.props.handleAuthentication();
-        this.props.router.push('/');
+        Routes.Router.pushRoute('/');
       } catch (err) {
         console.error(err);
-        this.props.router.push('/');
+        Routes.Router.pushRoute('/');
       }
     }
   })

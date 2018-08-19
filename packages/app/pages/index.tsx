@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NextContext } from 'next';
-import Router from 'next/router';
+
+import Routes from '../routes';
 
 class Index extends React.Component {
   static async getInitialProps({ res }: NextContext) {
@@ -21,7 +22,7 @@ class Index extends React.Component {
       });
       res.end();
     } else {
-      Router.push(`/map/${newUrl}`);
+      Routes.Router.pushRoute(`/map/${newUrl}`);
     }
     return {};
   }
