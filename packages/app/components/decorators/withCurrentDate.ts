@@ -13,6 +13,6 @@ export default compose(
   withRouter,
   mapProps(({ router: { query: { day, month, year } }, ...otherProps }) => ({
     ...otherProps,
-    currentDate: new Date(`${day}-${month}-${year}`)
+    currentDate: new Date(year, month, day)
   }))
 );

@@ -9,15 +9,29 @@ import withCurrentDate, {
 } from '../../decorators/withCurrentDate';
 import withEditMode, { WithEditModeProps } from '../../decorators/withEditMode';
 
+/**
+ * Convert dd-mm-yyyy (or whatever is given back by the backend) to a Date
+ * Object.
+ * @param s - String to convert.
+ */
+const stringToDate = (s: string) => {
+  const [year, month, day] = s
+    .split('-')
+    .reverse()
+    .map(v => +v);
+
+  return new Date(year, month, day);
+};
+
 const Territories: React.SFC<
   ListProps & WithCurrentDateProps & WithEditModeProps
 > = ({ currentDate: current, isEditMode }) => (
   <List selection={true}>
     {mockData.map(({ endDate, id, startDate }) => {
-      const start = new Date(startDate);
-      const end = endDate ? new Date(endDate) : new Date();
+      const start = stringToDate(startDate);
+      const end = endDate ? stringToDate(endDate) : new Date();
 
-      // Convert `currentData` to yyyy/mm/dd format
+      // Convert `currentDate` to yyyy/mm/dd format
       const url = startDate
         .split('-')
         .reverse()
@@ -29,8 +43,8 @@ const Territories: React.SFC<
           <List.Item>
             <List.Header>
               {isActive && <Icon name="caret right" />}
-              From {new Date(startDate).getFullYear()} to{' '}
-              {endDate ? new Date(endDate).getFullYear() : 'today'}
+              From {start.getFullYear()} to{' '}
+              {endDate ? end.getFullYear() : 'today'}
             </List.Header>
             {isActive && (
               <List.Content>
