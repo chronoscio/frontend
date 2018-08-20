@@ -1,15 +1,15 @@
 // MOCK DATA to build UI elements, while the backend gets populated
 
 export interface Territory {
-  endDate?: string;
+  endDate?: Date;
   geometry: any;
   id: number;
-  startDate: string;
+  startDate: Date;
 }
 
 const mockData: Territory[] = [
   {
-    endDate: '01-01-534',
+    endDate: new Date(771, 1, 1),
     geometry: {
       coordinates: [
         [
@@ -23,10 +23,10 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 1,
-    startDate: '01-01-395'
+    startDate: new Date(395, 1, 1)
   },
   {
-    endDate: '01-01-921',
+    endDate: new Date(992, 1, 1),
     geometry: {
       coordinates: [
         [
@@ -44,7 +44,7 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 2,
-    startDate: '02-01-534'
+    startDate: new Date(771, 1, 2)
   },
   {
     geometry: {
@@ -62,7 +62,7 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 3,
-    startDate: '02-01-921'
+    startDate: new Date(992, 1, 2)
   }
 ];
 

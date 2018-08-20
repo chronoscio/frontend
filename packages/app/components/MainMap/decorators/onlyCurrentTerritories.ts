@@ -14,12 +14,10 @@ export default compose(
   mapProps<{}, WithCurrentDateProps & WithFetchTerritoriesProps>(
     ({ currentDate, territories, ...otherProps }) => ({
       ...otherProps,
-      territories: territories.filter(({ endDate, startDate }) => {
-        const start = new Date(startDate);
-        const end = endDate ? new Date(endDate) : new Date();
-
-        return currentDate >= start && currentDate <= end;
-      })
+      territories: territories.filter(
+        ({ endDate, startDate }) =>
+          currentDate >= startDate && currentDate <= (endDate || new Date())
+      )
     })
   )
 );

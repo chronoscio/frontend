@@ -9,42 +9,29 @@ import withCurrentDate, {
 } from '../../decorators/withCurrentDate';
 import withEditMode, { WithEditModeProps } from '../../decorators/withEditMode';
 
-/**
- * Convert dd-mm-yyyy (or whatever is given back by the backend) to a Date
- * Object.
- * @param s - String to convert.
- */
-const stringToDate = (s: string) => {
-  const [year, month, day] = s
-    .split('-')
-    .reverse()
-    .map(v => +v);
-
-  return new Date(year, month, day);
-};
-
 const Territories: React.SFC<
   ListProps & WithCurrentDateProps & WithEditModeProps
-> = ({ currentDate: current, isEditMode }) => (
+> = ({ currentDate, isEditMode }) => (
   <List selection={true}>
-    {mockData.map(({ endDate, id, startDate }) => {
-      const start = stringToDate(startDate);
-      const end = endDate ? stringToDate(endDate) : new Date();
+    {mockData.map(({ endDate: endDateFromData, id, startDate }) => {
+      // If no endDate is specified, we consider it today
+      const endDate = endDateFromData ? endDateFromData : new Date();
 
-      // Convert `currentDate` to yyyy/mm/dd format
+      // Convert `startDate` to yyyy/mm/dd format
       const url = startDate
+        .toISOString()
+        .split('T')[0]
         .split('-')
-        .reverse()
         .join('/');
 
-      const isActive = current >= start && current <= end;
+      const isActive = currentDate >= startDate && currentDate <= endDate;
       return (
         <Routes.Link key={id} route={`/map/${url}`}>
           <List.Item>
             <List.Header>
               {isActive && <Icon name="caret right" />}
-              From {start.getFullYear()} to{' '}
-              {endDate ? end.getFullYear() : 'today'}
+              From {startDate.getFullYear()} to{' '}
+              {endDateFromData ? endDate.getFullYear() : 'today'}
             </List.Header>
             {isActive && (
               <List.Content>
