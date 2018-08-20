@@ -26,7 +26,6 @@ const handleChangeYear = (year: number) =>
 const YearSlider: React.SFC<WithCurrentDateProps> = ({ currentDate }) => (
   <Wrapper fluid>
     <StyledSlider
-      defaultValue={currentDate.getFullYear()}
       handleStyle={{
         borderColor: 'white',
         height: 28,
@@ -40,6 +39,7 @@ const YearSlider: React.SFC<WithCurrentDateProps> = ({ currentDate }) => (
       onChange={handleChangeYear}
       railStyle={{ backgroundColor: 'grey', height: 10 }}
       trackStyle={{ backgroundColor: '#4a88cb', height: 10 }}
+      value={currentDate.getFullYear()}
     />
   </Wrapper>
 );
