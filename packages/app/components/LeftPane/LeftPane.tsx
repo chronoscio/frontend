@@ -7,7 +7,6 @@ import Nation from '../Nation';
 const WhiteSegment = styled(Segment)`
   background-color: #ffffff;
   opacity: 0.95;
-  overflow: hidden;
 `;
 
 const LeftPane: React.SFC<{}> = ({ children }) => (
