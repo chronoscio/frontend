@@ -9,7 +9,7 @@ export interface Territory {
 
 const mockData: Territory[] = [
   {
-    endDate: new Date(771, 0, 0),
+    endDate: new Date(771, 0, 1),
     geometry: {
       coordinates: [
         [
@@ -23,10 +23,10 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 1,
-    startDate: new Date(395, 0, 0)
+    startDate: new Date(395, 0, 1, 1)
   },
   {
-    endDate: new Date(992, 0, 0),
+    endDate: new Date(992, 0, 1, 1),
     geometry: {
       coordinates: [
         [
@@ -44,7 +44,7 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 2,
-    startDate: new Date(771, 0, 1)
+    startDate: new Date(771, 0, 2, 1)
   },
   {
     geometry: {
@@ -62,7 +62,7 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 3,
-    startDate: new Date(992, 0, 1)
+    startDate: new Date(992, 0, 2, 1)
   }
 ];
 
