@@ -1,20 +1,36 @@
 import * as React from 'react';
+import { compose } from 'recompose';
 import DrawControl from 'react-mapbox-gl-draw';
-import { SourceOptionData } from 'react-mapbox-gl/lib/util/types';
 
-import withDrawUpdate, { DrawUpdateProps } from './decorators/withDrawUpdate';
+import addGeoJson, { AddGeojsonProps } from './decorators/addGeojson';
+import { Geojson } from '../../../types';
+import withDrawUpdate, {
+  WithDrawUpdateProps
+} from './decorators/withDrawUpdate';
 
-interface DrawProps {
-  geoJson: SourceOptionData;
-  handleDrawUpdate: (drawObject: { features: SourceOptionData[] }) => void;
+export interface DrawProps {
+  geojson: Geojson;
+  onUpdate: (geojson: Geojson) => void;
 }
 
-const Draw = ({ handleDrawUpdate }: DrawProps & DrawUpdateProps) => (
+const Draw: React.SFC<DrawProps & AddGeojsonProps & WithDrawUpdateProps> = ({
+  handleDrawUpdate,
+  handleRef
+}) => (
   <DrawControl
-    controls={{ line_string: false, point: false }}
+    controls={{
+      polygon: true,
+      trash: true
+    }}
+    displayControlsDefault={false}
     onDrawCreate={handleDrawUpdate}
     onDrawUpdate={handleDrawUpdate}
+    position="top-left"
+    ref={handleRef}
   />
 );
 
-export default withDrawUpdate(Draw);
+export default compose<DrawProps, DrawProps>(
+  withDrawUpdate,
+  addGeoJson
+)(Draw);

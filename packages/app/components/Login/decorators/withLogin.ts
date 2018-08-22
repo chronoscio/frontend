@@ -22,6 +22,10 @@ export interface WithLoginProps {
   logout(): Promise<void>;
 }
 
+/**
+ * HOC which adds methods to handle login, logout, and parsing the hash in the
+ * URL to fetch login info.
+ */
 export default compose(
   withHandlers({
     handleAuthentication: () => () => {

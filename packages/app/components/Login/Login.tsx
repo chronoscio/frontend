@@ -24,7 +24,7 @@ const Login: React.SFC<LoginProps> = ({ isLoggedIn, login }) => (
     {isLoggedIn ? (
       <LoggedInMenu />
     ) : (
-      <Button onClick={login} primary>
+      <Button onClick={login} primary={true}>
         Login
       </Button>
     )}

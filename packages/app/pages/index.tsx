@@ -1,22 +1,28 @@
 import * as React from 'react';
-import dynamic from 'next/dynamic';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import 'semantic-ui-forest-themes/semantic.chubby.min.css';
+import { NextContext } from 'next';
 
-// Lazy-load the map on the client-side
-// @TODO Figure how to dynamic import with TypeScript
-// @ts-ignore
-// @see https://github.com/zeit/next.js/issues/4515
-const MainMap = dynamic(import('../components/MainMap'), { ssr: false });
-// @ts-ignore
-const Login = dynamic(import('../components/Login'), { ssr: false });
+import Routes from '../routes';
 
-const Index = () => (
-  <div>
-    <MainMap />
-    <Login />
-  </div>
-);
+class Index extends React.Component {
+  static async getInitialProps({ res }: NextContext) {
+    // If we arrive to the index '/' page, redirect to today's map:
+    // /map/yyyy/mm/dd
+    const [today] = new Date().toISOString().split('T');
+
+    // `today` is in dd-mm-yyyy format, we convert it to yyyy/mm/dd format
+    const newUrl = today.split('-').join('/');
+
+    // https://github.com/zeit/next.js/wiki/Redirecting-in-%60getInitialProps%60
+    if (res) {
+      res.writeHead(302, {
+        Location: `/map/${newUrl}`
+      });
+      res.end();
+    } else {
+      Routes.Router.pushRoute(`/map/${newUrl}`);
+    }
+    return {};
+  }
+}
 
 export default Index;
