@@ -4,7 +4,7 @@ import ReactMapboxGl, { GeoJSONLayer, ZoomControl } from 'react-mapbox-gl';
 import styled from 'styled-components';
 
 import closeEditMode from './decorators/closeEditMode';
-import Draw from './Draw';
+import Draw from '../EditMode/Draw';
 import onlyCurrentTerritories from './decorators/onlyCurrentTerritories';
 import territoriesToGeojson, {
   TerritoriesToGeojsonProps
