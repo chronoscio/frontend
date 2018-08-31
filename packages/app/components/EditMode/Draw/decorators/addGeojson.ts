@@ -1,6 +1,8 @@
 import { compose, lifecycle, withHandlers } from 'recompose';
 
-import { TerritoriesToGeojsonProps } from '../../../MainMap/decorators/territoriesToGeojson';
+import withEditMode, {
+  WithEditModeProps
+} from '../../../decorators/withEditMode';
 
 interface DrawControlRef extends HTMLInputElement {
   draw: any; // TODO Find the correct for this in react-mapbox-gl-draw
@@ -15,20 +17,21 @@ export interface AddGeojsonProps {
  * Decorator to add an editable geojson when the Draw control mounts.
  */
 export default compose(
+  withEditMode,
   withHandlers(() => {
     let drawControl: DrawControlRef = null;
 
     return {
       handleRef: () => (ref: DrawControlRef) => (drawControl = ref),
-      getDrawControl: () => (geojson: any) => drawControl
+      getDrawControl: () => () => drawControl
     };
   }),
-  lifecycle<AddGeojsonProps & TerritoriesToGeojsonProps, {}, {}>({
+  lifecycle<AddGeojsonProps & WithEditModeProps, {}, {}>({
     componentDidMount() {
       // Add the geojson on the Draw control to be edited
       const [featureId] = this.props
         .getDrawControl()
-        .draw.add(this.props.geojson);
+        .draw.add(this.props.editingGeojson);
 
       // Go into direct_select mode
       // https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/API.md#modes

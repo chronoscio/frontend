@@ -10,7 +10,6 @@ import withDrawUpdate, {
 
 export interface DrawProps {
   geojson: Geojson;
-  onUpdate: (geojson: any) => void;
 }
 
 const Draw: React.SFC<DrawProps & AddGeojsonProps & WithDrawUpdateProps> = ({

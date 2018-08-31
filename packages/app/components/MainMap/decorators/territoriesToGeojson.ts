@@ -1,9 +1,10 @@
 import { withProps } from 'recompose';
 
+import { Geojson } from '../../../types';
 import { WithFetchTerritoriesProps } from './withFetchTerritories';
 
 export interface TerritoriesToGeojsonProps {
-  geojson: any; // TODO find a good type here
+  geojson: Geojson; // TODO find a good type here
 }
 
 /**
@@ -16,7 +17,7 @@ export default withProps<TerritoriesToGeojsonProps, WithFetchTerritoriesProps>(
       features: territories.map(territory => ({
         ...territory,
         properties: {},
-        type: 'Feature'
+        type: 'Feature' as 'Feature' // Geojson type has type "Feature" here, not string
       }))
     }
   })

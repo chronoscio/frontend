@@ -50,9 +50,8 @@ export interface WithAuthProps {
  * - loggedInUser: the logged in user profile
  * - isLoggedIn: if the user is currently logged in
  */
-
-export default compose<{}, {}>(
-  mapPropsStream((props$: Observable<any>) =>
+export default compose<WithAuthProps, object>(
+  mapPropsStream((props$: Observable<object>) =>
     props$.pipe(
       combineLatest(localForage$, (props, auth) => ({ ...props, auth }))
     )
