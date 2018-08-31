@@ -3,7 +3,7 @@ import { withProps } from 'recompose';
 import { WithFetchTerritoriesProps } from './withFetchTerritories';
 
 export interface TerritoriesToGeojsonProps {
-  geojson: any;
+  geojson: any; // TODO find a good type here
 }
 
 /**

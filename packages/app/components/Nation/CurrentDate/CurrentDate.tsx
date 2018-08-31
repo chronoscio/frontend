@@ -16,6 +16,8 @@ class CurrentDate extends React.PureComponent<
   WithCurrentDateProps,
   CurrentDateState
 > {
+  state = { date: '' };
+
   static getDerivedStateFromProps({ currentDate }: WithCurrentDateProps) {
     return {
       date: currentDate.toISOString().split('T')[0]

@@ -35,6 +35,7 @@ const mapContainerStyle = {
 };
 
 const MainMap: React.SFC<TerritoriesToGeojsonProps & WithEditModeProps> = ({
+  editingGeojson,
   isEditMode,
   geojson
 }) => (
@@ -42,7 +43,10 @@ const MainMap: React.SFC<TerritoriesToGeojsonProps & WithEditModeProps> = ({
     style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
     containerStyle={mapContainerStyle}
   >
-    {isEditMode && <Draw geojson={geojson} onUpdate={console.log} />}
+    {isEditMode &&
+      editingGeojson && (
+        <Draw geojson={editingGeojson} onUpdate={console.log} />
+      )}
     <StyledZoomControl position="bottom-right" />
     <GeoJSONLayer
       data={geojson}
