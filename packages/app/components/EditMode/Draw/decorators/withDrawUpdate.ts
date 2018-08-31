@@ -1,10 +1,10 @@
+import { Feature } from 'react-mapbox-gl/lib/util/types';
 import { withHandlers } from 'recompose';
 
 import { DrawProps } from '../Draw';
-import { Geojson } from '../../../../types';
 
 export interface WithDrawUpdateProps {
-  handleDrawUpdate: (drawObject: { features: Geojson[] }) => void;
+  handleDrawUpdate: (drawObject: { features: Feature[] }) => void;
 }
 
 /**
@@ -14,7 +14,7 @@ export default withHandlers<DrawProps, WithDrawUpdateProps>({
   handleDrawUpdate: ({ onUpdate }) => ({
     features
   }: {
-    features: Geojson[];
+    features: Feature[];
   }) => {
     // The onDrawUpdate prop on the DrawControl gives back an object like
     // {

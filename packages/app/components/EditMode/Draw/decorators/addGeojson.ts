@@ -1,6 +1,6 @@
 import { compose, lifecycle, withHandlers } from 'recompose';
 
-import { TerritoriesToGeojsonProps } from '../../decorators/territoriesToGeojson';
+import { TerritoriesToGeojsonProps } from '../../../MainMap/decorators/territoriesToGeojson';
 
 interface DrawControlRef extends HTMLInputElement {
   draw: any; // TODO Find the correct for this in react-mapbox-gl-draw
