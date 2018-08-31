@@ -43,7 +43,7 @@ class CurrentDate extends React.PureComponent<
               max={today}
               min="01-01-0000"
               onChange={this.handleChangeDate}
-              required
+              required={true}
               type="date"
               value={date}
             />
