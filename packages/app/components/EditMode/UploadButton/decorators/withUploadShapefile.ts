@@ -1,9 +1,9 @@
 import { compose, withHandlers } from 'recompose';
 import * as shapefile from 'shapefile';
 
-import withEditMode, {
-  WithEditModeProps
-} from '../../../decorators/withEditMode';
+import withShapefile, {
+  WithShapefileProps
+} from '../../../decorators/withShapefile';
 
 export interface WithUploadShapefileProps {
   handleUploadShapefile: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,7 +20,7 @@ const readAsArrayBuffer = (inputFile: File): Promise<ArrayBuffer> => {
   return new Promise((resolve, reject) => {
     reader.onerror = () => {
       reader.abort();
-      reject(new Error('Problem parsing shapeefile.'));
+      reject(new Error('Problem parsing shapefile.'));
     };
 
     reader.onload = () => {
@@ -34,9 +34,9 @@ const readAsArrayBuffer = (inputFile: File): Promise<ArrayBuffer> => {
  * Decorator to add a handler when we update the polygon we draw on the map.
  */
 export default compose(
-  withEditMode,
-  withHandlers<WithEditModeProps, WithUploadShapefileProps>({
-    handleUploadShapefile: ({ updateGeojson }) => async ({
+  withShapefile,
+  withHandlers<WithShapefileProps, {}>({
+    handleUploadShapefile: ({ addShapefile }) => async ({
       target: { files }
     }: React.ChangeEvent<HTMLInputElement>) => {
       try {
@@ -47,8 +47,12 @@ export default compose(
         // Read the whole shapefile at once. If, in the future, we want to read the
         // shapefile incrementally (for memory reasons), use `shapefile.open`.
         const geojson = await shapefile.read(arrayBuffer);
-        updateGeojson(geojson);
-      } catch (err) {}
+
+        // Store this shapefile in memory in our withShapefileStore
+        addShapefile({ geojson, name: uploaded.name, size: uploaded.size });
+      } catch (err) {
+        console.error(err);
+      }
     }
   })
 );

@@ -1,9 +1,9 @@
 import { compose, withHandlers } from 'recompose';
 import { Feature } from 'react-mapbox-gl/lib/util/types';
 
-import withEditMode, {
-  WithEditModeProps
-} from '../../../decorators/withEditMode';
+import withShapefile, {
+  WithShapefileProps
+} from '../../../decorators/withShapefile';
 
 export interface WithDrawUpdateProps {
   handleDrawUpdate: (drawObject: { features: Feature[] }) => void;
@@ -13,9 +13,9 @@ export interface WithDrawUpdateProps {
  * Decorator to add a handler when we update the polygon we draw on the map.
  */
 export default compose(
-  withEditMode,
-  withHandlers<WithEditModeProps, WithDrawUpdateProps>({
-    handleDrawUpdate: ({ updateGeojson }) => ({
+  withShapefile,
+  withHandlers<WithShapefileProps, WithDrawUpdateProps>({
+    handleDrawUpdate: ({ addShapefile }) => ({
       features,
       type
     }: {
@@ -30,6 +30,7 @@ export default compose(
       if (!features || !features.length) {
         return;
       }
+      // addShapefile(features[0]);
       console.log(type, features);
     }
   })
