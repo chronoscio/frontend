@@ -23,6 +23,7 @@ const UploadButton: React.SFC<WithUploadShapefileProps> = ({
       id="shapefile"
       onChange={handleUploadShapefile}
       type="file"
+      accept=".shp"
     />
   </span>
 );
