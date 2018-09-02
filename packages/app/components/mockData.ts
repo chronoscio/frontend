@@ -4,6 +4,7 @@ export interface Territory {
   endDate?: Date;
   geometry: any;
   id: number;
+  nation: string;
   startDate: Date;
 }
 
@@ -23,6 +24,7 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 1,
+    nation: 'ABC',
     startDate: new Date(395, 0, 1, 1)
   },
   {
@@ -44,6 +46,7 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 2,
+    nation: 'ABC',
     startDate: new Date(771, 0, 2, 1)
   },
   {
@@ -62,6 +65,7 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 3,
+    nation: 'ABC',
     startDate: new Date(992, 0, 2, 1)
   }
 ];

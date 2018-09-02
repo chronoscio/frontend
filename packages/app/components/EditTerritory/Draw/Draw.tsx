@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { compose } from 'recompose';
 import DrawControl from 'react-mapbox-gl-draw';
+import { GeoJSONObject } from '@turf/helpers';
 
 import addGeoJson, { AddGeojsonProps } from './decorators/addGeojson';
-import { Geojson } from '../../../types';
 import withDrawUpdate, {
   WithDrawUpdateProps
 } from './decorators/withDrawUpdate';
 
 export interface DrawProps {
-  geojson: Geojson;
+  geojson: GeoJSONObject;
 }
 
 const Draw: React.SFC<DrawProps & AddGeojsonProps & WithDrawUpdateProps> = ({

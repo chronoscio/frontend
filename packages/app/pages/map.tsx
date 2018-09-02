@@ -6,7 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'semantic-ui-forest-themes/semantic.chubby.min.css';
 
 import LeftPane from '../components/LeftPane';
-import { withEditModeStore } from '../components/decorators/withEditMode';
+import { withEditTerritoryStore } from '../components/EditTerritory/decorators/withEditTerritory';
 
 // Lazy-load the map on the client-side
 // @TODO Figure how to dynamic import with TypeScript
@@ -14,16 +14,18 @@ import { withEditModeStore } from '../components/decorators/withEditMode';
 // @see https://github.com/zeit/next.js/issues/4515
 const MainMap = dynamic(import('../components/MainMap'), { ssr: false });
 // @ts-ignore
-const EditMode = dynamic(import('../components/EditMode'), { ssr: false });
+const EditTerritory = dynamic(import('../components/EditTerritory'), {
+  ssr: false
+});
 // @ts-ignore
 const Login = dynamic(import('../components/Login'), { ssr: false });
 
 const Map = () => (
-  <Provider id="withEditModeStore" {...withEditModeStore}>
+  <Provider id="withEditTerritoryStore" {...withEditTerritoryStore}>
     <LeftPane>
       <MainMap />
     </LeftPane>
-    <EditMode />
+    <EditTerritory />
     <Login />
   </Provider>
 );

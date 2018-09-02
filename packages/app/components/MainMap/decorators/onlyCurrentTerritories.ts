@@ -2,7 +2,7 @@ import { compose, mapProps } from 'recompose';
 
 import withCurrentDate, {
   WithCurrentDateProps
-} from '../../decorators/withCurrentDate';
+} from '../../CurrentDate/decorators/withCurrentDate';
 import { WithFetchTerritoriesProps } from './withFetchTerritories';
 
 /**

@@ -1,9 +1,9 @@
 import { compose, withHandlers } from 'recompose';
-import { Feature } from 'react-mapbox-gl/lib/util/types';
+import { Feature } from '@turf/helpers';
 
-import withShapefile, {
-  WithShapefileProps
-} from '../../../decorators/withShapefile';
+import withEditTerritory, {
+  WithEditTerritoryProps
+} from '../../decorators/withEditTerritory';
 
 export interface WithDrawUpdateProps {
   handleDrawUpdate: (drawObject: { features: Feature[] }) => void;
@@ -13,8 +13,8 @@ export interface WithDrawUpdateProps {
  * Decorator to add a handler when we update the polygon we draw on the map.
  */
 export default compose(
-  withShapefile,
-  withHandlers<WithShapefileProps, WithDrawUpdateProps>({
+  withEditTerritory,
+  withHandlers<WithEditTerritoryProps, WithDrawUpdateProps>({
     handleDrawUpdate: ({ addShapefile }) => ({
       features,
       type

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Card } from 'semantic-ui-react';
 
-import Routes from '../../../routes';
+import Routes from '../../routes';
 import withCurrentDate, {
   WithCurrentDateProps
-} from '../../decorators/withCurrentDate';
+} from './decorators/withCurrentDate';
 
 interface CurrentDateState {
   date: string;

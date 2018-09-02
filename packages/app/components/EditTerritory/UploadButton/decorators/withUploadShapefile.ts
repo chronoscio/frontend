@@ -1,9 +1,10 @@
 import { compose, withHandlers } from 'recompose';
 import * as shapefile from 'shapefile';
 
-import withShapefile, {
-  WithShapefileProps
-} from '../../../decorators/withShapefile';
+import withEditTerritory, {
+  UPLOADED_TERRITORY,
+  WithEditTerritoryProps
+} from '../../decorators/withEditTerritory';
 
 export interface WithUploadShapefileProps {
   handleUploadShapefile: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -34,8 +35,8 @@ const readAsArrayBuffer = (inputFile: File): Promise<ArrayBuffer> => {
  * Decorator to add a handler when we update the polygon we draw on the map.
  */
 export default compose(
-  withShapefile,
-  withHandlers<WithShapefileProps, {}>({
+  withEditTerritory,
+  withHandlers<WithEditTerritoryProps, {}>({
     handleUploadShapefile: ({ addShapefile }) => async ({
       target: { files }
     }: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +50,12 @@ export default compose(
         const geojson = await shapefile.read(arrayBuffer);
 
         // Store this shapefile in memory in our withShapefileStore
-        addShapefile({ geojson, name: uploaded.name, size: uploaded.size });
+        addShapefile({
+          geojson,
+          name: uploaded.name,
+          source: UPLOADED_TERRITORY,
+          size: uploaded.size
+        });
       } catch (err) {
         console.error(err);
       }

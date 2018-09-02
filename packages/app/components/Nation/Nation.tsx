@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Card, Header, Statistic } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import CurrentDate from './CurrentDate';
 import Territories from './Territories';
 
 const NationHeader = styled(Header)`
@@ -56,7 +55,6 @@ const Nation: React.SFC<{}> = () => (
         </Card.Content>
       </Card>
     </div>
-    <CurrentDate />
   </Wrapper>
 );
 

@@ -3,15 +3,16 @@ import { compose } from 'recompose';
 import ReactMapboxGl, { GeoJSONLayer, ZoomControl } from 'react-mapbox-gl';
 import styled from 'styled-components';
 
-import closeEditMode from './decorators/closeEditMode';
-import Draw from '../EditMode/Draw';
+import Draw from '../EditTerritory/Draw';
 import onlyCurrentTerritories from './decorators/onlyCurrentTerritories';
 import territoriesToGeojson, {
   TerritoriesToGeojsonProps
 } from './decorators/territoriesToGeojson';
-import withEditMode, { WithEditModeProps } from '../decorators/withEditMode';
 import withFetchTerritories from './decorators/withFetchTerritories';
-import withCurrentDate from '../decorators/withCurrentDate';
+import withEditTerritory, {
+  WithEditTerritoryProps
+} from '../EditTerritory/decorators/withEditTerritory';
+import withCurrentDate from '../CurrentDate/decorators/withCurrentDate';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
@@ -34,20 +35,19 @@ const mapContainerStyle = {
   width: '100vw'
 };
 
-const MainMap: React.SFC<TerritoriesToGeojsonProps & WithEditModeProps> = ({
-  editingGeojson,
-  isEditMode,
-  geojson
-}) => (
+const MainMap: React.SFC<
+  TerritoriesToGeojsonProps & WithEditTerritoryProps
+> = ({ isEditingTerritory, geojson, shapefile }) => (
   <StyledMap
     style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
     containerStyle={mapContainerStyle}
   >
-    {isEditMode && <Draw geojson={editingGeojson} />}
+    {isEditingTerritory && <Draw geojson={shapefile.geojson} />}
     <StyledZoomControl position="bottom-right" />
     <GeoJSONLayer
       data={geojson}
       fillLayout={{ visibility: 'visible' }}
+      fillOnClick={console.log}
       fillPaint={{
         'fill-color': '#4169E1',
         'fill-opacity': 0.7
@@ -58,8 +58,7 @@ const MainMap: React.SFC<TerritoriesToGeojsonProps & WithEditModeProps> = ({
 
 export default compose(
   withCurrentDate,
-  withEditMode,
-  closeEditMode,
+  withEditTerritory,
   withFetchTerritories,
   onlyCurrentTerritories,
   territoriesToGeojson
