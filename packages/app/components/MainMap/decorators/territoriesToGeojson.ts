@@ -16,7 +16,7 @@ export default withProps<TerritoriesToGeojsonProps, WithFetchTerritoriesProps>(
     geojson: featureCollection(
       territories.map(territory => ({
         ...territory,
-        properties: {},
+        properties: { color: territory.color, nation: territory.nation },
         type: 'Feature' as 'Feature'
       }))
     )

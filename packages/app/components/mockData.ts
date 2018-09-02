@@ -1,6 +1,7 @@
 // MOCK DATA to build UI elements, while the backend gets populated
 
 export interface Territory {
+  color: string;
   endDate?: Date;
   geometry: any;
   id: number;
@@ -10,6 +11,7 @@ export interface Territory {
 
 const mockData: Territory[] = [
   {
+    color: '#4169E1',
     endDate: new Date(771, 0, 1),
     geometry: {
       coordinates: [
@@ -28,6 +30,7 @@ const mockData: Territory[] = [
     startDate: new Date(395, 0, 1, 1)
   },
   {
+    color: '#4169E1',
     endDate: new Date(992, 0, 1, 1),
     geometry: {
       coordinates: [
@@ -50,6 +53,7 @@ const mockData: Territory[] = [
     startDate: new Date(771, 0, 2, 1)
   },
   {
+    color: '#4169E1',
     geometry: {
       coordinates: [
         [

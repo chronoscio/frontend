@@ -738,6 +738,12 @@
   version "7946.0.4"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.4.tgz#4e049756383c3f055dd8f3d24e63fb543e98eb07"
 
+"@types/mapbox-gl@^0.48.0":
+  version "0.48.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.48.0.tgz#f616c7f2f14e04ee145ce853d67fddd758859240"
+  dependencies:
+    "@types/geojson" "*"
+
 "@types/next@^6.0.4":
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/@types/next/-/next-6.0.4.tgz#37c01ce5675d77c3f1154ff22357e4a80cc91066"

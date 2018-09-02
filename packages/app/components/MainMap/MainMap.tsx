@@ -8,11 +8,14 @@ import onlyCurrentTerritories from './decorators/onlyCurrentTerritories';
 import territoriesToGeojson, {
   TerritoriesToGeojsonProps
 } from './decorators/territoriesToGeojson';
-import withFetchTerritories from './decorators/withFetchTerritories';
+import withCurrentDate from '../CurrentDate/decorators/withCurrentDate';
 import withEditTerritory, {
   WithEditTerritoryProps
 } from '../EditTerritory/decorators/withEditTerritory';
-import withCurrentDate from '../CurrentDate/decorators/withCurrentDate';
+import withFetchTerritories from './decorators/withFetchTerritories';
+import withHandleTerritoryClick, {
+  WithHandleTerritoryClickProps
+} from './decorators/withHandleTerritoryClick';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
@@ -36,9 +39,12 @@ const mapContainerStyle = {
 };
 
 const MainMap: React.SFC<
-  TerritoriesToGeojsonProps & WithEditTerritoryProps
-> = ({ isEditingTerritory, geojson, shapefile }) => (
+  TerritoriesToGeojsonProps &
+    WithEditTerritoryProps &
+    WithHandleTerritoryClickProps
+> = ({ isEditingTerritory, geojson, handleTerritoryClick, shapefile }) => (
   <StyledMap
+    onClick={handleTerritoryClick}
     style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
     containerStyle={mapContainerStyle}
   >
@@ -47,9 +53,8 @@ const MainMap: React.SFC<
     <GeoJSONLayer
       data={geojson}
       fillLayout={{ visibility: 'visible' }}
-      fillOnClick={console.log}
       fillPaint={{
-        'fill-color': '#4169E1',
+        'fill-color': { type: 'identity', property: 'color' },
         'fill-opacity': 0.7
       }}
     />
@@ -60,6 +65,7 @@ export default compose(
   withCurrentDate,
   withEditTerritory,
   withFetchTerritories,
+  withHandleTerritoryClick,
   onlyCurrentTerritories,
   territoriesToGeojson
 )(MainMap);
