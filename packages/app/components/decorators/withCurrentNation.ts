@@ -1,8 +1,8 @@
 import { compose, mapProps } from 'recompose';
 import { withRouter } from 'next/router';
 
-export interface WithSelectedNationProps {
-  nation: string;
+export interface WithCurrentNationProps {
+  currentNation: string;
 }
 
 /**
@@ -13,6 +13,6 @@ export default compose(
   withRouter,
   mapProps(({ router: { query: { nation } }, ...otherProps }) => ({
     ...otherProps,
-    nation
+    currentNation: nation
   }))
 );

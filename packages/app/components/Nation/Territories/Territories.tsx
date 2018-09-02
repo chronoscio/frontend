@@ -1,10 +1,19 @@
 import * as React from 'react';
+import { compose } from 'recompose';
 import { Icon, List, ListProps } from 'semantic-ui-react';
 
 import mockData from '../../mockData';
 import Routes from '../../../routes';
+import withCurrentDate, {
+  WithCurrentDateProps
+} from '../../CurrentDate/decorators/withCurrentDate';
+import withCurrentNation, {
+  WithCurrentNationProps
+} from '../../decorators/withCurrentNation';
 
-const Territories: React.SFC<ListProps> = ({ currentDate }) => (
+const Territories: React.SFC<
+  ListProps & WithCurrentDateProps & WithCurrentNationProps
+> = ({ currentDate, currentNation }) => (
   <List selection={true}>
     {mockData.map(({ endDate: endDateFromData, id, startDate }) => {
       // If no endDate is specified, we consider it today
@@ -18,8 +27,9 @@ const Territories: React.SFC<ListProps> = ({ currentDate }) => (
         .join('/');
 
       const isActive = currentDate >= startDate && currentDate <= endDate;
+
       return (
-        <Routes.Link key={id} route={`/map/${url}`}>
+        <Routes.Link key={id} route={`/map/${url}/${currentNation}`}>
           <List.Item>
             <List.Header>
               {isActive && <Icon name="caret right" />}
@@ -34,4 +44,7 @@ const Territories: React.SFC<ListProps> = ({ currentDate }) => (
   </List>
 );
 
-export default Territories;
+export default compose(
+  withCurrentDate,
+  withCurrentNation
+)(Territories);

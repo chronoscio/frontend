@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 import CurrentDate from '../CurrentDate';
 import Nation from '../Nation';
-import withSelectedNation, {
-  WithSelectedNationProps
-} from '../decorators/withSelectedNation';
+import withCurrentNation, {
+  WithCurrentNationProps
+} from '../decorators/withCurrentNation';
 
 const TopPart = styled.div`
   flex-grow: 1;
@@ -19,7 +19,10 @@ const WhiteSegment = styled(Segment)`
   opacity: 0.95;
 `;
 
-const LeftPane: React.SFC<WithSelectedNationProps> = ({ children, nation }) => (
+const LeftPane: React.SFC<WithCurrentNationProps> = ({
+  children,
+  currentNation
+}) => (
   <Sidebar.Pushable>
     <Sidebar
       animation="overlay"
@@ -28,7 +31,7 @@ const LeftPane: React.SFC<WithSelectedNationProps> = ({ children, nation }) => (
       visible={true}
       width="wide"
     >
-      <TopPart>{!!nation && <Nation />}</TopPart>
+      <TopPart>{!!currentNation && <Nation />}</TopPart>
       <CurrentDate />
     </Sidebar>
 
@@ -36,4 +39,4 @@ const LeftPane: React.SFC<WithSelectedNationProps> = ({ children, nation }) => (
   </Sidebar.Pushable>
 );
 
-export default withSelectedNation(LeftPane);
+export default withCurrentNation(LeftPane);
