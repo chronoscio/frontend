@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { compose } from 'recompose';
 import DrawControl from 'react-mapbox-gl-draw';
-import { GeoJSONObject } from '@turf/helpers';
+import { SourceOptionData } from 'react-mapbox-gl/lib/util/types';
 
 import addGeoJson, { AddGeojsonProps } from './decorators/addGeojson';
 import withDrawUpdate, {
@@ -9,7 +9,7 @@ import withDrawUpdate, {
 } from './decorators/withDrawUpdate';
 
 export interface DrawProps {
-  geojson: GeoJSONObject;
+  geojson: SourceOptionData;
 }
 
 const Draw: React.SFC<DrawProps & AddGeojsonProps & WithDrawUpdateProps> = ({

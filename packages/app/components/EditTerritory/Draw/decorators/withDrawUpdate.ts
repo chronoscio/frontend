@@ -1,9 +1,8 @@
 import { compose, withHandlers } from 'recompose';
 import { Feature } from '@turf/helpers';
+import { subscribe } from 'react-contextual';
 
-import withEditTerritory, {
-  WithEditTerritoryProps
-} from '../../decorators/withEditTerritory';
+import { WithEditTerritoryStoreProps } from '../../decorators/withEditTerritoryStore';
 
 export interface WithDrawUpdateProps {
   handleDrawUpdate: (drawObject: { features: Feature[] }) => void;
@@ -13,8 +12,8 @@ export interface WithDrawUpdateProps {
  * Decorator to add a handler when we update the polygon we draw on the map.
  */
 export default compose(
-  withEditTerritory,
-  withHandlers<WithEditTerritoryProps, WithDrawUpdateProps>({
+  subscribe('withEditTerritoryStore'),
+  withHandlers<WithEditTerritoryStoreProps, WithDrawUpdateProps>({
     handleDrawUpdate: ({ addShapefile }) => ({
       features,
       type
@@ -31,7 +30,6 @@ export default compose(
         return;
       }
       // addShapefile(features[0]);
-      console.log(type, features);
     }
   })
 );

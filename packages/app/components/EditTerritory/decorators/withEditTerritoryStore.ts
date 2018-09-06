@@ -1,7 +1,5 @@
-import { compose, mapProps } from 'recompose';
 import { SourceOptionData } from 'react-mapbox-gl/lib/util/types'; // This type is very similar to FeatureCollection from @turf/helpers
 import { subscribe } from 'react-contextual';
-import { withRouter } from 'next/router';
 
 export const EXISTING_TERRITORY = Symbol('EXISTING_TERRITORY');
 export const UPLOADED_TERRITORY = Symbol('UPLOADED_TERRITORY');
@@ -15,12 +13,14 @@ interface Shapefile {
 }
 
 interface Store {
-  isEditingTerritory: boolean; // Are we currently editing a territory with DrawControl?
-  shapefile: Shapefile; // The shapefile we are editing
+  isDrawingTerritory: boolean; // Are we currently drawing a territory with DrawControl?
+  shapefile: Shapefile; // The shapefile we are editing // TODO Maybe use a Territory model after we have answers from a backend
 }
 
-export interface WithEditTerritoryProps extends Store {
+export interface WithEditTerritoryStoreProps extends Store {
   addShapefile(shapefile: Shapefile): void;
+  openDraw(): void;
+  closeDraw(): void;
   removeShapefile(): void;
 }
 
@@ -29,21 +29,17 @@ export const withEditTerritoryStore = {
     ...store,
     shapefile
   }),
+  closeDraw: () => (store: Store): Store => ({
+    ...store,
+    isDrawingTerritory: false
+  }),
+  openDraw: () => (store: Store): Store => ({
+    ...store,
+    isDrawingTerritory: true
+  }),
   removeShapefile: () => (store: Store): Store => ({
     ...store,
     shapefile: null
   }),
   shapefile: null as Shapefile
 };
-
-/**
- * HOC which looks in the current URL if we are editing a territory.
- */
-export default compose(
-  withRouter,
-  mapProps(({ router: { query: { edit } }, ...otherProps }) => ({
-    ...otherProps,
-    isEditingTerritory: edit === 'edit'
-  })),
-  subscribe('withEditTerritoryStore')
-);

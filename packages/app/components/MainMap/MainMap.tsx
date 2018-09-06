@@ -2,22 +2,25 @@ import * as React from 'react';
 import { compose } from 'recompose';
 import ReactMapboxGl, { GeoJSONLayer, ZoomControl } from 'react-mapbox-gl';
 import styled from 'styled-components';
+import { subscribe } from 'react-contextual';
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 import EditTerritory from '../EditTerritory';
-import Draw from '../EditTerritory/Draw';
 import territoriesToGeojson, {
   TerritoriesToGeojsonProps
 } from './decorators/territoriesToGeojson';
-import withDrawTerritory, {
-  WithDrawTerritoryProps
-} from '../EditTerritory/decorators/withDrawTerritory';
-import withEditTerritory, {
-  WithEditTerritoryProps
-} from '../EditTerritory/decorators/withEditTerritory';
+import withEditingTerritory, {
+  WithEditingTerritoryProps
+} from '../EditTerritory/decorators/withEditingTerritory';
+import { WithEditTerritoryStoreProps } from '../EditTerritory/decorators/withEditTerritoryStore';
 import withFetchTerritories from './decorators/withFetchTerritories';
 import withHandleTerritoryClick, {
   WithHandleTerritoryClickProps
 } from './decorators/withHandleTerritoryClick';
+import withSelectedTerritory, {
+  WithSelectedTerritoryProps
+} from './decorators/withSelectedTerritory';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
@@ -42,8 +45,10 @@ const mapContainerStyle = {
 
 const MainMap: React.SFC<
   TerritoriesToGeojsonProps &
-    WithEditTerritoryProps &
-    WithHandleTerritoryClickProps
+    WithEditingTerritoryProps &
+    WithEditTerritoryStoreProps &
+    WithHandleTerritoryClickProps &
+    WithSelectedTerritoryProps
 > = ({ geojson, handleTerritoryClick, isEditingTerritory, shapefile }) => (
   <div>
     <StyledMap
@@ -51,6 +56,7 @@ const MainMap: React.SFC<
       style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line
       containerStyle={mapContainerStyle}
     >
+      {/* TODO: Add Draw later */}
       {/* {isDrawingTerritory && <Draw geojson={shapefile.geojson} />} */}
 
       {/* Add zoom controls */}
@@ -58,37 +64,36 @@ const MainMap: React.SFC<
 
       {/* Add layer for the currently editing territory */}
       {isEditingTerritory &&
-        shapefile &&
-        shapefile.geojson && (
+        shapefile && (
           <GeoJSONLayer
             data={shapefile.geojson}
             fillLayout={{ visibility: 'visible' }}
             fillPaint={{
-              'fill-color': { type: 'identity', property: 'color' },
+              'fill-color': 'black',
               'fill-opacity': 0.7
             }}
           />
         )}
 
-      {/* Add layer all territories */}
-      {!isEditingTerritory && (
-        <GeoJSONLayer
-          data={geojson}
-          fillLayout={{ visibility: 'visible' }}
-          fillPaint={{
-            'fill-color': { type: 'identity', property: 'color' },
-            'fill-opacity': 0.7
-          }}
-        />
-      )}
+      {/* Add layer all territories. */}
+      <GeoJSONLayer
+        data={geojson}
+        fillLayout={{ visibility: 'visible' }}
+        fillPaint={{
+          'fill-color': { type: 'identity', property: 'color' },
+          'fill-opacity': isEditingTerritory ? 0.2 : 0.7
+        }}
+      />
     </StyledMap>
     {isEditingTerritory && <EditTerritory />}
   </div>
 );
 
 export default compose(
-  withEditTerritory,
+  withEditingTerritory,
+  subscribe('withEditTerritoryStore'),
   withFetchTerritories,
   territoriesToGeojson,
+  withSelectedTerritory,
   withHandleTerritoryClick
 )(MainMap);

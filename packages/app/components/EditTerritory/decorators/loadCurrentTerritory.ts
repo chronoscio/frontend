@@ -1,21 +1,21 @@
 import { compose, lifecycle } from 'recompose';
+import { subscribe } from 'react-contextual';
 
 import onlyCurrentGeojson, {
   OnlyCurrentGeojsonProps
 } from '../../MainMap/decorators/onlyCurrentGeojson';
-import withEditTerritory, {
+import {
   EXISTING_TERRITORY,
-  WithEditTerritoryProps
-} from './withEditTerritory';
+  WithEditTerritoryStoreProps
+} from './withEditTerritoryStore';
 import withFetchTerritories from '../../MainMap/decorators/withFetchTerritories';
 
 export default compose(
   withFetchTerritories,
   onlyCurrentGeojson,
-  withEditTerritory,
-  lifecycle<WithEditTerritoryProps & OnlyCurrentGeojsonProps, {}>({
+  subscribe('withEditTerritoryStore'),
+  lifecycle<WithEditTerritoryStoreProps & OnlyCurrentGeojsonProps, {}>({
     componentDidMount() {
-      console.log('componentDidMount', this.props.currentGeojson);
       this.props.addShapefile({
         geojson: this.props.currentGeojson,
         source: EXISTING_TERRITORY

@@ -15,8 +15,7 @@ export interface OnlyCurrentGeojsonProps {
 }
 
 /**
- * Filter the territories to only show those that are active given the date in
- * the URL.
+ * Filter the territories to only show those that belong to the current nation.
  */
 export default compose(
   withCurrentDate,
@@ -28,12 +27,7 @@ export default compose(
     ...otherProps,
     currentGeojson: featureCollection(
       territories
-        .filter(
-          ({ endDate, nation, startDate }) =>
-            currentDate >= startDate &&
-            currentDate <= (endDate || new Date()) &&
-            nation === currentNation
-        )
+        .filter(({ nation }) => nation === currentNation)
         .map(territory => ({
           ...territory,
           properties: { color: territory.color, nation: territory.nation },

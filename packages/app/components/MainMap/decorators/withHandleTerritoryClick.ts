@@ -2,17 +2,23 @@ import { Map } from 'mapbox-gl';
 import { withHandlers } from 'recompose';
 
 import Routes from '../../../routes';
+import { WithEditingTerritoryProps } from '../../EditTerritory/decorators/withEditingTerritory';
 
 export interface WithHandleTerritoryClickProps {
   handleTerritoryClick(): void;
 }
 
-export default withHandlers({
-  handleTerritoryClick: () => (map: Map, event: any) => {
+export default withHandlers<WithEditingTerritoryProps, {}>({
+  handleTerritoryClick: ({ isEditingTerritory }) => (map: Map, event: any) => {
     const features = map.queryRenderedFeatures(event.point);
 
     // If there's no feature where we clicked, then pass
     if (!features || !features.length) {
+      return;
+    }
+
+    // If we're in editing mode, clicking on a territory does nothing
+    if (isEditingTerritory) {
       return;
     }
 

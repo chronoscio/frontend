@@ -4,10 +4,10 @@ import { compose } from 'recompose';
 import styled from 'styled-components';
 
 import UploadButton from './UploadButton';
-import withDrawTerritory, {
-  WithDrawTerritoryProps
-} from './decorators/withDrawTerritory';
 import loadCurrentTerritory from './decorators/loadCurrentTerritory';
+import withHandleCancel, {
+  WithHandleCancelProps
+} from './decorators/withHandleCancel';
 
 const Wrapper = styled.div`
   left: 400px;
@@ -15,31 +15,25 @@ const Wrapper = styled.div`
   top: 20px;
 `;
 
-const EditTerritory: React.SFC<WithDrawTerritoryProps> = ({
-  isDrawingTerritory
-}) => (
+const EditTerritory: React.SFC<WithHandleCancelProps> = ({ handleCancel }) => (
   <Wrapper>
-    {isDrawingTerritory ? (
-      <span>
-        <Button content="Cancel" />
-        <Button primary={true}>Save local Changes</Button>
-      </span>
-    ) : (
-      <span>
-        <Button content="Close" icon="close" />
-        <Button content="Draw on map" icon="paint brush" secondary={true} />
-        <UploadButton />
-        <Button
-          content="Submit changes to server (check console)"
-          icon="save"
-          primary={true}
-        />
-      </span>
-    )}
+    <Button content="Close" icon="close" onClick={handleCancel} />
+    <Button
+      content="Edit on map (coming soon...)"
+      disabled={true}
+      icon="paint brush"
+      secondary={true}
+    />
+    <UploadButton />
+    <Button
+      content="Submit changes to server (check console)"
+      icon="save"
+      primary={true}
+    />
   </Wrapper>
 );
 
 export default compose(
   loadCurrentTerritory,
-  withDrawTerritory
+  withHandleCancel
 )(EditTerritory);

@@ -1,8 +1,7 @@
 import { compose, lifecycle, withHandlers } from 'recompose';
+import { subscribe } from 'react-contextual';
 
-import withEditTerritory, {
-  WithEditTerritoryProps
-} from '../../decorators/withEditTerritory';
+import { WithEditTerritoryStoreProps } from '../../decorators/withEditTerritoryStore';
 
 interface DrawControlRef extends HTMLInputElement {
   draw: any; // TODO Find the correct for this in react-mapbox-gl-draw
@@ -17,7 +16,7 @@ export interface AddGeojsonProps {
  * Decorator to add an editable geojson when the Draw control mounts.
  */
 export default compose(
-  withEditTerritory,
+  subscribe('withEditTerritoryStore'),
   withHandlers(() => {
     let drawControl: DrawControlRef = null;
 
@@ -26,7 +25,7 @@ export default compose(
       getDrawControl: () => () => drawControl
     };
   }),
-  lifecycle<AddGeojsonProps & WithEditTerritoryProps, {}, {}>({
+  lifecycle<AddGeojsonProps & WithEditTerritoryStoreProps, {}, {}>({
     componentDidMount() {
       // Add the geojson on the Draw control to be edited
       const [featureId] = this.props

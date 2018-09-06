@@ -1,10 +1,11 @@
 import { compose, withHandlers } from 'recompose';
 import * as shapefile from 'shapefile';
+import { subscribe } from 'react-contextual';
 
-import withEditTerritory, {
+import {
   UPLOADED_TERRITORY,
-  WithEditTerritoryProps
-} from '../../decorators/withEditTerritory';
+  WithEditTerritoryStoreProps
+} from '../../decorators/withEditTerritoryStore';
 
 export interface WithUploadShapefileProps {
   handleUploadShapefile: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -35,8 +36,8 @@ const readAsArrayBuffer = (inputFile: File): Promise<ArrayBuffer> => {
  * Decorator to add a handler when we update the polygon we draw on the map.
  */
 export default compose(
-  withEditTerritory,
-  withHandlers<WithEditTerritoryProps, {}>({
+  subscribe('withEditTerritoryStore'),
+  withHandlers<WithEditTerritoryStoreProps, {}>({
     handleUploadShapefile: ({ addShapefile }) => async ({
       target: { files }
     }: React.ChangeEvent<HTMLInputElement>) => {
