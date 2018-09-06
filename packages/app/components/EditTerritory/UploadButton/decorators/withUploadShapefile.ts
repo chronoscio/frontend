@@ -44,6 +44,11 @@ export default compose(
       try {
         const uploaded = files[0];
 
+        if (uploaded.size > 2500000) {
+          console.error('Max file size is 25MB.'); // TODO Maybe add an alert banner?
+          return;
+        }
+
         const arrayBuffer = await readAsArrayBuffer(uploaded);
 
         // Read the whole shapefile at once. If, in the future, we want to read the
