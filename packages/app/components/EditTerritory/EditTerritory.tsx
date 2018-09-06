@@ -4,9 +4,10 @@ import { compose } from 'recompose';
 import styled from 'styled-components';
 
 import UploadButton from './UploadButton';
-import withEditTerritory, {
-  WithEditTerritoryProps
-} from './decorators/withEditTerritory';
+import withDrawTerritory, {
+  WithDrawTerritoryProps
+} from './decorators/withDrawTerritory';
+import loadCurrentTerritory from './decorators/loadCurrentTerritory';
 
 const Wrapper = styled.div`
   left: 400px;
@@ -14,9 +15,11 @@ const Wrapper = styled.div`
   top: 20px;
 `;
 
-const Edit: React.SFC<WithEditTerritoryProps> = ({ isEditingTerritory }) => (
+const EditTerritory: React.SFC<WithDrawTerritoryProps> = ({
+  isDrawingTerritory
+}) => (
   <Wrapper>
-    {isEditingTerritory ? (
+    {isDrawingTerritory ? (
       <span>
         <Button content="Cancel" />
         <Button primary={true}>Save local Changes</Button>
@@ -24,12 +27,19 @@ const Edit: React.SFC<WithEditTerritoryProps> = ({ isEditingTerritory }) => (
     ) : (
       <span>
         <Button content="Close" icon="close" />
-        <Button content="Edit on map" icon="save" secondary={true} />
+        <Button content="Draw on map" icon="paint brush" secondary={true} />
         <UploadButton />
-        <Button content="Submit changes to server" icon="save" primary={true} />
+        <Button
+          content="Submit changes to server (check console)"
+          icon="save"
+          primary={true}
+        />
       </span>
     )}
   </Wrapper>
 );
 
-export default compose(withEditTerritory)(Edit);
+export default compose(
+  loadCurrentTerritory,
+  withDrawTerritory
+)(EditTerritory);

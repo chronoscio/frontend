@@ -14,10 +14,6 @@ import { withEditTerritoryStore } from '../components/EditTerritory/decorators/w
 // @see https://github.com/zeit/next.js/issues/4515
 const MainMap = dynamic(import('../components/MainMap'), { ssr: false });
 // @ts-ignore
-const EditTerritory = dynamic(import('../components/EditTerritory'), {
-  ssr: false
-});
-// @ts-ignore
 const Login = dynamic(import('../components/Login'), { ssr: false });
 
 const Map = () => (
@@ -25,7 +21,6 @@ const Map = () => (
     <LeftPane>
       <MainMap />
     </LeftPane>
-    <EditTerritory />
     <Login />
   </Provider>
 );

@@ -10,7 +10,7 @@ import withCurrentDate, {
 } from '../../CurrentDate/decorators/withCurrentDate';
 import withCurrentNation, {
   WithCurrentNationProps
-} from '../../decorators/withCurrentNation';
+} from '../../Nation/decorators/withCurrentNation';
 
 const Territories: React.SFC<
   ListProps & WithCurrentDateProps & WithCurrentNationProps & WithRouterProps

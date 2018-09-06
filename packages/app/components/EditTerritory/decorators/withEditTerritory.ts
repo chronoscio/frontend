@@ -1,27 +1,26 @@
+import { compose, mapProps } from 'recompose';
+import { SourceOptionData } from 'react-mapbox-gl/lib/util/types'; // This type is very similar to FeatureCollection from @turf/helpers
 import { subscribe } from 'react-contextual';
-import { GeoJSONObject } from '@turf/helpers';
+import { withRouter } from 'next/router';
 
-export const UPLOADED_TERRITORY = Symbol('UPLOAD');
+export const EXISTING_TERRITORY = Symbol('EXISTING_TERRITORY');
+export const UPLOADED_TERRITORY = Symbol('UPLOADED_TERRITORY');
 export const HANDDRAWN_TERRITORY = Symbol('HANDDRAWN_TERRITORY');
 
-type EditTerritorySource = Symbol;
-
 interface Shapefile {
-  geojson: GeoJSONObject;
+  geojson: SourceOptionData;
   name?: string;
   size?: number;
-  source: EditTerritorySource; // Is our current Shapefile being drawn, or uploaded?
+  source: Symbol; // Is our current Shapefile being drawn, or uploaded?
 }
 
 interface Store {
   isEditingTerritory: boolean; // Are we currently editing a territory with DrawControl?
-  shapefile: Shapefile;
+  shapefile: Shapefile; // The shapefile we are editing
 }
 
 export interface WithEditTerritoryProps extends Store {
   addShapefile(shapefile: Shapefile): void;
-  closeEditTerritory(): void;
-  openEditTerritory(): void;
   removeShapefile(): void;
 }
 
@@ -29,16 +28,6 @@ export const withEditTerritoryStore = {
   addShapefile: (shapefile: Shapefile) => (store: Store): Store => ({
     ...store,
     shapefile
-  }),
-  closeEditTerritory: () => (): Store => ({
-    isEditingTerritory: false,
-    shapefile: null
-  }),
-  isEditingTerritory: false,
-  isEditTerritoryOpen: false,
-  openEditTerritory: () => (): Store => ({
-    isEditingTerritory: false,
-    shapefile: null
   }),
   removeShapefile: () => (store: Store): Store => ({
     ...store,
@@ -48,7 +37,13 @@ export const withEditTerritoryStore = {
 };
 
 /**
- * HOC which globally subscribes to withEditTerritory, to see if we're currently in
- * edit mode or not, and what geojson we are editing.
+ * HOC which looks in the current URL if we are editing a territory.
  */
-export default subscribe('withEditTerritoryStore');
+export default compose(
+  withRouter,
+  mapProps(({ router: { query: { edit } }, ...otherProps }) => ({
+    ...otherProps,
+    isEditingTerritory: edit === 'edit'
+  })),
+  subscribe('withEditTerritoryStore')
+);

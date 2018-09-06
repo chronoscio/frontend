@@ -6,7 +6,7 @@ import CurrentDate from '../CurrentDate';
 import Nation from '../Nation';
 import withCurrentNation, {
   WithCurrentNationProps
-} from '../decorators/withCurrentNation';
+} from '../Nation/decorators/withCurrentNation';
 
 const TopPart = styled.div`
   flex-grow: 1;

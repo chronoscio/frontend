@@ -1,6 +1,10 @@
-import { withProps } from 'recompose';
+import { compose, mapProps, withProps } from 'recompose';
 
 import mockData, { Territory } from '../../mockData';
+import withCurrentDate, {
+  WithCurrentDateProps
+} from '../../CurrentDate/decorators/withCurrentDate';
+import { WithFetchTerritoriesProps } from './withFetchTerritories';
 
 export interface WithFetchTerritoriesProps {
   territories: Territory[];
@@ -9,6 +13,18 @@ export interface WithFetchTerritoriesProps {
 /**
  * Fetch territories from the backend. For now we are using mock data.
  */
-export default withProps(() => ({
-  territories: mockData
-}));
+export default compose(
+  withProps(() => ({
+    territories: mockData
+  })),
+  withCurrentDate,
+  mapProps<{}, WithCurrentDateProps & WithFetchTerritoriesProps>(
+    ({ currentDate, territories, ...otherProps }) => ({
+      ...otherProps,
+      territories: territories.filter(
+        ({ endDate, startDate }) =>
+          currentDate >= startDate && currentDate <= (endDate || new Date())
+      )
+    })
+  )
+);
