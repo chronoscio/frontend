@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { Button } from 'semantic-ui-react';
-import { compose } from 'recompose';
 import styled from 'styled-components';
 
+import CloseButton from './CloseButton';
 import UploadButton from './UploadButton';
 import loadCurrentTerritory from './decorators/loadCurrentTerritory';
-import withHandleCancel, {
-  WithHandleCancelProps
-} from './decorators/withHandleCancel';
+import SubmitButton from './SubmitButton';
 
 const Wrapper = styled.div`
   left: 400px;
@@ -15,9 +13,9 @@ const Wrapper = styled.div`
   top: 20px;
 `;
 
-const EditTerritory: React.SFC<WithHandleCancelProps> = ({ handleCancel }) => (
+const EditTerritory: React.SFC<{}> = ({}) => (
   <Wrapper>
-    <Button content="Close" icon="close" onClick={handleCancel} />
+    <CloseButton />
     <Button
       content="Edit on map (coming soon...)"
       disabled={true}
@@ -25,15 +23,8 @@ const EditTerritory: React.SFC<WithHandleCancelProps> = ({ handleCancel }) => (
       secondary={true}
     />
     <UploadButton />
-    <Button
-      content="Submit changes to server (check console)"
-      icon="save"
-      primary={true}
-    />
+    <SubmitButton />
   </Wrapper>
 );
 
-export default compose(
-  loadCurrentTerritory,
-  withHandleCancel
-)(EditTerritory);
+export default loadCurrentTerritory(EditTerritory);

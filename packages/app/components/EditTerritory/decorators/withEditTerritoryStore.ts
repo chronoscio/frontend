@@ -1,5 +1,4 @@
 import { SourceOptionData } from 'react-mapbox-gl/lib/util/types'; // This type is very similar to FeatureCollection from @turf/helpers
-import { subscribe } from 'react-contextual';
 
 export const EXISTING_TERRITORY = Symbol('EXISTING_TERRITORY');
 export const UPLOADED_TERRITORY = Symbol('UPLOADED_TERRITORY');

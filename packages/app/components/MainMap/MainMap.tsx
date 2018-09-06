@@ -3,8 +3,6 @@ import { compose } from 'recompose';
 import ReactMapboxGl, { GeoJSONLayer, ZoomControl } from 'react-mapbox-gl';
 import styled from 'styled-components';
 import { subscribe } from 'react-contextual';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
 
 import EditTerritory from '../EditTerritory';
 import territoriesToGeojson, {
