@@ -48,7 +48,6 @@
     "babel-plugin-styled-components": "^1.5.1",
     "file-loader": "^1.1.11",
     "now-env": "^3.1.0",
-    "shapefile": "^0.6.6",
     "url-loader": "^1.0.1"
   }
 }
