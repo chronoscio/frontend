@@ -7,6 +7,7 @@ import Nation from '../Nation';
 import withCurrentNation, {
   WithCurrentNationProps
 } from '../Nation/decorators/withCurrentNation';
+import Welcome from './Welcome';
 
 const TopPart = styled.div`
   flex-grow: 1;
@@ -31,7 +32,7 @@ const LeftPane: React.SFC<WithCurrentNationProps> = ({
       visible={true}
       width="wide"
     >
-      <TopPart>{!!currentNation && <Nation />}</TopPart>
+      <TopPart>{currentNation ? <Nation /> : <Welcome />}</TopPart>
       <CurrentDate />
     </Sidebar>
 
