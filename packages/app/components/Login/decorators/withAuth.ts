@@ -1,6 +1,6 @@
 import { Auth0DecodedHash, Auth0UserProfile } from 'auth0-js';
 import { combineLatest } from 'rxjs/operators';
-import { compose, mapPropsStream, withProps } from 'recompose';
+import { compose, mapPropsStream, withPropsOnChange } from 'recompose';
 import { from, Observable } from 'rxjs';
 import * as localForage from 'localforage';
 import { setObservableConfig } from 'recompose';
@@ -50,14 +50,13 @@ export interface WithAuthProps {
  * - loggedInUser: the logged in user profile
  * - isLoggedIn: if the user is currently logged in
  */
-
-export default compose<{}, {}>(
-  mapPropsStream((props$: Observable<any>) =>
+export default compose<WithAuthProps, object>(
+  mapPropsStream((props$: Observable<object>) =>
     props$.pipe(
       combineLatest(localForage$, (props, auth) => ({ ...props, auth }))
     )
   ),
-  withProps(({ auth }) => ({
+  withPropsOnChange<{}, WithAuthProps>(['auth'], ({ auth }) => ({
     loggedInUser: auth && auth.idTokenPayload,
     isLoggedIn: !!auth
   }))

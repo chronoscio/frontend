@@ -11,8 +11,7 @@ export default class MyDocument extends Document {
     // Make NextJs work with styled components
     // https://github.com/zeit/next.js/tree/canary/examples/with-styled-components
     const sheet = new ServerStyleSheet();
-    // TODO Find a better type for App
-    const page = renderPage((App: any) => (props: object) =>
+    const page = renderPage((App: React.ComponentType) => (props: object) =>
       sheet.collectStyles(<App {...props} />)
     );
     const styleTags = sheet.getStyleElement();
