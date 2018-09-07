@@ -63,6 +63,7 @@ export default compose(
           size: uploaded.size
         });
       } catch (err) {
+        console.error('The uploaded shapefile is invalid.');
         console.error(err);
       }
     }
