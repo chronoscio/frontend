@@ -44,7 +44,7 @@ export default compose(
       try {
         const uploaded = files[0];
 
-        if (uploaded.size > 2500000) {
+        if (uploaded.size > 25000000) {
           console.error('Max file size is 25MB.'); // TODO Maybe add an alert banner?
           return;
         }
