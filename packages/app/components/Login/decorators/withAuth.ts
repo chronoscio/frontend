@@ -1,11 +1,12 @@
 import { Auth0DecodedHash, Auth0UserProfile } from 'auth0-js';
-import { combineLatest, startWith, switchMap } from 'rxjs/operators';
 import {
+  branch,
   compose,
   mapPropsStream,
   setObservableConfig,
   withPropsOnChange
 } from 'recompose';
+import { combineLatest, startWith, switchMap } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 import * as localForage from 'localforage';
 import 'localforage-observable';
@@ -25,7 +26,7 @@ localForage.newObservable.factory = subscribeFn =>
 /**
  * Make localForage available in browser console for easier debug.
  */
-if (process.env.NODE_ENV !== 'production') {
+if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
   interface WindowWithLocalForage extends Window {
     localForage: LocalForage;
   }
@@ -53,14 +54,18 @@ export interface WithAuthProps {
  * - loggedInUser: the logged in user profile
  * - isLoggedIn: if the user is currently logged in
  */
-export default compose<WithAuthProps, object>(
-  mapPropsStream((props$: Observable<object>) =>
-    props$.pipe(
-      combineLatest(localForage$, (props, auth) => ({ ...props, auth }))
-    )
+export default branch(
+  () => typeof window !== 'undefined',
+  compose(
+    mapPropsStream((props$: Observable<object>) =>
+      props$.pipe(
+        combineLatest(localForage$, (props, auth) => ({ ...props, auth }))
+      )
+    ),
+    withPropsOnChange<{}, WithAuthProps>(['auth'], ({ auth }) => ({
+      loggedInUser: auth && auth.idTokenPayload,
+      isLoggedIn: !!auth
+    }))
   ),
-  withPropsOnChange<{}, WithAuthProps>(['auth'], ({ auth }) => ({
-    loggedInUser: auth && auth.idTokenPayload,
-    isLoggedIn: !!auth
-  }))
+  (_: any) => _
 );
