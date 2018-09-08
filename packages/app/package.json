@@ -15,6 +15,7 @@
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.0.9",
     "auth0-js": "^9.7.3",
+    "axios": "^0.18.0",
     "final-form": "^4.9.1",
     "localforage": "^1.7.2",
     "localforage-observable": "^1.4.0",
