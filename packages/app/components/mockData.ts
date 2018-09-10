@@ -1,14 +1,17 @@
 // MOCK DATA to build UI elements, while the backend gets populated
 
 export interface Territory {
+  color: string;
   endDate?: Date;
   geometry: any;
   id: number;
+  nation: string;
   startDate: Date;
 }
 
 const mockData: Territory[] = [
   {
+    color: '#4169E1',
     endDate: new Date(771, 0, 1),
     geometry: {
       coordinates: [
@@ -23,9 +26,11 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 1,
+    nation: 'ABC',
     startDate: new Date(395, 0, 1, 1)
   },
   {
+    color: '#4169E1',
     endDate: new Date(992, 0, 1, 1),
     geometry: {
       coordinates: [
@@ -44,9 +49,11 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 2,
+    nation: 'ABC',
     startDate: new Date(771, 0, 2, 1)
   },
   {
+    color: '#4169E1',
     geometry: {
       coordinates: [
         [
@@ -62,6 +69,27 @@ const mockData: Territory[] = [
       type: 'Polygon'
     },
     id: 3,
+    nation: 'ABC',
+    startDate: new Date(992, 0, 2, 1)
+  },
+  {
+    color: '#ee4444',
+    geometry: {
+      coordinates: [
+        [
+          [0.09863823779190284, 51.57033718557744],
+          [0.17625485577556788, 51.532583142071275],
+          [0.16060634408441388, 51.48388481066499],
+          [0.047311119443946836, 51.468290350277215],
+          [0.02540320308261812, 51.50726650571423],
+          [0.02352538167630769, 51.555550674721445],
+          [0.09863823779190284, 51.57033718557744]
+        ]
+      ],
+      type: 'Polygon'
+    },
+    id: 4,
+    nation: 'DEF',
     startDate: new Date(992, 0, 2, 1)
   }
 ];
