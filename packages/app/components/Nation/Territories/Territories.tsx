@@ -22,7 +22,7 @@ const Territories: React.SFC<
   }
 }) => (
   <List selection={true}>
-    {mockData
+    {this.props.territories
       .filter(({ nation }) => nation === currentNation)
       .map(({ endDate: endDateFromData, id, startDate }) => {
         // If no endDate is specified, we consider it today

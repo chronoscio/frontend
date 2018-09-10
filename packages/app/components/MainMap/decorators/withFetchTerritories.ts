@@ -16,22 +16,26 @@ export interface WithFetchTerritoriesProps {
  */
 export default compose(
   withCurrentDate,
-  lifecycle({
+  lifecycle<WithCurrentDateProps, {}>({
     componentDidMount() {
-      console.log(this.props);
       axios
         .request({
           method: 'get',
           url: 'http://localhost/api/territories/',
           params: {
-            //date: this.props.currentDate.toISOString().split('T')[0]
+            date: this.props.currentDate.toISOString().split('T')[0]
           }
         })
         .catch((err: any) => {
           console.error(err);
         })
         .then((resp: AxiosResponse) => {
-          this.setState({ territories: resp.data });
+          mapProps<{}, WithCurrentDateProps & WithFetchTerritoriesProps>(
+            ({ territories, ...otherProps }) => ({
+              ...otherProps,
+              territories: resp.data
+            })
+          );
         });
     }
   })
