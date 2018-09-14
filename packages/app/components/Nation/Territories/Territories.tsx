@@ -11,6 +11,7 @@ import withCurrentDate, {
 import withCurrentNation, {
   WithCurrentNationProps
 } from '../../Nation/decorators/withCurrentNation';
+import withFetchTerritories from '../../MainMap/decorators/withFetchTerritories';
 
 const Territories: React.SFC<
   ListProps & WithCurrentDateProps & WithCurrentNationProps & WithRouterProps
@@ -65,5 +66,6 @@ const Territories: React.SFC<
 export default compose(
   withCurrentDate,
   withCurrentNation,
-  withRouter
+  withRouter,
+  withFetchTerritories
 )(Territories);

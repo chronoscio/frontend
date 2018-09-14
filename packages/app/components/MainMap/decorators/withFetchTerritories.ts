@@ -30,12 +30,7 @@ export default compose(
           console.error(err);
         })
         .then((resp: AxiosResponse) => {
-          mapProps<{}, WithCurrentDateProps & WithFetchTerritoriesProps>(
-            ({ territories, ...otherProps }) => ({
-              ...otherProps,
-              territories: resp.data
-            })
-          );
+          this.setState({territories: resp.data})
         });
     }
   })
