@@ -30,6 +30,7 @@ export default compose(
         .filter(({ nation }) => nation === currentNation)
         .map(territory => ({
           ...territory,
+          geometry: territory.geo,
           properties: { color: territory.color, nation: territory.nation },
           type: 'Feature' as 'Feature'
         }))
