@@ -14,14 +14,14 @@ export interface TerritoriesToGeojsonProps {
 export default withPropsOnChange<
   TerritoriesToGeojsonProps,
   WithFetchTerritoriesProps
->(['territories'], ({ territories }) => ({
-  geojson: territories
-    ? featureCollection(
+  >(['territories'], ({ territories }) => ({
+    geojson: territories
+      ? featureCollection(
         territories.map(territory => ({
-          ...territory,
-          properties: { color: territory.color, nation: territory.nation },
+          ...territory.geo,
+          properties: { color: '#fff', nation: territory.nation },
           type: 'Feature' as 'Feature'
         }))
       )
-    : null
-}));
+      : null
+  }));

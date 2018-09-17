@@ -2,14 +2,14 @@
 
 export interface Territory {
   color: string;
-  endDate?: Date;
-  geometry: any;
+  end_date: Date;
+  geo: any;
   id: number;
   nation: string;
-  startDate: Date;
+  start_date: Date;
 }
 
-const mockData: Territory[] = [
+/*const mockData: Territory[] = [
   {
     color: '#4169E1',
     endDate: new Date(771, 0, 1),
@@ -95,3 +95,4 @@ const mockData: Territory[] = [
 ];
 
 export default mockData;
+*/

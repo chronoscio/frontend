@@ -1,11 +1,12 @@
 import { compose, mapProps, withProps, lifecycle } from 'recompose';
 import axios, { AxiosResponse } from 'axios';
 
-import mockData, { Territory } from '../../mockData';
+import { Territory } from '../../mockData';
 import withCurrentDate, {
   WithCurrentDateProps
 } from '../../CurrentDate/decorators/withCurrentDate';
 import { WithFetchTerritoriesProps } from './withFetchTerritories';
+//import withAuth, { WithAuthProps } from '../../Login/decorators/withAuth';
 
 export interface WithFetchTerritoriesProps {
   territories: Territory[];
@@ -16,7 +17,8 @@ export interface WithFetchTerritoriesProps {
  */
 export default compose(
   withCurrentDate,
-  lifecycle<WithCurrentDateProps, {}>({
+  //withAuth,
+  lifecycle</*WithAuthProps & */WithCurrentDateProps, {}>({
     componentDidMount() {
       axios
         .request({
@@ -24,13 +26,15 @@ export default compose(
           url: 'http://localhost/api/territories/',
           params: {
             date: this.props.currentDate.toISOString().split('T')[0]
-          }
+          },
+          //          headers: { 'Authorization': 'bearer ' + this.props.auth }
         })
         .catch((err: any) => {
           console.error(err);
         })
         .then((resp: AxiosResponse) => {
-          this.setState({territories: resp.data})
+          console.log(resp.data)
+          this.setState({ territories: resp.data })
         });
     }
   })
