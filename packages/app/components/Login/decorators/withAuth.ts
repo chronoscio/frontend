@@ -7,9 +7,11 @@ import {
   withPropsOnChange
 } from 'recompose';
 import { combineLatest, startWith, switchMap } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import { empty, from, Observable } from 'rxjs';
 import * as localForage from 'localforage';
 import 'localforage-observable';
+
+const IS_CLIENT = typeof window !== 'undefined';
 
 // Set recompose to use RxJS
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setobservableconfig
@@ -26,7 +28,7 @@ localForage.newObservable.factory = subscribeFn =>
 /**
  * Make localForage available in browser console for easier debug.
  */
-if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
+if (IS_CLIENT && process.env.NODE_ENV !== 'production') {
   interface WindowWithLocalForage extends Window {
     localForage: LocalForage;
   }
@@ -34,13 +36,15 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
   (window as WindowWithLocalForage).localForage = localForage;
 }
 
-const localForage$ = from(localForage.ready()).pipe(
-  // From localforage-observable:
-  // Property '_isScalar' is missing in type 'Observable<LocalForageObservableChange>'
-  // @ts-ignore TODO
-  switchMap(() => localForage.getItemObservable('auth')),
-  startWith(undefined)
-);
+const localForage$ = IS_CLIENT
+  ? from(localForage.ready()).pipe(
+      // From localforage-observable:
+      // Property '_isScalar' is missing in type 'Observable<LocalForageObservableChange>'
+      // @ts-ignore TODO
+      switchMap(() => localForage.getItemObservable('auth')),
+      startWith(undefined)
+    )
+  : empty();
 
 export interface WithAuthProps {
   auth: Auth0DecodedHash;
@@ -55,7 +59,7 @@ export interface WithAuthProps {
  * - isLoggedIn: if the user is currently logged in
  */
 export default branch(
-  () => typeof window !== 'undefined',
+  () => IS_CLIENT,
   compose(
     mapPropsStream((props$: Observable<object>) =>
       props$.pipe(
