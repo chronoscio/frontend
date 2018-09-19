@@ -1,17 +1,21 @@
 import * as React from 'react';
+import { Button, List } from 'semantic-ui-react';
 import { compose } from 'recompose';
-import { List } from 'semantic-ui-react';
+import { subscribe } from 'react-contextual';
 
+import { WithPageStoreProps } from '../../decorators/withPageStore';
 import withAuth, { WithAuthProps } from '../../../Login/decorators/withAuth';
 import withLogin, { WithLoginProps } from '../../../Login/decorators/withLogin';
 
-const WelcomeList: React.SFC<WithAuthProps & WithLoginProps> = ({
-  isLoggedIn,
-  login
-}) => (
+const WelcomeList: React.SFC<
+  WithAuthProps & WithPageStoreProps & WithLoginProps
+> = ({ goToAddNation, isLoggedIn, login }) => (
   <List bulleted={true}>
     <List.Item>click on a political entity to learn more about it.</List.Item>
     <List.Item>
+      {isLoggedIn && (
+        <Button basic={true} icon="plus" onClick={goToAddNation} size="mini" />
+      )}
       add a new political entity on the map.{' '}
       {!isLoggedIn && <a onClick={login}>Login first.</a>}
     </List.Item>
@@ -25,6 +29,7 @@ const WelcomeList: React.SFC<WithAuthProps & WithLoginProps> = ({
 );
 
 export default compose(
+  subscribe('withPageStore'),
   withAuth,
   withLogin
 )(WelcomeList);
