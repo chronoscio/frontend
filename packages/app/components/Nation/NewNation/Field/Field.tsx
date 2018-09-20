@@ -14,7 +14,7 @@ interface SUIFieldProps {
 /**
  * A form field with SUI components.
  */
-const SUIField: React.SFC<SUIFieldProps & FieldRenderProps> = ({
+const renderField: React.SFC<SUIFieldProps & FieldRenderProps> = ({
   as: T = Input,
   children,
   input,
@@ -23,7 +23,7 @@ const SUIField: React.SFC<SUIFieldProps & FieldRenderProps> = ({
   ...otherProps
 }) => (
   <Form.Field>
-    {label && <label htmlFor={input && input.name}>{label}</label>}
+    {label && <label htmlFor={input.name}>{label}</label>}
     <Popup
       content={meta && (meta.error || meta.submitError)}
       inverted={true}
@@ -36,7 +36,7 @@ const SUIField: React.SFC<SUIFieldProps & FieldRenderProps> = ({
       }
       position="top center"
       size="mini"
-      trigger={<T id={input && input.name} {...input} {...otherProps} />}
+      trigger={<T id={input.name} {...input} {...otherProps} />}
     />
 
     {children}
@@ -49,7 +49,7 @@ interface FieldProps extends RFFFieldProps, SUIFieldProps {}
  * Wire up react-final-form with SUIField.
  */
 const Field: React.SFC<FieldProps> = props => (
-  <RFFField render={SUIField} {...props} />
+  <RFFField render={renderField} {...props} />
 );
 
 // TODO Move it upper the hierarchy if other components need this generic

@@ -1,17 +1,12 @@
 import * as React from 'react';
 import arrayMutators from 'final-form-arrays';
-import {
-  Button,
-  Checkbox,
-  Form as SUIForm,
-  Header,
-  TextArea
-} from 'semantic-ui-react';
+import { Button, Form as SUIForm, Header, TextArea } from 'semantic-ui-react';
 import { FieldArray } from 'react-final-form-arrays';
 import { Form, FormRenderProps } from 'react-final-form';
 import * as yup from 'yup';
 
 import BackButton from '../../LeftPane/Pages/BackButton';
+import Checkbox from './Checkbox';
 import ColorPicker from './ColorPicker';
 import Field from './Field';
 import withHandleSubmit, {
@@ -49,13 +44,7 @@ const renderForm = ({ hasValidationErrors, handleSubmit }: FormRenderProps) => (
     <BackButton />
     <Header as="h1">New Political Entity</Header>
     <Field autoFocus={true} name="name" placeholder="Political entity name" />
-    <Field
-      as={Checkbox}
-      label="Disputed territory?"
-      name="isDisputed"
-      toggle={true}
-      type="checkbox"
-    />
+    <Checkbox label="Disputed territory?" name="isDisputed" toggle={true} />
     <Field
       as={TextArea}
       name="description"
