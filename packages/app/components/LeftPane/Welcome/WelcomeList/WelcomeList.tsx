@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, List } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 import { compose } from 'recompose';
 import { subscribe } from 'react-contextual';
 
