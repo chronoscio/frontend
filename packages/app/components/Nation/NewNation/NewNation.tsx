@@ -25,6 +25,7 @@ const renderForm = ({ handleSubmit }: FormRenderProps) => (
       label="Disputed territory?"
       name="control_type"
       toggle={true}
+      type="checkbox"
     />
     <Field as={TextArea} name="description" placeholder="Brief description" />
     <Field name="wikipedia_link" placeholder="Wikipedia link" />
