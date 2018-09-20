@@ -11,7 +11,7 @@ const WelcomeList: React.SFC<
   WithAuthProps & WithPageStoreProps & WithLoginProps
 > = ({ goToAddNation, isLoggedIn, login }) => (
   <List bulleted={true}>
-    <List.Item>click on a political entity to learn more about it.</List.Item>
+    <List.Item>Click on a political entity to learn more about it.</List.Item>
     <List.Item>
       {isLoggedIn ? (
         <a onClick={goToAddNation}>Add a new political entity</a>
@@ -21,10 +21,10 @@ const WelcomeList: React.SFC<
       on the map. {!isLoggedIn && <a onClick={login}>Login first.</a>}
     </List.Item>
     <List.Item disabled={true}>
-      add a new event on the map (coming soon).
+      Add a new event on the map (coming soon).
     </List.Item>
     <List.Item disabled={true}>
-      add a new person on the map (coming soon).
+      Add a new person on the map (coming soon).
     </List.Item>
   </List>
 );
