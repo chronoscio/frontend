@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Button, Form as SUIForm, Header, TextArea } from 'semantic-ui-react';
+import {
+  Button,
+  Checkbox,
+  Form as SUIForm,
+  Header,
+  TextArea
+} from 'semantic-ui-react';
 import { Form, FormRenderProps } from 'react-final-form';
 
 import BackButton from '../../LeftPane/Pages/BackButton';
@@ -13,6 +19,12 @@ const renderForm = ({ handleSubmit }: FormRenderProps) => (
     <BackButton />
     <Header as="h1">New Political Entity</Header>
     <Field name="name" placeholder="Political entity name" />
+    <Field
+      as={Checkbox}
+      label="Disputed territory?"
+      name="control_type"
+      toggle={true}
+    />
     <Field as={TextArea} name="description" placeholder="Brief description" />
     <Field name="wikipedia_link" placeholder="Wikipedia link" />
 
