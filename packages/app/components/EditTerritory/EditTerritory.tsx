@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   top: 20px;
 `;
 
-const EditTerritory: React.SFC<{}> = ({}) => (
+const EditTerritory: React.SFC = () => (
   <Wrapper>
     <CloseButton />
     <Button

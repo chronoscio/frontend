@@ -9,14 +9,17 @@ interface Store {
 
 export interface WithPageStoreProps extends Store {
   goToAddNation(): void;
+  goToDefault(): void;
   setCurrentPage(newPage: Symbol): void;
 }
 
 export const withPageStore = {
-  goToAddNation: () => (_: Store): Store => {
-    console.log('HELLO');
-    return { currentPage: NEW_NATION };
-  },
+  goToAddNation: () => (_: Store): Store => ({
+    currentPage: NEW_NATION
+  }),
+  goToDefault: () => (_: Store): Store => ({
+    currentPage: DEFAULT
+  }),
   setCurrentPage: (newPage: Symbol) => (_: Store): Store => ({
     currentPage: newPage
   }),
