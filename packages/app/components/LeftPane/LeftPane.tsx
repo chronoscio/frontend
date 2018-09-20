@@ -12,6 +12,7 @@ import withCurrentNation, {
 
 const TopPart = styled.div`
   flex-grow: 1;
+  overflow: auto;
 `;
 
 const WhiteSegment = styled(Segment)`
