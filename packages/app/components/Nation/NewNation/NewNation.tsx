@@ -9,6 +9,7 @@ import {
 } from 'semantic-ui-react';
 import { FieldArray } from 'react-final-form-arrays';
 import { Form, FormRenderProps } from 'react-final-form';
+import * as yup from 'yup';
 
 import BackButton from '../../LeftPane/Pages/BackButton';
 import ColorPicker from './ColorPicker';
@@ -17,19 +18,49 @@ import withHandleSubmit, {
   WithHandleSubmitProps
 } from './decorators/withHandleSubmit';
 
-const renderForm = ({ handleSubmit }: FormRenderProps) => (
+// TODO This should be defined with the model
+const validatePoliticalEntity = yup.object().shape({
+  color: yup
+    .string()
+    .matches(/^#([a-f0-9]{3,4}|[a-f0-9]{4}(?:[a-f0-9]{2}){1,2})\b$/i), // #fa32be color regex
+  description: yup.string(),
+  isDisputed: yup.boolean(),
+  links: yup
+    .array()
+    .of(
+      yup
+        .string()
+        .max(150)
+        .required()
+    )
+    .min(1),
+  name: yup
+    .string()
+    .max(100)
+    .required(),
+  wikipedia_link: yup
+    .string()
+    .url()
+    .required()
+});
+
+const renderForm = ({ hasValidationErrors, handleSubmit }: FormRenderProps) => (
   <SUIForm onSubmit={handleSubmit}>
     <BackButton />
     <Header as="h1">New Political Entity</Header>
-    <Field name="name" placeholder="Political entity name" />
+    <Field autoFocus={true} name="name" placeholder="Political entity name" />
     <Field
       as={Checkbox}
       label="Disputed territory?"
-      name="control_type"
+      name="isDisputed"
       toggle={true}
       type="checkbox"
     />
-    <Field as={TextArea} name="description" placeholder="Brief description" />
+    <Field
+      as={TextArea}
+      name="description"
+      placeholder="Brief description of the political entity"
+    />
     <Field name="wikipedia_link" placeholder="Wikipedia link" />
     <ColorPicker name="color" />
     <FieldArray name="links">
@@ -39,13 +70,13 @@ const renderForm = ({ handleSubmit }: FormRenderProps) => (
             <Field
               as={TextArea}
               label={`Reference #${index + 1}`}
-              name={`${link}.body`}
+              name={link}
               placeholder="Wikipedia-style citation"
             />
 
             <Button
               content="Add another reference"
-              onClick={() => fields.push({ body: '' })}
+              onClick={() => fields.push('')}
               size="mini"
               type="button"
             />
@@ -62,19 +93,34 @@ const renderForm = ({ handleSubmit }: FormRenderProps) => (
     </FieldArray>
 
     <SUIForm.Field>
-      <Button content="Submit" primary={true} />
+      <Button content="Submit" disabled={hasValidationErrors} primary={true} />
     </SUIForm.Field>
   </SUIForm>
 );
 
+const validate = async (values: object) => {
+  try {
+    await validatePoliticalEntity.validate(values, { abortEarly: false });
+  } catch (err) {
+    return err.inner.reduce(
+      (allErrors: object, currentError: any) => ({
+        ...allErrors,
+        [currentError.path]: currentError.message
+      }),
+      {}
+    );
+  }
+};
+
 const NewNation: React.SFC<WithHandleSubmitProps> = ({ handleSubmit }) => (
   <Form
-    initialValues={{ color: '#C64B4B', links: [{ body: '' }] }}
+    initialValues={{ color: '#C64B4B', links: [''] }}
     mutators={{
       ...arrayMutators
     }}
     onSubmit={handleSubmit}
     render={renderForm}
+    validate={validate}
   />
 );
 
