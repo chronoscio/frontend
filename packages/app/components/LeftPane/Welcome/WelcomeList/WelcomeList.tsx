@@ -13,11 +13,12 @@ const WelcomeList: React.SFC<
   <List bulleted={true}>
     <List.Item>click on a political entity to learn more about it.</List.Item>
     <List.Item>
-      {isLoggedIn && (
-        <Button basic={true} icon="plus" onClick={goToAddNation} size="mini" />
-      )}
-      add a new political entity on the map.{' '}
-      {!isLoggedIn && <a onClick={login}>Login first.</a>}
+      {isLoggedIn ? (
+        <a onClick={goToAddNation}>Add a new political entity</a>
+      ) : (
+        'Add a new political entity'
+      )}{' '}
+      on the map. {!isLoggedIn && <a onClick={login}>Login first.</a>}
     </List.Item>
     <List.Item disabled={true}>
       add a new event on the map (coming soon).
