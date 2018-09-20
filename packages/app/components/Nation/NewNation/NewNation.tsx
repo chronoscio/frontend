@@ -9,10 +9,11 @@ import {
 import { Form, FormRenderProps } from 'react-final-form';
 
 import BackButton from '../../LeftPane/Pages/BackButton';
+import ColorPicker from './ColorPicker';
+import Field from './Field';
 import withHandleSubmit, {
   WithHandleSubmitProps
 } from './decorators/withHandleSubmit';
-import Field from './Field';
 
 const renderForm = ({ handleSubmit }: FormRenderProps) => (
   <SUIForm onSubmit={handleSubmit}>
@@ -27,13 +28,18 @@ const renderForm = ({ handleSubmit }: FormRenderProps) => (
     />
     <Field as={TextArea} name="description" placeholder="Brief description" />
     <Field name="wikipedia_link" placeholder="Wikipedia link" />
+    <ColorPicker name="color" />
 
     <Button content="Submit" primary={true} />
   </SUIForm>
 );
 
 const NewNation: React.SFC<WithHandleSubmitProps> = ({ handleSubmit }) => (
-  <Form onSubmit={handleSubmit} render={renderForm} />
+  <Form
+    initialValues={{ color: '#C64B4B' }}
+    onSubmit={handleSubmit}
+    render={renderForm}
+  />
 );
 
 export default withHandleSubmit(NewNation);
