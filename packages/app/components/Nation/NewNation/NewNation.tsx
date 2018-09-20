@@ -19,7 +19,10 @@ const validatePoliticalEntity = yup.object().shape({
     .string()
     .matches(/^#([a-f0-9]{3,4}|[a-f0-9]{4}(?:[a-f0-9]{2}){1,2})\b$/i), // #fa32be color regex
   description: yup.string(),
-  isDisputed: yup.boolean(),
+  control_type: yup
+    .string()
+    .oneOf(['CC', 'DT'])
+    .required(),
   links: yup
     .array()
     .of(
@@ -39,12 +42,21 @@ const validatePoliticalEntity = yup.object().shape({
     .required()
 });
 
+const formatControlType = (value: string) => value === 'DT';
+const parseControlType = (value: boolean) => (value ? 'DT' : 'CC');
+
 const renderForm = ({ hasValidationErrors, handleSubmit }: FormRenderProps) => (
   <SUIForm onSubmit={handleSubmit}>
     <BackButton />
     <Header as="h1">New Political Entity</Header>
     <Field autoFocus={true} name="name" placeholder="Political entity name" />
-    <Checkbox label="Disputed territory?" name="isDisputed" toggle={true} />
+    <Checkbox
+      format={formatControlType}
+      label="Disputed territory?"
+      name="control_type"
+      parse={parseControlType}
+      toggle={true}
+    />
     <Field
       as={TextArea}
       name="description"
