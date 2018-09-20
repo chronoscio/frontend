@@ -12,11 +12,13 @@ interface ColorPickerProps {
   name: string;
 }
 
-const handleChangeComplete = (onChange: <T>(event: any) => void) => ({
+const handleChangeComplete = (onChange: (event: any) => void) => ({
   hex
 }: any) => onChange(hex);
 
-const Picker = ({ input: { onChange, value } }: FieldRenderProps) => (
+const renderColorPicker = ({
+  input: { onChange, value }
+}: FieldRenderProps) => (
   <Form.Field>
     <Popup
       content={
@@ -41,7 +43,7 @@ const Picker = ({ input: { onChange, value } }: FieldRenderProps) => (
 );
 
 const ColorPicker: React.SFC<ColorPickerProps> = props => (
-  <Field {...props} render={Picker} />
+  <Field render={renderColorPicker} {...props} />
 );
 
 export default ColorPicker;
