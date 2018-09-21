@@ -8,7 +8,7 @@ import { Form, Input, Popup } from 'semantic-ui-react';
 
 interface SUIFieldProps {
   as?: string | React.ComponentType;
-  label?: string;
+  label?: string | JSX.Element;
 }
 
 /**

@@ -17,13 +17,23 @@ import withHandleSubmit, {
 const validatePoliticalEntity = yup.object().shape({
   color: yup
     .string()
-    .matches(/^#([a-f0-9]{3,4}|[a-f0-9]{4}(?:[a-f0-9]{2}){1,2})\b$/i), // #fa32be color regex
+    .matches(/^#([a-f0-9]{3,4}|[a-f0-9]{4}(?:[a-f0-9]{2}){1,2})\b$/i), // Color regex, e.g. #fa32be
   description: yup.string(),
   control_type: yup
     .string()
     .oneOf(['CC', 'DT'])
     .required(),
-  links: yup
+  links: yup.array().of(
+    yup
+      .string()
+      .url()
+      .required()
+  ),
+  name: yup
+    .string()
+    .max(100)
+    .required(),
+  references: yup
     .array()
     .of(
       yup
@@ -31,21 +41,20 @@ const validatePoliticalEntity = yup.object().shape({
         .max(150)
         .required()
     )
-    .min(1),
-  name: yup
-    .string()
-    .max(100)
-    .required(),
-  wikipedia_link: yup
-    .string()
-    .url()
+    .min(1)
     .required()
 });
 
 const formatControlType = (value: string) => value === 'DT';
 const parseControlType = (value: boolean) => (value ? 'DT' : 'CC');
 
-const renderForm = ({ hasValidationErrors, handleSubmit }: FormRenderProps) => (
+const renderForm = ({
+  form: {
+    mutators: { push }
+  },
+  hasValidationErrors,
+  handleSubmit
+}: FormRenderProps) => (
   <SUIForm onSubmit={handleSubmit}>
     <BackButton />
     <Header as="h1">New Political Entity</Header>
@@ -62,36 +71,89 @@ const renderForm = ({ hasValidationErrors, handleSubmit }: FormRenderProps) => (
       name="description"
       placeholder="Brief description of the political entity"
     />
-    <Field name="wikipedia_link" placeholder="Wikipedia link" />
     <ColorPicker name="color" />
+
+    <Header as="h2">
+      References
+      <Header.Subheader>
+        Please write here all the references you used to input the above
+        information. Use the{' '}
+        <a
+          href="https://en.wikipedia.org/wiki/Wikipedia:Citation_templates"
+          target="_blank"
+        >
+          Wikipedia citation template
+        </a>
+        .
+      </Header.Subheader>
+    </Header>
+    <FieldArray name="references">
+      {({ fields }) =>
+        fields.map((reference, index) => (
+          <SUIForm.Field key={reference}>
+            <Field
+              as={TextArea}
+              label={
+                <span>
+                  Reference #{index + 1}{' '}
+                  {fields.length > 1 && (
+                    <span>
+                      {/* TODO Optimization: find a way to not use lambdas in render. */}
+                      (<a onClick={() => fields.remove(index)}>Remove</a>)
+                    </span>
+                  )}
+                </span>
+              }
+              name={reference}
+              placeholder="Wikipedia-style citation"
+            />
+          </SUIForm.Field>
+        ))
+      }
+    </FieldArray>
+    <SUIForm.Field>
+      <Button
+        content="Add another reference"
+        onClick={() => push('references')}
+        size="mini"
+        type="button"
+      />
+    </SUIForm.Field>
+
+    <Header as="h2">
+      Links
+      <Header.Subheader>
+        If you wish to provide some other external links related to this
+        political entity, please do so here.
+      </Header.Subheader>
+    </Header>
     <FieldArray name="links">
       {({ fields }) =>
         fields.map((link, index) => (
           <SUIForm.Field key={link}>
             <Field
               as={TextArea}
-              label={`Reference #${index + 1}`}
+              label={
+                <span>
+                  Link #{index + 1} (
+                  <a onClick={() => fields.remove(index)}>Remove</a>)
+                </span>
+              }
               name={link}
-              placeholder="Wikipedia-style citation"
-            />
-
-            <Button
-              content="Add another reference"
-              onClick={() => fields.push('')}
-              size="mini"
-              type="button"
-            />
-            <Button
-              content="Remove this reference"
-              disabled={fields.length <= 1}
-              onClick={() => fields.remove(index)}
-              size="mini"
-              type="button"
+              placeholder="External URL"
             />
           </SUIForm.Field>
         ))
       }
     </FieldArray>
+    <SUIForm.Field>
+      <Button
+        content="Add link"
+        onClick={() => push('links')}
+        size="mini"
+        type="button"
+      />
+    </SUIForm.Field>
 
     <SUIForm.Field>
       <Button content="Submit" disabled={hasValidationErrors} primary={true} />
@@ -115,7 +177,7 @@ const validate = async (values: object) => {
 
 const NewNation: React.SFC<WithHandleSubmitProps> = ({ handleSubmit }) => (
   <Form
-    initialValues={{ color: '#C64B4B', links: [''] }}
+    initialValues={{ color: '#C64B4B', references: [''] }}
     mutators={{
       ...arrayMutators
     }}
