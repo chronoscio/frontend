@@ -42,6 +42,10 @@ const validatePoliticalEntity = yup.object().shape({
         .required()
     )
     .min(1)
+    .required(),
+  url_id: yup
+    .string()
+    .max(75)
     .required()
 });
 
@@ -59,6 +63,10 @@ const renderForm = ({
     <BackButton />
     <Header as="h1">New Political Entity</Header>
     <Field autoFocus={true} name="name" placeholder="Political entity name" />
+    <Field
+      name="url_id"
+      placeholder="Unique identifier (please use Wikipedia's, if possible)"
+    />
     <Checkbox
       format={formatControlType}
       label="Disputed territory?"
