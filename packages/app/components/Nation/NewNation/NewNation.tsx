@@ -4,49 +4,12 @@ import { Button, Form as SUIForm, Header, TextArea } from 'semantic-ui-react';
 import { Checkbox, ColorPicker, Field } from '@chronoscio/ui';
 import { FieldArray } from 'react-final-form-arrays';
 import { Form, FormRenderProps } from 'react-final-form';
-import * as yup from 'yup';
+import { PoliticalEntity, validateForRFF } from '@chronoscio/api';
 
 import BackButton from '../../LeftPane/Pages/BackButton';
-
 import withHandleSubmit, {
   WithHandleSubmitProps
 } from './decorators/withHandleSubmit';
-
-// TODO This should be defined with the model
-const validatePoliticalEntity = yup.object().shape({
-  color: yup
-    .string()
-    .matches(/^#([a-f0-9]{3,4}|[a-f0-9]{4}(?:[a-f0-9]{2}){1,2})\b$/i), // Color regex, e.g. #fa32be
-  description: yup.string(),
-  control_type: yup
-    .string()
-    .oneOf(['CC', 'DT'])
-    .required(),
-  links: yup.array().of(
-    yup
-      .string()
-      .url()
-      .required()
-  ),
-  name: yup
-    .string()
-    .max(100)
-    .required(),
-  references: yup
-    .array()
-    .of(
-      yup
-        .string()
-        .max(150)
-        .required()
-    )
-    .min(1)
-    .required(),
-  url_id: yup
-    .string()
-    .max(75)
-    .required()
-});
 
 const formatControlType = (value: string) => value === 'DT';
 const parseControlType = (value: boolean) => (value ? 'DT' : 'CC');
@@ -136,10 +99,9 @@ const renderForm = ({
       </Header.Subheader>
     </Header>
     <FieldArray name="links">
-      {({ fields, meta }) =>
+      {({ fields }) =>
         fields.map((link, index) => (
           <SUIForm.Field key={link}>
-            {console.log(meta)}
             <Field
               as={TextArea}
               label={
@@ -171,43 +133,21 @@ const renderForm = ({
   </SUIForm>
 );
 
-const validate = async (values: object) => {
-  try {
-    await validatePoliticalEntity.validate(values, { abortEarly: false });
-  } catch (err) {
-    const a = err.inner.reduce(
-      (
-        allErrors: { [key: string]: string | string[] },
-        currentError: yup.ValidationError
-      ) => {
-        // Look if the path of currentError is a field array or not. In the
-        // case it's a field array (e.g. links[0] or references[1]), we know
-        // there's a '[' sign.
-        const matches = currentError.path.includes('[');
-        if (matches) {
-          const [field] = currentError.path.split('[');
-          allErrors[field] = allErrors[field] || [];
-          (allErrors[field] as string[]).push(currentError.message);
-        } else {
-          allErrors[currentError.path] = currentError.message;
-        }
-        return allErrors;
-      },
-      {}
-    );
-    return a;
-  }
-};
+// Default values of our form. `references` is a 1-element array to show one
+// input field for references by default
+const defaultValues = { color: '#C64B4B', references: [''] };
+// Function which validate values against the PoliticalEntity model.
+const validatePoliticalEntity = validateForRFF(PoliticalEntity);
 
 const NewNation: React.SFC<WithHandleSubmitProps> = ({ handleSubmit }) => (
   <Form
-    initialValues={{ color: '#C64B4B', references: [''] }}
+    initialValues={defaultValues}
     mutators={{
       ...arrayMutators
     }}
     onSubmit={handleSubmit}
     render={renderForm}
-    validate={validate}
+    validate={validatePoliticalEntity}
   />
 );
 
