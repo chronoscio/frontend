@@ -42,10 +42,6 @@ interface FieldProps extends RFFFieldProps, SUIFieldProps {}
 /**
  * Wire up react-final-form with SUIField.
  */
-const Field: React.SFC<FieldProps> = props => (
+export const Field: React.SFC<FieldProps> = props => (
   <RFFField render={renderField} {...props} />
 );
-
-// TODO Move it upper the hierarchy if other components need this generic
-// component too.
-export default Field;

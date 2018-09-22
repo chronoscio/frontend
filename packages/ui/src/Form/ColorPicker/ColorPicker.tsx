@@ -42,8 +42,6 @@ const renderColorPicker = ({
   </Form.Field>
 );
 
-const ColorPicker: React.SFC<ColorPickerProps> = props => (
+export const ColorPicker: React.SFC<ColorPickerProps> = props => (
   <Field render={renderColorPicker} {...props} />
 );
-
-export default ColorPicker;

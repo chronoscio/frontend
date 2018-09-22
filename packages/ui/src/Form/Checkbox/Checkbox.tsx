@@ -36,8 +36,6 @@ interface FieldProps extends RFFFieldProps, SUIFieldProps {}
 /**
  * Wire up react-final-form with SUIField.
  */
-const Checkbox: React.SFC<FieldProps> = props => (
+export const Checkbox: React.SFC<FieldProps> = props => (
   <RFFField render={renderCheckbox} type="checkbox" {...props} />
 );
-
-export default Checkbox;

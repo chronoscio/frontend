@@ -1,5 +1,4 @@
 import { Auth0DecodedHash, Auth0UserProfile } from 'auth0-js';
-<<<<<<< HEAD
 import {
   branch,
   compose,
@@ -9,11 +8,6 @@ import {
 } from 'recompose';
 import { combineLatest, startWith } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
-=======
-import { combineLatest } from 'rxjs/operators';
-import { compose, mapPropsStream, withPropsOnChange, branch } from 'recompose';
-import { empty, from, Observable } from 'rxjs';
->>>>>>> Only show link when logged in
 import * as localForage from 'localforage';
 import 'localforage-observable';
 

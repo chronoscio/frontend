@@ -1,14 +1,13 @@
 import * as React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { Button, Form as SUIForm, Header, TextArea } from 'semantic-ui-react';
+import { Checkbox, ColorPicker, Field } from '@chronoscio/ui';
 import { FieldArray } from 'react-final-form-arrays';
 import { Form, FormRenderProps } from 'react-final-form';
 import * as yup from 'yup';
 
 import BackButton from '../../LeftPane/Pages/BackButton';
-import Checkbox from './Checkbox';
-import ColorPicker from './ColorPicker';
-import Field from './Field';
+
 import withHandleSubmit, {
   WithHandleSubmitProps
 } from './decorators/withHandleSubmit';
