@@ -13,6 +13,7 @@
     "start": "node server"
   },
   "dependencies": {
+    "@chronoscio/api": "^0.1.0",
     "@chronoscio/ui": "^0.1.0",
     "@mapbox/mapbox-gl-draw": "^1.0.9",
     "@turf/helpers": "^6.1.4",
