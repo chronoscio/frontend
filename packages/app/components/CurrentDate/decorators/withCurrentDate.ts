@@ -3,6 +3,7 @@ import { withRouter } from 'next/router';
 
 export interface WithCurrentDateProps {
   currentDate: Date;
+  currentDateAsUrl: string;
 }
 
 /**
@@ -13,6 +14,7 @@ export default compose(
   withRouter,
   mapProps(({ router: { query: { day, month, year } }, ...otherProps }) => ({
     ...otherProps,
-    currentDate: new Date(year, month - 1, day, 1) // Months start at 0
+    currentDate: new Date(year, month - 1, day, 1), // Months start at 0
+    currentDateAsUrl: `/map/${year}/${month}/${day}/`
   }))
 );

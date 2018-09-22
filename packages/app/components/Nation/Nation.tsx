@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { Card, Header, Statistic } from 'semantic-ui-react';
+import { BackButton } from '@chronoscio/ui';
+import { Card, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import Territories from './Territories';
+import withGoToWelcome, {
+  WithGoToWelcomeProps
+} from './decorators/withGoToWelcome';
 
 const NationHeader = styled(Header)`
   font-size: 2rem;
@@ -17,45 +21,48 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Nation: React.SFC<{}> = () => (
-  <Wrapper>
-    <div>
-      <NationHeader as="h1" size="huge">
-        The Byzantine Empire
-      </NationHeader>
-      <Card fluid={true}>
-        <Card.Content>
-          <Card.Meta>Description</Card.Meta>
-          <Card.Description>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-            <br />
-            <br />
-            <a
-              href="https://en.wikipedia.org/wiki/Byzantine_Empire"
-              target="_blank"
-            >
-              > Read more on Wikipedia
-            </a>
-          </Card.Description>
-        </Card.Content>
-      </Card>
+const Nation: React.SFC<WithGoToWelcomeProps> = ({ goToWelcome }) => (
+  <div>
+    <BackButton onClick={goToWelcome} />
+    <Wrapper>
+      <div>
+        <NationHeader as="h1" size="huge">
+          The Byzantine Empire
+        </NationHeader>
+        <Card fluid={true}>
+          <Card.Content>
+            <Card.Meta>Description</Card.Meta>
+            <Card.Description>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <br />
+              <br />
+              <a
+                href="https://en.wikipedia.org/wiki/Byzantine_Empire"
+                target="_blank"
+              >
+                > Read more on Wikipedia
+              </a>
+            </Card.Description>
+          </Card.Content>
+        </Card>
 
-      <Card fluid={true}>
-        <Card.Content>
-          <Card.Meta>Territory evolution</Card.Meta>
-          <Card.Description>
-            <Territories />
-          </Card.Description>
-        </Card.Content>
-      </Card>
-    </div>
-  </Wrapper>
+        <Card fluid={true}>
+          <Card.Content>
+            <Card.Meta>Territory evolution</Card.Meta>
+            <Card.Description>
+              <Territories />
+            </Card.Description>
+          </Card.Content>
+        </Card>
+      </div>
+    </Wrapper>
+  </div>
 );
 
-export default Nation;
+export default withGoToWelcome(Nation);
