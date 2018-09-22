@@ -29,49 +29,50 @@ const Territories: React.SFC<
   territories
 }) => (
   <List selection={true}>
-    {territories
-      .filter(({ nation }) => nation === currentNation)
-      .map(({ endDate: endDateFromData, id, startDate }) => {
-        // If no endDate is specified, we consider it today
-        const endDate = endDateFromData ? endDateFromData : new Date();
+    {territories &&
+      territories
+        .filter(({ nation }) => nation === currentNation)
+        .map(({ endDate: endDateFromData, id, startDate }) => {
+          // If no endDate is specified, we consider it today
+          const endDate = endDateFromData ? endDateFromData : new Date();
 
-        // Convert `startDate` to yyyy/mm/dd format
-        const url = startDate
-          .toISOString()
-          .split('T')[0]
-          .split('-')
-          .join('/');
+          // Convert `startDate` to yyyy/mm/dd format
+          const url = startDate
+            .toISOString()
+            .split('T')[0]
+            .split('-')
+            .join('/');
 
-        const isActive = currentDate >= startDate && currentDate <= endDate;
+          const isActive = currentDate >= startDate && currentDate <= endDate;
 
-        return (
-          <Routes.Link key={id} route={`/map/${url}/${currentNation}`}>
-            <List.Item>
-              <List.Header>
-                {isActive && <Icon name="caret right" />}
-                From {startDate.getFullYear()} to{' '}
-                {endDateFromData ? endDate.getFullYear() : 'today'}
-              </List.Header>
-              {isActive && (
-                <List.Content>
-                  Currently shown on map.{' '}
-                  <Routes.Link
-                    route={`/map/${year}/${month}/${day}/${currentNation}/edit`}
-                  >
-                    <a>Edit</a>
-                  </Routes.Link>
-                </List.Content>
-              )}
-            </List.Item>
-          </Routes.Link>
-        );
-      })}
+          return (
+            <Routes.Link key={id} route={`/map/${url}/${currentNation}`}>
+              <List.Item>
+                <List.Header>
+                  {isActive && <Icon name="caret right" />}
+                  From {startDate.getFullYear()} to{' '}
+                  {endDateFromData ? endDate.getFullYear() : 'today'}
+                </List.Header>
+                {isActive && (
+                  <List.Content>
+                    Currently shown on map.{' '}
+                    <Routes.Link
+                      route={`/map/${year}/${month}/${day}/${currentNation}/edit`}
+                    >
+                      <a>Edit</a>
+                    </Routes.Link>
+                  </List.Content>
+                )}
+              </List.Item>
+            </Routes.Link>
+          );
+        })}
   </List>
 );
 
 export default compose(
   withCurrentDate,
   withCurrentNation,
-  withRouter,
-  withFetchTerritories
+  withFetchTerritories,
+  withRouter
 )(Territories);
