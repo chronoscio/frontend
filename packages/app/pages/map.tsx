@@ -2,7 +2,7 @@ import * as React from 'react';
 import dynamic from 'next/dynamic';
 import { Provider } from 'react-contextual';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import 'semantic-ui-forest-themes/semantic.chubby.min.css';
+import 'semantic-ui-css/semantic.min.css';
 
 import LeftPane from '../components/LeftPane';
 import { withEditTerritoryStore } from '../components/EditTerritory/decorators/withEditTerritoryStore';
