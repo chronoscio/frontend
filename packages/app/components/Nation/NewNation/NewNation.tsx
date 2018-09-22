@@ -122,6 +122,7 @@ const renderForm = ({
     <SUIForm.Field>
       <Button
         content="Add another reference"
+        icon="plus"
         onClick={() => push('references')}
         size="mini"
         type="button"
@@ -136,9 +137,10 @@ const renderForm = ({
       </Header.Subheader>
     </Header>
     <FieldArray name="links">
-      {({ fields }) =>
+      {({ fields, meta }) =>
         fields.map((link, index) => (
           <SUIForm.Field key={link}>
+            {console.log(meta)}
             <Field
               as={TextArea}
               label={
@@ -157,6 +159,7 @@ const renderForm = ({
     <SUIForm.Field>
       <Button
         content="Add link"
+        icon="plus"
         onClick={() => push('links')}
         size="mini"
         type="button"
@@ -173,13 +176,27 @@ const validate = async (values: object) => {
   try {
     await validatePoliticalEntity.validate(values, { abortEarly: false });
   } catch (err) {
-    return err.inner.reduce(
-      (allErrors: object, currentError: any) => ({
-        ...allErrors,
-        [currentError.path]: currentError.message
-      }),
+    const a = err.inner.reduce(
+      (
+        allErrors: { [key: string]: string | string[] },
+        currentError: yup.ValidationError
+      ) => {
+        // Look if the path of currentError is a field array or not. In the
+        // case it's a field array (e.g. links[0] or references[1]), we know
+        // there's a '[' sign.
+        const matches = currentError.path.includes('[');
+        if (matches) {
+          const [field] = currentError.path.split('[');
+          allErrors[field] = allErrors[field] || [];
+          (allErrors[field] as string[]).push(currentError.message);
+        } else {
+          allErrors[currentError.path] = currentError.message;
+        }
+        return allErrors;
+      },
       {}
     );
+    return a;
   }
 };
 
