@@ -10,7 +10,13 @@ Here is an example with the `PoliticalEntity` model, but any other model would w
 import { api, PoliticalEntity } from '@chronoscio/api';
 
 const politicalEntity: PoliticalEntity = await api.politicalEntities.get(12);
-const politicalEntities: PoliticalEntity[] = await api.politicalEntities.getAll();
+const politicalEntities: PoliticalEntity[] = await api.politicalEntities.getAll(
+  {
+    params: {
+      date: new Date()
+    }
+  }
+);
 const reponse1: any = await api.politicalEntities.post({
   /* some data */
 });
