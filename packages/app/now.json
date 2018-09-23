@@ -1,7 +1,7 @@
 {
   "alias": "chronoscio",
   "env": {
-    "AUTH0_CLIENT_ID": "bDdG7phORu8x5EXrBa24G7qrXwFYb7FL",
+    "AUTH0_CLIENT_ID": "8Ji7tQHK0BG6fG6Q9OEHjb9nBQ3DpVph",
     "AUTH0_DOMAIN": "chronoscio.auth0.com",
     "BACKEND_API_URL": "@backend-api-url",
     "MAPBOX_ACCESS_TOKEN": "@mapbox-access-token"

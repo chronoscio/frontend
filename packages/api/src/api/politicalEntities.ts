@@ -1,21 +1,28 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-const API_ENDPOINT = 'http://localhost/api/nations'; // TODO Take from env
+import { baseAxiosConfig } from '../utils/retrieveAuthToken';
+
+const API_ENDPOINT = `http://localhost/api/nations/`;
 
 export const politicalEntities = {
-  delete(id: string, config?: AxiosRequestConfig) {
-    return axios.delete(`${API_ENDPOINT}/${id}`, config);
+  async delete(id: string, config?: AxiosRequestConfig) {
+    const baseConfig = await baseAxiosConfig();
+    return axios.delete(`${API_ENDPOINT}/${id}`, config || baseConfig);
   },
-  get(id: string, config?: AxiosRequestConfig) {
-    return axios.get(`${API_ENDPOINT}/${id}`, config);
+  async get(id: string, config?: AxiosRequestConfig) {
+    const baseConfig = await baseAxiosConfig();
+    return axios.get(`${API_ENDPOINT}/${id}`, config || baseConfig);
   },
-  list(config?: AxiosRequestConfig) {
-    return axios.get(API_ENDPOINT, config);
+  async list(config?: AxiosRequestConfig) {
+    const baseConfig = await baseAxiosConfig();
+    return axios.get(API_ENDPOINT, config || baseConfig);
   },
-  patch(id: string, data?: any, config?: AxiosRequestConfig) {
-    return axios.patch(`${API_ENDPOINT}/${id}`, data, config);
+  async patch(id: string, data?: any, config?: AxiosRequestConfig) {
+    const baseConfig = await baseAxiosConfig();
+    return axios.patch(`${API_ENDPOINT}/${id}`, data, config || baseConfig);
   },
-  post(data?: any, config?: AxiosRequestConfig) {
-    return axios.post(API_ENDPOINT, data, config);
+  async post(data?: any, config?: AxiosRequestConfig) {
+    const baseConfig = await baseAxiosConfig();
+    return axios.post(API_ENDPOINT, data, config || baseConfig);
   }
 };
