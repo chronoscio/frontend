@@ -13,16 +13,17 @@
   },
   "scripts": {
     "build": "lerna exec yarn build --scope @chronoscio/app",
-    "lint": "tslint packages/**/*.tsx?",
+    "lint": "prettier -l 'packages/**/*.{ts,tsx}' && tslint 'packages/**/*.{ts,tsx}'",
+    "lint:fix": "prettier --write 'packages/**/*.ts' && tslint 'packages/**/*.{ts,tsx}' --fix",
     "now-start": "lerna exec yarn now-start --scope @chronoscio/app",
     "start": "lerna exec yarn start --scope @chronoscio/app",
     "test": "echo Skipped for now."
   },
   "devDependencies": {
     "lerna": "^2.11.0",
+    "prettier": "^1.14.3",
     "tslint": "^5.10.0",
-    "tslint-config-prettier": "^1.14.0",
-    "tslint-react": "^3.6.0",
+    "tslint-config-semistandard": "^7.0.0",
     "typescript": "^2.9.2"
   }
 }

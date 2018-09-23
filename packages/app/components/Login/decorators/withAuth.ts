@@ -1,10 +1,13 @@
 import { Auth0DecodedHash, Auth0UserProfile } from 'auth0-js';
-import { combineLatest } from 'rxjs/operators';
-import { compose, mapPropsStream, withPropsOnChange } from 'recompose';
+import { combineLatest, startWith, switchMap } from 'rxjs/operators';
+import {
+  compose,
+  mapPropsStream,
+  setObservableConfig,
+  withPropsOnChange
+} from 'recompose';
 import { from, Observable } from 'rxjs';
 import * as localForage from 'localforage';
-import { setObservableConfig } from 'recompose';
-import { startWith, switchMap } from 'rxjs/operators';
 import 'localforage-observable';
 
 // Set recompose to use RxJS
