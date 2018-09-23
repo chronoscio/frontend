@@ -18,23 +18,23 @@ export interface WithFetchTerritoriesProps {
 export default compose(
   withCurrentDate,
   //withAuth,
-  lifecycle</*WithAuthProps & */WithCurrentDateProps, {}>({
+  lifecycle</*WithAuthProps & */ WithCurrentDateProps, {}>({
     componentDidMount() {
       axios
         .request({
           method: 'get',
-          url: process.env.BACKEND_API_URL+'territories/',
+          url: `${process.env.BACKEND_API_URL}/territories/`,
           params: {
             date: this.props.currentDate.toISOString().split('T')[0]
-          },
+          }
           //          headers: { 'Authorization': 'bearer ' + this.props.auth }
         })
         .catch((err: any) => {
           console.error(err);
         })
         .then((resp: AxiosResponse) => {
-          console.log(resp.data)
-          this.setState({ territories: resp.data })
+          console.log(resp.data);
+          this.setState({ territories: resp.data });
         });
     }
   })

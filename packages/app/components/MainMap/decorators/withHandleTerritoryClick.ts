@@ -1,5 +1,6 @@
 import { Map } from 'mapbox-gl';
 import { withHandlers } from 'recompose';
+import axios, { AxiosResponse } from 'axios';
 
 import Routes from '../../../routes';
 import { WithEditingTerritoryProps } from '../../EditTerritory/decorators/withEditingTerritory';
@@ -27,10 +28,11 @@ export default withHandlers<WithEditingTerritoryProps, {}>({
       return;
     }
 
-    // Navigate to the correct URL
     const { day, month, year } = Routes.Router.router.query;
     Routes.Router.pushRoute(
       `/map/${year}/${month}/${day}/${features[0].properties.nation}`
     );
+
+    // Navigate to the correct URL
   }
 });

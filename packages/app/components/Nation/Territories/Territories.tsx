@@ -32,9 +32,12 @@ const Territories: React.SFC<
     {territories &&
       territories
         .filter(({ nation }) => nation === currentNation)
-        .map(({ endDate: endDateFromData, id, startDate }) => {
+        .map(({ end_date: endDateFromData, id, start_date }) => {
           // If no endDate is specified, we consider it today
-          const endDate = endDateFromData ? endDateFromData : new Date();
+          const endDate = endDateFromData
+            ? new Date(endDateFromData)
+            : new Date();
+          const startDate = new Date(start_date);
 
           // Convert `startDate` to yyyy/mm/dd format
           const url = startDate
