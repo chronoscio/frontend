@@ -201,7 +201,7 @@ const validate = async (values: object) => {
 
 const NewNation: React.SFC<WithHandleSubmitProps> = ({ handleSubmit }) => (
   <Form
-    initialValues={{ color: '#C64B4B', references: [''] }}
+    initialValues={{ color: '#C64B4B', control_type: 'CC', references: [''] }}
     mutators={{
       ...arrayMutators
     }}
