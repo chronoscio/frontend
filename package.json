@@ -12,7 +12,7 @@
     ]
   },
   "scripts": {
-    "build": "lerna exec yarn build --scope @chronoscio/app",
+    "build": "lerna exec yarn build",
     "lint": "prettier -l 'packages/**/*.{ts,tsx}' && tslint 'packages/**/*.{ts,tsx}'",
     "lint:fix": "prettier --write 'packages/**/*.{ts,tsx}' && tslint 'packages/**/*.{ts,tsx}' --fix",
     "now-start": "lerna exec yarn now-start --scope @chronoscio/app",
