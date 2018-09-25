@@ -20,6 +20,7 @@ export default compose(
   //withAuth,
   lifecycle</*WithAuthProps & */ WithCurrentDateProps, {}>({
     componentDidMount() {
+      console.log(this.props.currentDate)
       axios
         .request({
           method: 'get',
@@ -39,6 +40,7 @@ export default compose(
     },
 
     componentDidUpdate(prevProps) {
+      console.log(this.props.currentDate)
       if (prevProps.currentDate !== this.props.currentDate) {
         axios
           .request({

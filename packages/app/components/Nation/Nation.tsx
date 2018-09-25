@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Card, Header, Statistic } from 'semantic-ui-react';
+import { compose } from 'recompose';
+import { Card, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import Territories from './Territories';
+import withFetchEntities, { WithFetchEntitiesProps } from '../MainMap/decorators/withFetchEntities';
 
 const NationHeader = styled(Header)`
   font-size: 2rem;
@@ -17,31 +19,35 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Nation: React.SFC<{}> = () => (
+const Nation: React.SFC<
+  WithFetchEntitiesProps
+  > = ({
+  entity
+}) => (
   <Wrapper>
     <div>
       <NationHeader as="h1" size="huge">
-        The Byzantine Empire
+            {entity &&
+              entity.name
+            }
       </NationHeader>
       <Card fluid={true}>
         <Card.Content>
           <Card.Meta>Description</Card.Meta>
           <Card.Description>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            {entity &&
+              entity.description
+            }
             <br />
-            <br />
-            <a
-              href="https://en.wikipedia.org/wiki/Byzantine_Empire"
-              target="_blank"
-            >
-              > Read more on Wikipedia
-            </a>
+                <br />
+                <Card.Meta>Further reading</Card.Meta>
+
+                {entity &&
+                  entity.links.map(link => (
+                    <a href={link} target="_blank">> {
+                      link.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]
+                    }</a>
+            ))}
           </Card.Description>
         </Card.Content>
       </Card>
@@ -58,4 +64,6 @@ const Nation: React.SFC<{}> = () => (
   </Wrapper>
 );
 
-export default Nation;
+export default compose(
+  withFetchEntities
+)(Nation);
