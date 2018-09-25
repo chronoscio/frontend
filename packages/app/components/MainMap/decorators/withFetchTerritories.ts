@@ -1,4 +1,4 @@
-import { compose, mapProps, withProps, lifecycle } from 'recompose';
+import { compose, mapProps, withProps, lifecycle, createEventHandlerWithConfig } from 'recompose';
 import axios, { AxiosResponse } from 'axios';
 
 import { Territory } from '../../mockData';
@@ -36,6 +36,27 @@ export default compose(
           console.log(resp.data);
           this.setState({ territories: resp.data });
         });
+    },
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.currentDate !== this.props.currentDate) {
+        axios
+          .request({
+            method: 'get',
+            url: `${process.env.BACKEND_API_URL}/territories/`,
+            params: {
+              date: this.props.currentDate.toISOString().split('T')[0]
+            }
+            //          headers: { 'Authorization': 'bearer ' + this.props.auth }
+          })
+          .catch((err: any) => {
+            console.error(err);
+          })
+          .then((resp: AxiosResponse) => {
+            console.log(resp.data);
+            this.setState({ territories: resp.data });
+          });
+      }
     }
   })
 );
