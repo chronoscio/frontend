@@ -1,15 +1,18 @@
 import * as React from 'react';
+import { Provider } from 'react-contextual';
 import { Segment, Sidebar } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import CurrentDate from '../CurrentDate';
-import Nation from '../Nation';
+import Pages from './Pages';
+import { withPageStore } from './decorators/withPageStore';
 import withCurrentNation, {
   WithCurrentNationProps
 } from '../Nation/decorators/withCurrentNation';
 
 const TopPart = styled.div`
   flex-grow: 1;
+  overflow: auto;
 `;
 
 const WhiteSegment = styled(Segment)`
@@ -19,10 +22,7 @@ const WhiteSegment = styled(Segment)`
   opacity: 0.95;
 `;
 
-const LeftPane: React.SFC<WithCurrentNationProps> = ({
-  children,
-  currentNation
-}) => (
+const LeftPane: React.SFC = ({ children }) => (
   <Sidebar.Pushable>
     <Sidebar
       animation="overlay"
@@ -31,7 +31,12 @@ const LeftPane: React.SFC<WithCurrentNationProps> = ({
       visible={true}
       width="wide"
     >
-      <TopPart>{!!currentNation && <Nation />}</TopPart>
+      <Provider id="withPageStore" {...withPageStore}>
+        <TopPart>
+          <Pages />
+        </TopPart>
+      </Provider>
+
       <CurrentDate />
     </Sidebar>
 
@@ -39,4 +44,4 @@ const LeftPane: React.SFC<WithCurrentNationProps> = ({
   </Sidebar.Pushable>
 );
 
-export default withCurrentNation(LeftPane);
+export default LeftPane;
