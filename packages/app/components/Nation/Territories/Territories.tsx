@@ -3,6 +3,7 @@ import { compose } from 'recompose';
 import { Icon, List, ListProps } from 'semantic-ui-react';
 import { withRouter, WithRouterProps } from 'next/router';
 
+import withAuth, { WithAuthProps } from '../../Login/decorators/withAuth';
 import mockData from '../../mockData';
 import Routes from '../../../routes';
 import withCurrentDate, {
@@ -13,10 +14,15 @@ import withCurrentNation, {
 } from '../../Nation/decorators/withCurrentNation';
 
 const Territories: React.SFC<
-  ListProps & WithCurrentDateProps & WithCurrentNationProps & WithRouterProps
+  ListProps &
+    WithAuthProps &
+    WithCurrentDateProps &
+    WithCurrentNationProps &
+    WithRouterProps
 > = ({
   currentDate,
   currentNation,
+  isLoggedIn,
   router: {
     query: { day, month, year }
   }
@@ -48,21 +54,32 @@ const Territories: React.SFC<
               {isActive && (
                 <List.Content>
                   Currently shown on map.{' '}
-                  <Routes.Link
-                    route={`/map/${year}/${month}/${day}/${currentNation}/edit`}
-                  >
-                    <a>Edit</a>
-                  </Routes.Link>
+                  {isLoggedIn && (
+                    <Routes.Link
+                      route={`/map/${year}/${month}/${day}/${currentNation}/edit`}
+                    >
+                      <a>Edit</a>
+                    </Routes.Link>
+                  )}
                 </List.Content>
               )}
             </List.Item>
           </Routes.Link>
         );
       })}
+    {isLoggedIn && (
+      <List.Item>
+        <List.Header>
+          <Icon name="plus" />
+          Add a new territory
+        </List.Header>
+      </List.Item>
+    )}
   </List>
 );
 
 export default compose(
+  withAuth,
   withCurrentDate,
   withCurrentNation,
   withRouter

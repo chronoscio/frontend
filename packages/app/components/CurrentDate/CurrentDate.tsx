@@ -1,10 +1,15 @@
 import * as React from 'react';
 import { Card } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import Routes from '../../routes';
 import withCurrentDate, {
   WithCurrentDateProps
 } from './decorators/withCurrentDate';
+
+const CurrentDateCard = styled(Card)`
+  flex-shrink: 0;
+`;
 
 interface CurrentDateState {
   date: string;
@@ -37,7 +42,7 @@ class CurrentDate extends React.PureComponent<
   render() {
     const { date } = this.state;
     return (
-      <Card fluid={true}>
+      <CurrentDateCard fluid={true}>
         <Card.Content>
           <Card.Meta>Current year</Card.Meta>
           <Card.Description textAlign="center">
@@ -51,7 +56,7 @@ class CurrentDate extends React.PureComponent<
             />
           </Card.Description>
         </Card.Content>
-      </Card>
+      </CurrentDateCard>
     );
   }
 }

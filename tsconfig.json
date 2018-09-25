@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
     "allowJs": false,
-    "jsx": "preserve",
+    "jsx": "react",
     "lib": ["dom", "es2015", "es2016"],
-    "module": "esnext",
-    "moduleResolution": "node",
     "noImplicitAny": true,
     "sourceMap": true,
-    "target": "esnext"
+    "target": "es5"
   }
 }
