@@ -19,7 +19,8 @@ const FrameCont = styled.div`
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%;
+  padding-top: 60vh;
+  overflow: hidden;
 `;
 
 const Frame = styled.iframe`

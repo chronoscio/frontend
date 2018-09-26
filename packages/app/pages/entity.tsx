@@ -13,6 +13,12 @@ const NationHeader = styled(Header)`
   margin-top: 0.5rem;
 `;
 
+const NationAliases = styled(Header)`
+  font-style: italic;
+  margin-top: 0 !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,6 +32,9 @@ const Nation: React.SFC<WithFetchEntitiesProps> = ({ entity }) => (
       <NationHeader as="h1" size="huge">
         {entity && entity.name}
       </NationHeader>
+      <NationAliases as="h3" size="medium">
+        {entity && entity.aliases.map(alias => alias).join(', ')}
+      </NationAliases>
       <Card fluid={true}>
         <Card.Content>
           <Card.Meta>Description</Card.Meta>
@@ -33,12 +42,24 @@ const Nation: React.SFC<WithFetchEntitiesProps> = ({ entity }) => (
             {entity && entity.description}
             <br />
             <br />
+          </Card.Description>
+          <Card.Meta>Further reading</Card.Meta>
+          <Card.Description>
             {entity &&
               entity.links.map(link => (
-                <a href={link} target="_blank" key={link}>
-                  > {link.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]}
-                </a>
+                <div>
+                  <a href={link} target="_blank" key={link}>
+                    > {link.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]}
+                  </a>
+                  <br />
+                </div>
               ))}
+            <br />
+          </Card.Description>
+          <Card.Meta>References</Card.Meta>
+          <Card.Description>
+            {/* TODO: parse based on medium (links, etc.) when Reference model is created */}
+            {entity && entity.references.map(ref => <p>{ref}</p>)}
           </Card.Description>
         </Card.Content>
       </Card>
