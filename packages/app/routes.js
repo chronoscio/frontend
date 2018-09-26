@@ -8,5 +8,6 @@ const routes = new nextRoutes();
 // TODO It'd be good if dynamic routes were integrated with next.js by default
 // https://github.com/zeit/next.js/issues/4989
 routes.add('map', '/map/:year/:month/:day/:nation?/:edit(edit)?');
+routes.add('entity', '/entity/:nation');
 
 module.exports = routes;

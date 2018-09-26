@@ -1,21 +1,49 @@
 import * as React from 'react';
-import dynamic from 'next/dynamic';
-import { Provider } from 'react-contextual';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import 'semantic-ui-forest-themes/semantic.chubby.min.css';
-import { Card, Header, Statistic } from 'semantic-ui-react';
+import { compose } from 'recompose';
+import { Card, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import withCurrentDate from '../components/CurrentDate/decorators/withCurrentDate';
-import withFetchEntities from '../components/MainMap/decorators/withFetchEntities';
-import withCurrentNation from '../components/Nation/decorators/withCurrentNation';
+import withFetchEntities, {
+  WithFetchEntitiesProps
+} from '../components/MainMap/decorators/withFetchEntities';
 
-// @ts-ignore
-const Nation = dynamic(import('../components/Nation'), { ssr: false })
+const NationHeader = styled(Header)`
+  font-size: 2rem;
+  margin-bottom: 0.5rem !important;
+  margin-top: 0.5rem;
+`;
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+`;
 
-const Entity = () => (
-  <Nation />
+const Nation: React.SFC<WithFetchEntitiesProps> = ({ entity }) => (
+  <Wrapper>
+    <div>
+      <NationHeader as="h1" size="huge">
+        {entity && entity.name}
+      </NationHeader>
+      <Card fluid={true}>
+        <Card.Content>
+          <Card.Meta>Description</Card.Meta>
+          <Card.Description>
+            {entity && entity.description}
+            <br />
+            <br />
+            {entity &&
+              entity.links.map(link => (
+                <a href={link} target="_blank" key={link}>
+                  > {link.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]}
+                </a>
+              ))}
+          </Card.Description>
+        </Card.Content>
+      </Card>
+    </div>
+  </Wrapper>
 );
 
-export default Entity;
+export default compose(withFetchEntities)(Nation);

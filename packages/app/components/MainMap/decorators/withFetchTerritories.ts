@@ -1,12 +1,19 @@
-import { compose, mapProps, withProps, lifecycle, createEventHandlerWithConfig } from 'recompose';
+import { compose, lifecycle } from 'recompose';
 import axios, { AxiosResponse } from 'axios';
 
-import { Territory } from '../../mockData';
 import withCurrentDate, {
   WithCurrentDateProps
 } from '../../CurrentDate/decorators/withCurrentDate';
 import { WithFetchTerritoriesProps } from './withFetchTerritories';
-//import withAuth, { WithAuthProps } from '../../Login/decorators/withAuth';
+
+export interface Territory {
+  color: string;
+  end_date: Date;
+  geo: any;
+  id: number;
+  nation: string;
+  start_date: Date;
+}
 
 export interface WithFetchTerritoriesProps {
   territories: Territory[];
@@ -17,10 +24,8 @@ export interface WithFetchTerritoriesProps {
  */
 export default compose(
   withCurrentDate,
-  //withAuth,
-  lifecycle</*WithAuthProps & */ WithCurrentDateProps, {}>({
+  lifecycle<WithCurrentDateProps, {}>({
     componentDidMount() {
-      console.log(this.props.currentDate)
       axios
         .request({
           method: 'get',
@@ -28,19 +33,16 @@ export default compose(
           params: {
             date: this.props.currentDate.toISOString().split('T')[0]
           }
-          //          headers: { 'Authorization': 'bearer ' + this.props.auth }
         })
         .catch((err: any) => {
           console.error(err);
         })
         .then((resp: AxiosResponse) => {
-          console.log(resp.data);
           this.setState({ territories: resp.data });
         });
     },
 
     componentDidUpdate(prevProps) {
-      console.log(this.props.currentDate)
       if (prevProps.currentDate !== this.props.currentDate) {
         axios
           .request({
@@ -49,13 +51,11 @@ export default compose(
             params: {
               date: this.props.currentDate.toISOString().split('T')[0]
             }
-            //          headers: { 'Authorization': 'bearer ' + this.props.auth }
           })
           .catch((err: any) => {
             console.error(err);
           })
           .then((resp: AxiosResponse) => {
-            console.log(resp.data);
             this.setState({ territories: resp.data });
           });
       }

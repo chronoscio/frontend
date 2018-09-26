@@ -1,6 +1,5 @@
 import { Map } from 'mapbox-gl';
 import { withHandlers } from 'recompose';
-import axios, { AxiosResponse } from 'axios';
 
 import Routes from '../../../routes';
 import { WithEditingTerritoryProps } from '../../EditTerritory/decorators/withEditingTerritory';
