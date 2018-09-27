@@ -51,30 +51,30 @@ const Territories: React.SFC<
 
           const isActive = currentDate >= startDate && currentDate <= endDate;
 
-        return (
-          <Routes.Link key={id} route={`/map/${url}/${currentNation}`}>
-            <List.Item>
-              <List.Header>
-                {isActive && <Icon name="caret right" />}
-                From {startDate.getFullYear()} to{' '}
-                {endDateFromData ? endDate.getFullYear() : 'today'}
-              </List.Header>
-              {isActive && (
-                <List.Content>
-                  Currently shown on map.{' '}
-                  {isLoggedIn && (
-                    <Routes.Link
-                      route={`/map/${year}/${month}/${day}/${currentNation}/edit`}
-                    >
-                      <a>Edit</a>
-                    </Routes.Link>
-                  )}
-                </List.Content>
-              )}
-            </List.Item>
-          </Routes.Link>
-        );
-      })}
+          return (
+            <Routes.Link key={id} route={`/map/${url}/${currentNation}`}>
+              <List.Item>
+                <List.Header>
+                  {isActive && <Icon name="caret right" />}
+                  From {startDate.getFullYear()} to{' '}
+                  {endDateFromData ? endDate.getFullYear() : 'today'}
+                </List.Header>
+                {isActive && (
+                  <List.Content>
+                    Currently shown on map.{' '}
+                    {isLoggedIn && (
+                      <Routes.Link
+                        route={`/map/${year}/${month}/${day}/${currentNation}/edit`}
+                      >
+                        <a>Edit</a>
+                      </Routes.Link>
+                    )}
+                  </List.Content>
+                )}
+              </List.Item>
+            </Routes.Link>
+          );
+        })}
     {isLoggedIn && (
       <List.Item>
         <List.Header>

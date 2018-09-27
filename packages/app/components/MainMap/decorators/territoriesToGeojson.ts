@@ -14,9 +14,9 @@ export interface TerritoriesToGeojsonProps {
 export default withPropsOnChange<
   TerritoriesToGeojsonProps,
   WithFetchTerritoriesProps
-  >(['territories'], ({ territories }) => ({
-    geojson: territories
-      ? featureCollection(
+>(['territories'], ({ territories }) => ({
+  geojson: territories
+    ? featureCollection(
         territories.map(territory => ({
           ...territory,
           geometry: territory.geo,
@@ -24,5 +24,5 @@ export default withPropsOnChange<
           type: 'Feature' as 'Feature'
         }))
       )
-      : null
-  }));
+    : null
+}));
