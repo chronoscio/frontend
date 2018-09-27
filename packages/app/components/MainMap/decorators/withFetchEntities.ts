@@ -27,20 +27,7 @@ export interface WithFetchEntitiesProps {
 export default compose(
   withCurrentNation,
   lifecycle<WithCurrentNationProps, {}>({
-    componentDidMount() {
-      axios
-        .request({
-          method: 'get',
-          url: `${process.env.BACKEND_API_URL}/nations/${
-            this.props.currentNation
-          }/`
-        })
-        .catch((err: any) => {
-          console.error(err);
-        })
-        .then((resp: AxiosResponse) => {
-          this.setState({ entity: resp.data });
-        });
-    }
+    /*componentDidMount() {
+    }*/
   })
 );
