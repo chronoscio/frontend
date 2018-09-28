@@ -20,32 +20,51 @@ interface StatelessPage<P = {}> extends React.SFC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
 }
 
-interface MapProps {
-  entity?: string;
+export interface Entity {
+  id: umber;
+  name: string;
+  url_id: string;
+  color: string;
+  references: string[];
+  aliases: string[];
+  description: string;
+  links: string[];
+  control_type: string;
+}
+
+export interface MapProps {
+  entity?: Entity;
 }
 
 const Map: StatelessPage<MapProps> = ({ entity }) => (
-  <Provider id="withEditTerritoryStore" {...withEditTerritoryStore}>
-    <LeftPane>
-      <MainMap />
-    </LeftPane>
-    <Login />
+  <Provider {...entity}>
+    <Provider id="withEditTerritoryStore" {...withEditTerritoryStore}>
+      <LeftPane>
+        <MainMap />
+      </LeftPane>
+      <Login />
+    </Provider>
   </Provider>
 );
 
 Map.getInitialProps = async ctx => {
   const nation = ctx.query.nation;
-  axios
-    .request({
-      method: 'get',
-      url: `${process.env.BACKEND_API_URL}/nations/${nation}/`
-    })
-    .catch((err: any) => {
-      console.error(err);
-    })
-    .then((resp: AxiosResponse) => {
-      return { entity: resp.data };
-    });
+  if (nation) {
+    const res = await axios
+      .request({
+        method: 'get',
+        url: `${process.env.BACKEND_API_URL}/nations/${nation}/`
+      })
+      .catch((err: any) => {
+        console.error(err);
+      })
+      .then((resp: AxiosResponse) => {
+        return { entity: resp.data };
+      });
+    return { entity: res.entity };
+  } else {
+    return {};
+  }
 };
 
 export default Map;
