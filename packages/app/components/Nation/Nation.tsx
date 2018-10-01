@@ -8,7 +8,6 @@ import withGoToWelcome, {
   WithGoToWelcomeProps
 } from './decorators/withGoToWelcome';
 import { compose } from 'recompose';
-import { subscribe } from 'react-contextual';
 import { MapProps } from '@chronoscio/app/pages/map';
 
 const NationHeader = styled(Header)`
@@ -24,6 +23,12 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
+const MetadataSection = styled.div`
+  .description:not(:last-child) {
+    margin-bottom: 1em;
+  }
+`;
+
 const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
   goToWelcome,
   entity
@@ -37,20 +42,21 @@ const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
         </NationHeader>
         <Card fluid={true}>
           <Card.Content>
-            <Card.Meta>Description</Card.Meta>
-            <Card.Description>
-              {entity && entity.description}
-              <br />
-              <br />
+            <MetadataSection>
+              <Card.Meta>Description</Card.Meta>
+              <Card.Description>
+                {entity && entity.description}
+              </Card.Description>
               <Card.Meta>Further reading</Card.Meta>
-
-              {entity &&
-                entity.links.map(link => (
-                  <a href={link} target="_blank">
-                    > {link.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]}
-                  </a>
-                ))}
-            </Card.Description>
+              <Card.Description>
+                {entity &&
+                  entity.links.map(link => (
+                    <a href={link} target="_blank">
+                      > {link.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]}
+                    </a>
+                  ))}
+              </Card.Description>
+            </MetadataSection>
           </Card.Content>
         </Card>
 
@@ -67,6 +73,4 @@ const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
   </div>
 );
 
-export default compose(
-  withGoToWelcome,
-)(Nation);
+export default compose(withGoToWelcome)(Nation);
