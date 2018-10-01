@@ -37,13 +37,11 @@ export interface MapProps {
 }
 
 const Map: StatelessPage<MapProps> = ({ entity }) => (
-  <Provider id="entity" {...entity}>
-    <Provider id="withEditTerritoryStore" {...withEditTerritoryStore}>
-      <LeftPane>
-        <MainMap />
-      </LeftPane>
-      <Login />
-    </Provider>
+  <Provider id="withEditTerritoryStore" {...withEditTerritoryStore}>
+    <LeftPane entity={entity}>
+      <MainMap />
+    </LeftPane>
+    <Login />
   </Provider>
 );
 
@@ -53,7 +51,7 @@ Map.getInitialProps = async ctx => {
     const res = await axios
       .request({
         method: 'get',
-        url: `${process.env.BACKEND_API_URL}/nations/${nation}/`
+        url: `${process.env.BACKEND_API_URL}nations/${nation}/`
       })
       .catch((err: any) => {
         console.error(err);

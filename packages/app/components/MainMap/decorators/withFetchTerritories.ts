@@ -29,7 +29,7 @@ export default compose(
       axios
         .request({
           method: 'get',
-          url: `${process.env.BACKEND_API_URL}/territories/`,
+          url: `${process.env.BACKEND_API_URL}territories/`,
           params: {
             date: this.props.currentDate.toISOString().split('T')[0]
           }
@@ -47,7 +47,7 @@ export default compose(
         axios
           .request({
             method: 'get',
-            url: `${process.env.BACKEND_API_URL}/territories/`,
+            url: `${process.env.BACKEND_API_URL}territories/`,
             params: {
               date: this.props.currentDate.toISOString().split('T')[0]
             }
