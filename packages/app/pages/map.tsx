@@ -21,7 +21,7 @@ interface StatelessPage<P = {}> extends React.SFC<P> {
 }
 
 export interface Entity {
-  id: umber;
+  id: number;
   name: string;
   url_id: string;
   color: string;
@@ -37,7 +37,7 @@ export interface MapProps {
 }
 
 const Map: StatelessPage<MapProps> = ({ entity }) => (
-  <Provider {...entity}>
+  <Provider id="entity" {...entity}>
     <Provider id="withEditTerritoryStore" {...withEditTerritoryStore}>
       <LeftPane>
         <MainMap />

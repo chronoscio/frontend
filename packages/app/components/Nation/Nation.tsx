@@ -8,6 +8,8 @@ import withGoToWelcome, {
   WithGoToWelcomeProps
 } from './decorators/withGoToWelcome';
 import { MapProps } from '@chronoscio/app/pages/map';
+import { compose } from 'recompose';
+import { subscribe } from 'react-contextual';
 
 const NationHeader = styled(Header)`
   font-size: 2rem;
@@ -31,7 +33,7 @@ const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
     <Wrapper>
       <div>
         <NationHeader as="h1" size="huge">
-          {entity && entity.name}
+          {this.props.entity && this.props.entity.name}
         </NationHeader>
         <Card fluid={true}>
           <Card.Content>
@@ -65,4 +67,7 @@ const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
   </div>
 );
 
-export default withGoToWelcome(Nation);
+export default compose(
+  withGoToWelcome,
+  subscribe('entity')
+)(Nation);
