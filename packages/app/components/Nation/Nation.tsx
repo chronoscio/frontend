@@ -7,8 +7,7 @@ import Territories from './Territories';
 import withGoToWelcome, {
   WithGoToWelcomeProps
 } from './decorators/withGoToWelcome';
-import { compose } from 'recompose';
-import { MapProps } from '@chronoscio/app/pages/map';
+import { MapProps } from '../../pages/map';
 
 const NationHeader = styled(Header)`
   font-size: 2rem;
@@ -73,4 +72,4 @@ const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
   </div>
 );
 
-export default compose(withGoToWelcome)(Nation);
+export default withGoToWelcome(Nation);
