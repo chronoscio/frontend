@@ -25,16 +25,15 @@ export default compose(
     },
 
     async componentDidUpdate(prevProps) {
-      if (prevProps.currentDate === this.props.currentDate) {
-        return;
-      }
-
-      const territories = await api.territories.list({
-        params: {
-          date: this.props.currentDate.toISOString().split('T')[0]
-        }
-      });
-      this.setState({ territories });
+      // if (prevProps.currentDate === this.props.currentDate) {
+      //   return;
+      // }
+      // const territories = await api.territories.list({
+      //   params: {
+      //     date: this.props.currentDate.toISOString().split('T')[0]
+      //   }
+      // });
+      // this.setState({ territories });
     }
   })
 );

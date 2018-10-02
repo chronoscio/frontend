@@ -16,7 +16,7 @@ export class Territory {
     this.id = value.id;
     this.nationId = value.nation;
     this.references = value.references;
-    this.endDate = new Date(value.end_date);
+    this.startDate = new Date(value.start_date);
   }
 
   static schema() {

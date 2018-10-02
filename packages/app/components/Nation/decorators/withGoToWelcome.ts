@@ -17,6 +17,6 @@ export default compose(
   withCurrentDate,
   withHandlers<WithCurrentDateProps, WithGoToWelcomeProps>({
     goToWelcome: ({ currentDateAsUrl }) => () =>
-      Routes.Router.pushRoute(currentDateAsUrl)
+      Routes.Router.pushRoute(`/map/${currentDateAsUrl}`)
   })
 );

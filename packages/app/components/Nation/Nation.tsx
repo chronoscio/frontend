@@ -51,7 +51,7 @@ const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
               <Card.Description>
                 {entity &&
                   entity.links.map(link => (
-                    <a href={link} target="_blank">
+                    <a href={link} key={link} target="_blank">
                       > {link.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]}
                     </a>
                   ))}
