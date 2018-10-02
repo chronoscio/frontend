@@ -135,7 +135,11 @@ const renderForm = ({
 
 // Default values of our form. `references` is a 1-element array to show one
 // input field for references by default
-const defaultValues = { color: '#C64B4B', references: [''] };
+const defaultValues = {
+  color: '#C64B4B',
+  control_type: 'CC',
+  references: ['']
+};
 // Function which validate values against the PoliticalEntity model.
 const validatePoliticalEntity = validateForRFF(PoliticalEntity);
 
