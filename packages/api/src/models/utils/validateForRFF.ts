@@ -12,7 +12,7 @@ import { ValidationError } from 'yup';
  */
 export const validateForRFF = (Model: any) => async (values: object) => {
   try {
-    await Model.validate(values, { abortEarly: false });
+    await Model.schema().validate(values, { abortEarly: false });
   } catch (err) {
     return err.inner.reduce(
       (

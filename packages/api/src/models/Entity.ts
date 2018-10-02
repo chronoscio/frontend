@@ -8,10 +8,10 @@ export abstract class Entity {
   public urlId: string;
 
   constructor(value: any) {
-    Entity.validationSchema().validateSync(value);
+    Entity.schema().validateSync(value);
   }
 
-  static validationSchema() {
+  static schema() {
     return yup.object().shape({
       description: yup.string(),
       links: yup.array().of(
@@ -39,9 +39,5 @@ export abstract class Entity {
         .max(75)
         .required()
     });
-  }
-
-  static validate(value: any, options?: yup.ValidateOptions) {
-    return Entity.validationSchema().validate(value, options);
   }
 }

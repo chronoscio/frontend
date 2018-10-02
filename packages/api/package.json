@@ -12,6 +12,7 @@
     "start": "yarn build --watch"
   },
   "dependencies": {
+    "@turf/helpers": "^6.1.4",
     "axios": "^0.18.0",
     "localforage": "^1.7.2",
     "yup": "^0.26.6"
