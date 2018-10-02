@@ -1,11 +1,11 @@
-import { Feature } from 'geojson';
+import { Feature, FeatureCollection } from 'geojson';
 
 export const EXISTING_TERRITORY = Symbol('EXISTING_TERRITORY');
 export const UPLOADED_TERRITORY = Symbol('UPLOADED_TERRITORY');
 export const HANDDRAWN_TERRITORY = Symbol('HANDDRAWN_TERRITORY');
 
 interface Shapefile {
-  geojson: Feature;
+  geojson: Feature | FeatureCollection;
   name?: string;
   size?: number;
   source: Symbol; // Is our current Shapefile being drawn, or uploaded?

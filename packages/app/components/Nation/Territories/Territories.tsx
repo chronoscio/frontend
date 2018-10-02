@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { compose } from 'recompose';
-import { feature } from '@turf/helpers';
+import { feature, featureCollection } from '@turf/helpers';
 import { Icon, List, ListProps } from 'semantic-ui-react';
 import { subscribe } from 'react-contextual';
 
