@@ -6,7 +6,7 @@ import {
   setObservableConfig,
   withPropsOnChange
 } from 'recompose';
-import { combineLatest, startWith } from 'rxjs/operators';
+import { combineLatest, startWith, switchMap } from 'rxjs/operators';
 import { empty, from, Observable } from 'rxjs';
 import * as localForage from 'localforage';
 import 'localforage-observable';

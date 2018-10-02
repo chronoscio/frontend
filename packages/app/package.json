@@ -42,6 +42,7 @@
     "yup": "^0.26.6"
   },
   "devDependencies": {
+    "@babel/parser": "^7.1.0",
     "@types/auth0-js": "^8.11.4",
     "@types/mapbox-gl": "^0.48.0",
     "@types/next": "^6.0.4",

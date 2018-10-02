@@ -9,15 +9,15 @@ import withCurrentNation, {
   WithCurrentNationProps
 } from '../../Nation/decorators/withCurrentNation';
 import Welcome from '../Welcome';
+import { MapProps } from '@chronoscio/app/pages/map';
 
-const Pages: React.SFC<WithCurrentNationProps & WithPageStoreProps> = ({
-  currentNation,
-  currentPage
-}) => {
+const Pages: React.SFC<
+  WithCurrentNationProps & WithPageStoreProps & MapProps
+> = ({ currentNation, currentPage, entity }) => {
   if (currentPage === PAGES.NEW_NATION) {
     return <NewNation />;
   }
-  return currentNation ? <Nation /> : <Welcome />;
+  return currentNation ? <Nation entity={entity} /> : <Welcome />;
 };
 
 export default compose(
