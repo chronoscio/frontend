@@ -73,4 +73,4 @@ const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
   </div>
 );
 
-export default compose(withGoToWelcome)(Nation);
+export default compose<{}, MapProps>(withGoToWelcome)(Nation);

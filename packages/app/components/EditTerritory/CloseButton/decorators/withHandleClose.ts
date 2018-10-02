@@ -9,7 +9,7 @@ export interface WithHandleCloseProps {
 export default withHandlers({
   handleClose: () => () => {
     // Navigate to the correct URL
-    const { day, month, nation, year } = Routes.Router.router.query;
-    Routes.Router.pushRoute(`/map/${year}/${month}/${day}/${nation}`);
+    const { day, entityId, month, year } = Routes.Router.router.query;
+    Routes.Router.pushRoute(`/map/${year}/${month}/${day}/${entityId}`);
   }
 });

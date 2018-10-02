@@ -20,7 +20,7 @@ const Pages: React.SFC<
   return currentNation ? <Nation entity={entity} /> : <Welcome />;
 };
 
-export default compose(
+export default compose<{}, MapProps>(
   subscribe('withPageStore'),
   withCurrentNation
 )(Pages);

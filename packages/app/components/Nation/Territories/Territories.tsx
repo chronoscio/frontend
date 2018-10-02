@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { compose } from 'recompose';
+import { feature } from '@turf/helpers';
 import { Icon, List, ListProps } from 'semantic-ui-react';
+import { subscribe } from 'react-contextual';
 
-import withAuth, { WithAuthProps } from '../../Login/decorators/withAuth';
+import {
+  EXISTING_TERRITORY,
+  WithEditTerritoryStoreProps
+} from '../../EditTerritory/decorators/withEditTerritoryStore';
 import Routes from '../../../routes';
+import withAuth, { WithAuthProps } from '../../Login/decorators/withAuth';
 import withCurrentDate, {
   WithCurrentDateProps
 } from '../../CurrentDate/decorators/withCurrentDate';
@@ -19,8 +25,10 @@ const Territories: React.SFC<
     WithAuthProps &
     WithCurrentDateProps &
     WithCurrentNationProps &
+    WithEditTerritoryStoreProps &
     WithTerritoriesProps
 > = ({
+  addShapefile,
   currentDate,
   currentDateAsUrl,
   currentNation,
@@ -28,10 +36,10 @@ const Territories: React.SFC<
   territories
 }) => (
   <List selection={true}>
-    {territories &&
+    {territories ? (
       territories
         .filter(({ nationId }) => nationId === currentNation)
-        .map(({ endDate: endDateFromData, id, startDate }) => {
+        .map(({ endDate: endDateFromData, geo, id, startDate }) => {
           // If no endDate is specified, we consider it today
           const endDate = endDateFromData ? endDateFromData : new Date();
 
@@ -53,18 +61,29 @@ const Territories: React.SFC<
                   <List.Content>
                     Currently shown on map.{' '}
                     {isLoggedIn && (
-                      <Routes.Link
-                        route={`/map/${currentDateAsUrl}/${currentNation}/edit`}
+                      <a
+                        onClick={() => {
+                          addShapefile({
+                            geojson: feature(geo),
+                            source: EXISTING_TERRITORY
+                          });
+                          Routes.Router.pushRoute(
+                            `/map/${currentDateAsUrl}/${currentNation}/edit`
+                          );
+                        }}
                       >
-                        <a>Edit</a>
-                      </Routes.Link>
+                        Edit
+                      </a>
                     )}
                   </List.Content>
                 )}
               </List.Item>
             </Routes.Link>
           );
-        })}
+        })
+    ) : (
+      <p>No territories to show.</p>
+    )}
     {isLoggedIn && (
       <List.Item>
         <List.Header>
@@ -80,5 +99,6 @@ export default compose(
   withAuth,
   withCurrentDate,
   withCurrentNation,
-  withTerritories
+  withTerritories,
+  subscribe('withEditTerritoryStore')
 )(Territories);
