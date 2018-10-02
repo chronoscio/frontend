@@ -7,7 +7,7 @@ import {
   withPropsOnChange
 } from 'recompose';
 import { combineLatest, startWith } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import { empty, from, Observable } from 'rxjs';
 import * as localForage from 'localforage';
 import 'localforage-observable';
 
