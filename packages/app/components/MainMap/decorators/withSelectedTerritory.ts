@@ -1,9 +1,9 @@
-import { GeoJSONObject } from '@turf/helpers';
+import { Feature } from 'geojson';
 import { withState } from 'recompose';
 
 export interface WithSelectedTerritoryProps {
-  selectedTerritory: GeoJSONObject;
-  setSelectedTerritory(territory: GeoJSONObject): void;
+  selectedTerritory: Feature;
+  setSelectedTerritory(territory: Feature): void;
 }
 
 export default withState('selectedTerritory', 'setSelectedTerritory', null);

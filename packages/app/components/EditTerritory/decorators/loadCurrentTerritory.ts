@@ -3,15 +3,15 @@ import { subscribe } from 'react-contextual';
 
 import onlyCurrentGeojson, {
   OnlyCurrentGeojsonProps
-} from '../../MainMap/decorators/onlyCurrentGeojson';
+} from './onlyCurrentGeojson';
 import {
   EXISTING_TERRITORY,
   WithEditTerritoryStoreProps
 } from './withEditTerritoryStore';
-import withFetchTerritories from '../../MainMap/decorators/withFetchTerritories';
+import withTerritories from '../../MainMap/decorators/withTerritories';
 
 export default compose(
-  withFetchTerritories,
+  withTerritories,
   onlyCurrentGeojson,
   subscribe('withEditTerritoryStore'),
   lifecycle<WithEditTerritoryStoreProps & OnlyCurrentGeojsonProps, {}>({

@@ -1,9 +1,9 @@
-import { GeoJSONObject } from '@turf/helpers';
+import { Geometry } from 'geojson';
 import * as yup from 'yup';
 
 export class Territory {
   public endDate: Date;
-  public geo: GeoJSONObject;
+  public geo: Geometry;
   public id: number;
   public nationId: string;
   public references: string[];
