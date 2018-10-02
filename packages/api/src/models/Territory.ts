@@ -2,7 +2,7 @@ import { Geometry } from 'geojson';
 import * as yup from 'yup';
 
 export class Territory {
-  public endDate: Date;
+  public endDate?: Date;
   public geo: Geometry;
   public id: number;
   public nationId: string;

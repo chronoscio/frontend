@@ -9,6 +9,8 @@ export class PoliticalEntity extends Entity {
   constructor(value: any) {
     super(value);
     PoliticalEntity.schema().validateSync(value);
+    this.color = value.color;
+    this.controlType = value.control_type;
   }
 
   static schema() {

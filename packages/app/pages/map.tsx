@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { api, Entity } from '@chronoscio/api';
 import dynamic from 'next/dynamic';
 import { Provider } from 'react-contextual';
-import axios, { AxiosResponse } from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -20,18 +20,6 @@ interface StatelessPage<P = {}> extends React.SFC<P> {
   getInitialProps?: (ctx: any) => Promise<P>;
 }
 
-export interface Entity {
-  id: number;
-  name: string;
-  url_id: string;
-  color: string;
-  references: string[];
-  aliases: string[];
-  description: string;
-  links: string[];
-  control_type: string;
-}
-
 export interface MapProps {
   entity?: Entity;
 }
@@ -46,20 +34,10 @@ const Map: StatelessPage<MapProps> = ({ entity }) => (
 );
 
 Map.getInitialProps = async ctx => {
-  const nation = ctx.query.nation;
-  if (nation) {
-    const res = await axios
-      .request({
-        method: 'get',
-        url: `${process.env.BACKEND_API_URL}nations/${nation}/`
-      })
-      .catch((err: any) => {
-        console.error(err);
-      })
-      .then((resp: AxiosResponse) => {
-        return { entity: resp.data };
-      });
-    return { entity: res.entity };
+  const entityId = ctx.query.entityId;
+  if (entityId) {
+    const entity = await api.politicalEntities.get(entityId);
+    return { entity };
   } else {
     return {};
   }

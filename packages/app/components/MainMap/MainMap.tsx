@@ -16,9 +16,6 @@ import withTerritories from './decorators/withTerritories';
 import withHandleTerritoryClick, {
   WithHandleTerritoryClickProps
 } from './decorators/withHandleTerritoryClick';
-import withSelectedTerritory, {
-  WithSelectedTerritoryProps
-} from './decorators/withSelectedTerritory';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
@@ -45,8 +42,7 @@ const MainMap: React.SFC<
   TerritoriesToFCProps &
     WithEditingTerritoryProps &
     WithEditTerritoryStoreProps &
-    WithHandleTerritoryClickProps &
-    WithSelectedTerritoryProps
+    WithHandleTerritoryClickProps
 > = ({
   featureCollection,
   handleTerritoryClick,
@@ -97,6 +93,5 @@ export default compose(
   subscribe('withEditTerritoryStore'),
   withTerritories,
   territoriesToFC,
-  withSelectedTerritory,
   withHandleTerritoryClick
 )(MainMap);

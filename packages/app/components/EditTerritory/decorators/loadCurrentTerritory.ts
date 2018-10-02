@@ -8,10 +8,8 @@ import {
   EXISTING_TERRITORY,
   WithEditTerritoryStoreProps
 } from './withEditTerritoryStore';
-import withTerritories from '../../MainMap/decorators/withTerritories';
 
 export default compose(
-  withTerritories,
   onlyCurrentGeojson,
   subscribe('withEditTerritoryStore'),
   lifecycle<WithEditTerritoryStoreProps & OnlyCurrentGeojsonProps, {}>({

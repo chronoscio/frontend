@@ -1,7 +1,13 @@
 import { AxiosRequestConfig } from 'axios';
 import * as localforage from 'localforage';
 
+const IS_CLIENT = typeof window !== 'undefined';
+
 export const baseAxiosConfig = async () => {
+  if (!IS_CLIENT) {
+    return {};
+  }
+
   const authToken = await retrieveAuthToken();
   return {
     headers: {

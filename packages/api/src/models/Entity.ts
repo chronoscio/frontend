@@ -2,6 +2,7 @@ import * as yup from 'yup';
 
 export abstract class Entity {
   public description: string;
+  public id: number;
   public links: string[];
   public name: string;
   public references: string[];
@@ -9,6 +10,12 @@ export abstract class Entity {
 
   constructor(value: any) {
     Entity.schema().validateSync(value);
+    this.description = value.description;
+    this.id = value.id;
+    this.links = value.links;
+    this.name = value.name;
+    this.references = value.references;
+    this.urlId = value.url_id;
   }
 
   static schema() {

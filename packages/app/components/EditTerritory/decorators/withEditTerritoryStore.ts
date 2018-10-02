@@ -1,11 +1,11 @@
-import { SourceOptionData } from 'react-mapbox-gl/lib/util/types'; // This type is very similar to FeatureCollection from @turf/helpers
+import { Feature } from 'geojson';
 
 export const EXISTING_TERRITORY = Symbol('EXISTING_TERRITORY');
 export const UPLOADED_TERRITORY = Symbol('UPLOADED_TERRITORY');
 export const HANDDRAWN_TERRITORY = Symbol('HANDDRAWN_TERRITORY');
 
 interface Shapefile {
-  geojson: SourceOptionData;
+  geojson: Feature;
   name?: string;
   size?: number;
   source: Symbol; // Is our current Shapefile being drawn, or uploaded?
