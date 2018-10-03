@@ -28,10 +28,9 @@ const MetadataSection = styled.div`
   }
 `;
 
-const Nation: React.SFC<WithGoToWelcomeProps & MapProps> = ({
-  goToWelcome,
-  entity
-}) => (
+interface NationProps extends WithGoToWelcomeProps, MapProps {}
+
+const Nation: React.SFC<NationProps> = ({ goToWelcome, entity }) => (
   <div>
     <BackButton onClick={goToWelcome} />
     <Wrapper>

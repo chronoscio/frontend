@@ -20,14 +20,15 @@ import withTerritories, {
   WithTerritoriesProps
 } from '../../MainMap/decorators/withTerritories';
 
-const Territories: React.SFC<
-  ListProps &
-    WithAuthProps &
-    WithCurrentDateProps &
-    WithCurrentNationProps &
-    WithEditTerritoryStoreProps &
-    WithTerritoriesProps
-> = ({
+interface TerritoriesProps
+  extends ListProps,
+    WithAuthProps,
+    WithCurrentDateProps,
+    WithCurrentNationProps,
+    WithEditTerritoryStoreProps,
+    WithTerritoriesProps {}
+
+const Territories: React.SFC<TerritoriesProps> = ({
   addShapefile,
   currentDate,
   currentDateAsUrl,

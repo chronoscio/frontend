@@ -11,9 +11,16 @@ import withCurrentNation, {
 import Welcome from '../Welcome';
 import { MapProps } from '../../../pages/map';
 
-const Pages: React.SFC<
-  WithCurrentNationProps & WithPageStoreProps & MapProps
-> = ({ currentNation, currentPage, entity }) => {
+interface PageProps
+  extends WithCurrentNationProps,
+    WithPageStoreProps,
+    MapProps {}
+
+const Pages: React.SFC<PageProps> = ({
+  currentNation,
+  currentPage,
+  entity
+}) => {
   if (currentPage === PAGES.NEW_NATION) {
     return <NewNation />;
   }

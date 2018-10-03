@@ -38,12 +38,13 @@ const mapContainerStyle = {
   width: '100vw'
 };
 
-const MainMap: React.SFC<
-  TerritoriesToFCProps &
-    WithEditingTerritoryProps &
-    WithEditTerritoryStoreProps &
-    WithHandleTerritoryClickProps
-> = ({
+interface MainMapProps
+  extends TerritoriesToFCProps,
+    WithEditingTerritoryProps,
+    WithEditTerritoryStoreProps,
+    WithHandleTerritoryClickProps {}
+
+const MainMap: React.SFC<MainMapProps> = ({
   featureCollection,
   handleTerritoryClick,
   isEditingTerritory,

@@ -15,16 +15,12 @@ export const politicalEntities = {
     }
   },
   async post(
-    data?: any,
+    value?: any,
     config?: AxiosRequestConfig
   ): Promise<PoliticalEntity> {
     try {
-      const { data: dataFromServer } = await axios.post(
-        API_ENDPOINT,
-        data,
-        config
-      );
-      return new PoliticalEntity(dataFromServer);
+      const { data } = await axios.post(API_ENDPOINT, value, config);
+      return new PoliticalEntity(data);
     } catch (err) {
       console.error(err);
       throw err;
