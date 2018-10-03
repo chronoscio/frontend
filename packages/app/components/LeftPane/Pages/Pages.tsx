@@ -9,7 +9,7 @@ import withCurrentNation, {
   WithCurrentNationProps
 } from '../../Nation/decorators/withCurrentNation';
 import Welcome from '../Welcome';
-import { MapProps } from '@chronoscio/app/pages/map';
+import { MapProps } from '../../../pages/map';
 
 const Pages: React.SFC<
   WithCurrentNationProps & WithPageStoreProps & MapProps

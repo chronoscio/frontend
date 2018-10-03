@@ -9,7 +9,7 @@ import { withPageStore } from './decorators/withPageStore';
 import withCurrentNation, {
   WithCurrentNationProps
 } from '../Nation/decorators/withCurrentNation';
-import { MapProps } from '@chronoscio/app/pages/map';
+import { MapProps } from '../../pages/map';
 
 const TopPart = styled.div`
   flex-grow: 1;
