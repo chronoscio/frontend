@@ -1,7 +1,9 @@
 import { api } from '@chronoscio/api';
 import { compose, withHandlers } from 'recompose';
+import { subscribe } from 'react-contextual';
 
 import withAuth, { WithAuthProps } from '../../../Login/decorators/withAuth';
+import { WithErrorStoreProps } from '../../../Errors/decorators/withErrorStore';
 
 export interface WithHandleSubmitProps {
   handleSubmit(values: object): void;
@@ -12,15 +14,21 @@ export interface WithHandleSubmitProps {
  */
 export default compose(
   withAuth,
-  withHandlers<WithAuthProps, WithHandleSubmitProps>({
-    handleSubmit: ({ auth: { idToken } }) => async (values: object) => {
-      console.log(
+  subscribe('withErrorStore'),
+  withHandlers<WithAuthProps & WithErrorStoreProps, WithHandleSubmitProps>({
+    handleSubmit: ({ auth: { idToken }, addError }) => async (
+      values: object
+    ) => {
+      try {
         await api.politicalEntities.post(values, {
           headers: {
             Authorization: `Bearer ${idToken}`
           }
-        })
-      );
+        });
+      } catch (err) {
+        console.log('HELLO', addError);
+        addError(err);
+      }
     }
   })
 );
