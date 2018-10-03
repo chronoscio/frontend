@@ -17,11 +17,16 @@ const Wrapper = styled.div`
   width: 250px;
 `;
 
-const Errors: React.SFC<WithErrorStoreProps> = ({ errors }) =>
+const Errors: React.SFC<WithErrorStoreProps> = ({ errors, removeError }) =>
   errors ? (
     <Wrapper>
-      {errors.map(err => (
-        <Message content={err.message} error key={err.message} />
+      {errors.map((err, index) => (
+        <Message
+          content={err.message}
+          onDismiss={() => removeError(index)}
+          error
+          key={Math.random()}
+        />
       ))}
     </Wrapper>
   ) : null;
