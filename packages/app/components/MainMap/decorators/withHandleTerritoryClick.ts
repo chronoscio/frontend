@@ -27,10 +27,11 @@ export default withHandlers<WithEditingTerritoryProps, {}>({
       return;
     }
 
-    // Navigate to the correct URL
     const { day, month, year } = Routes.Router.router.query;
     Routes.Router.pushRoute(
       `/map/${year}/${month}/${day}/${features[0].properties.nation}`
     );
+
+    // Navigate to the correct URL
   }
 });

@@ -17,6 +17,7 @@
     "@mapbox/mapbox-gl-draw": "^1.0.9",
     "@turf/helpers": "^6.1.4",
     "auth0-js": "^9.7.3",
+    "axios": "^0.18.0",
     "final-form": "^4.10.0",
     "final-form-arrays": "^1.1.0",
     "localforage": "^1.7.2",

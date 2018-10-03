@@ -9,6 +9,7 @@ import { withPageStore } from './decorators/withPageStore';
 import withCurrentNation, {
   WithCurrentNationProps
 } from '../Nation/decorators/withCurrentNation';
+import { MapProps } from '../../pages/map';
 
 const TopPart = styled.div`
   flex-grow: 1;
@@ -22,7 +23,7 @@ const WhiteSegment = styled(Segment)`
   opacity: 0.95;
 `;
 
-const LeftPane: React.SFC = ({ children }) => (
+const LeftPane: React.SFC<MapProps> = ({ children, entity }) => (
   <Sidebar.Pushable>
     <Sidebar
       animation="overlay"
@@ -33,7 +34,7 @@ const LeftPane: React.SFC = ({ children }) => (
     >
       <Provider id="withPageStore" {...withPageStore}>
         <TopPart>
-          <Pages />
+          <Pages entity={entity} />
         </TopPart>
       </Provider>
 
