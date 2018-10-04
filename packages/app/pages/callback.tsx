@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import './empty.css';
 
 // Lazy-load the map on the client-side
 // @TODO Figure how to dynamic import with TypeScript
