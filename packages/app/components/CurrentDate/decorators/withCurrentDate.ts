@@ -15,6 +15,6 @@ export default compose(
   mapProps(({ router: { query: { day, month, year } }, ...otherProps }) => ({
     ...otherProps,
     currentDate: new Date(year, month - 1, day, 1), // Months start at 0
-    currentDateAsUrl: `${year}/${month}/${day}`
+    currentDateAsUrl: `/map/${year}/${month}/${day}/`
   }))
 );

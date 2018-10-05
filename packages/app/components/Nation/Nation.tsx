@@ -7,7 +7,6 @@ import Territories from './Territories';
 import withGoToWelcome, {
   WithGoToWelcomeProps
 } from './decorators/withGoToWelcome';
-import { MapProps } from '../../pages/map';
 
 const NationHeader = styled(Header)`
   font-size: 2rem;
@@ -22,39 +21,34 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const MetadataSection = styled.div`
-  .description:not(:last-child) {
-    margin-bottom: 1em;
-  }
-`;
-
-interface NationProps extends WithGoToWelcomeProps, MapProps {}
-
-const Nation: React.SFC<NationProps> = ({ goToWelcome, entity }) => (
+const Nation: React.SFC<WithGoToWelcomeProps> = ({ goToWelcome }) => (
   <div>
     <BackButton onClick={goToWelcome} />
     <Wrapper>
       <div>
         <NationHeader as="h1" size="huge">
-          {entity && entity.name}
+          The Byzantine Empire
         </NationHeader>
         <Card fluid={true}>
           <Card.Content>
-            <MetadataSection>
-              <Card.Meta>Description</Card.Meta>
-              <Card.Description>
-                {entity && entity.description}
-              </Card.Description>
-              <Card.Meta>Further reading</Card.Meta>
-              <Card.Description>
-                {entity &&
-                  entity.links.map(link => (
-                    <a href={link} key={link} target="_blank">
-                      > {link.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i)[1]}
-                    </a>
-                  ))}
-              </Card.Description>
-            </MetadataSection>
+            <Card.Meta>Description</Card.Meta>
+            <Card.Description>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <br />
+              <br />
+              <a
+                href="https://en.wikipedia.org/wiki/Byzantine_Empire"
+                target="_blank"
+              >
+                > Read more on Wikipedia
+              </a>
+            </Card.Description>
           </Card.Content>
         </Card>
 

@@ -7,16 +7,9 @@ import { WithPageStoreProps } from '../../decorators/withPageStore';
 import withAuth, { WithAuthProps } from '../../../Login/decorators/withAuth';
 import withLogin, { WithLoginProps } from '../../../Login/decorators/withLogin';
 
-interface WelcomeListProps
-  extends WithAuthProps,
-    WithPageStoreProps,
-    WithLoginProps {}
-
-const WelcomeList: React.SFC<WelcomeListProps> = ({
-  goToAddNation,
-  isLoggedIn,
-  login
-}) => (
+const WelcomeList: React.SFC<
+  WithAuthProps & WithPageStoreProps & WithLoginProps
+> = ({ goToAddNation, isLoggedIn, login }) => (
   <List bulleted={true}>
     <List.Item>Click on a political entity to learn more about it.</List.Item>
     <List.Item>
