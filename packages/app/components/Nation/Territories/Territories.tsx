@@ -1,58 +1,57 @@
 import * as React from 'react';
 import { compose } from 'recompose';
+import { feature, featureCollection } from '@turf/helpers';
 import { Icon, List, ListProps } from 'semantic-ui-react';
-import { withRouter, WithRouterProps } from 'next/router';
+import { subscribe } from 'react-contextual';
 
-import withAuth, { WithAuthProps } from '../../Login/decorators/withAuth';
+import {
+  EXISTING_TERRITORY,
+  WithEditTerritoryStoreProps
+} from '../../EditTerritory/decorators/withEditTerritoryStore';
 import Routes from '../../../routes';
+import withAuth, { WithAuthProps } from '../../Login/decorators/withAuth';
 import withCurrentDate, {
   WithCurrentDateProps
 } from '../../CurrentDate/decorators/withCurrentDate';
 import withCurrentNation, {
   WithCurrentNationProps
 } from '../../Nation/decorators/withCurrentNation';
-import withFetchTerritories, {
-  WithFetchTerritoriesProps
-} from '../../MainMap/decorators/withFetchTerritories';
+import withTerritories, {
+  WithTerritoriesProps
+} from '../../MainMap/decorators/withTerritories';
 
-const Territories: React.SFC<
-  ListProps &
-    WithAuthProps &
-    WithCurrentDateProps &
-    WithCurrentNationProps &
-    WithRouterProps &
-    WithFetchTerritoriesProps
-> = ({
+interface TerritoriesProps
+  extends ListProps,
+    WithAuthProps,
+    WithCurrentDateProps,
+    WithCurrentNationProps,
+    WithEditTerritoryStoreProps,
+    WithTerritoriesProps {}
+
+const Territories: React.SFC<TerritoriesProps> = ({
+  addShapefile,
   currentDate,
+  currentDateAsUrl,
   currentNation,
   isLoggedIn,
-  router: {
-    query: { day, month, year }
-  },
   territories
 }) => (
   <List selection={true}>
-    {territories &&
+    {territories ? (
       territories
-        .filter(({ nation }) => nation === currentNation)
-        .map(({ end_date: endDateFromData, id, start_date }) => {
+        .filter(({ nationId }) => nationId === currentNation)
+        .map(({ endDate: endDateFromData, geo, id, startDate }) => {
           // If no endDate is specified, we consider it today
-          const endDate = endDateFromData
-            ? new Date(endDateFromData)
-            : new Date();
-          const startDate = new Date(start_date);
+          const endDate = endDateFromData ? endDateFromData : new Date();
 
-          // Convert `startDate` to yyyy/mm/dd format
-          const url = startDate
-            .toISOString()
-            .split('T')[0]
-            .split('-')
-            .join('/');
-
+          // Get active territories
           const isActive = currentDate >= startDate && currentDate <= endDate;
 
           return (
-            <Routes.Link key={id} route={`/map/${url}/${currentNation}`}>
+            <Routes.Link
+              key={id}
+              route={`/map/${currentDateAsUrl}/${currentNation}`}
+            >
               <List.Item>
                 <List.Header>
                   {isActive && <Icon name="caret right" />}
@@ -63,18 +62,29 @@ const Territories: React.SFC<
                   <List.Content>
                     Currently shown on map.{' '}
                     {isLoggedIn && (
-                      <Routes.Link
-                        route={`/map/${year}/${month}/${day}/${currentNation}/edit`}
+                      <a
+                        onClick={() => {
+                          addShapefile({
+                            geojson: feature(geo),
+                            source: EXISTING_TERRITORY
+                          });
+                          Routes.Router.pushRoute(
+                            `/map/${currentDateAsUrl}/${currentNation}/edit`
+                          );
+                        }}
                       >
-                        <a>Edit</a>
-                      </Routes.Link>
+                        Edit
+                      </a>
                     )}
                   </List.Content>
                 )}
               </List.Item>
             </Routes.Link>
           );
-        })}
+        })
+    ) : (
+      <p>No territories to show.</p>
+    )}
     {isLoggedIn && (
       <List.Item>
         <List.Header>
@@ -90,6 +100,6 @@ export default compose(
   withAuth,
   withCurrentDate,
   withCurrentNation,
-  withFetchTerritories,
-  withRouter
+  withTerritories,
+  subscribe('withEditTerritoryStore')
 )(Territories);

@@ -7,9 +7,9 @@ import './withAuth';
 export const auth0 = new WebAuth({
   domain: process.env.AUTH0_DOMAIN,
   clientID: process.env.AUTH0_CLIENT_ID,
-  audience: `https://${process.env.AUTH0_DOMAIN}/userinfo`,
+  audience: 'https://chronoscio.org/api/',
   responseType: 'token id_token',
-  scope: 'openid email profile'
+  scope: 'openid profile'
 });
 
 const currentHost = `${window.location.protocol}//${window.location.hostname}:${

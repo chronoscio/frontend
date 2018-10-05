@@ -1,0 +1,24 @@
+{
+  "name": "@chronoscio/api",
+  "version": "0.1.0",
+  "description": "API interface with the ChronoScio backend",
+  "main": "lib/index.js",
+  "repository": "https://github.com/chronoscio/frontend",
+  "author": "Amaury Martiny <amaury.martiny@protonmail.com>",
+  "license": "GPL-3.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "yarn build --watch"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "geojson": "^0.5.0",
+    "localforage": "^1.7.2",
+    "yup": "^0.26.6"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.4",
+    "@types/yup": "^0.24.9"
+  }
+}

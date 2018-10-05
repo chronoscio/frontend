@@ -5,20 +5,17 @@ import styled from 'styled-components';
 import { subscribe } from 'react-contextual';
 
 import EditTerritory from '../EditTerritory';
-import territoriesToGeojson, {
-  TerritoriesToGeojsonProps
-} from './decorators/territoriesToGeojson';
+import territoriesToFC, {
+  TerritoriesToFCProps
+} from './decorators/territoriesToFC';
 import withEditingTerritory, {
   WithEditingTerritoryProps
 } from '../EditTerritory/decorators/withEditingTerritory';
 import { WithEditTerritoryStoreProps } from '../EditTerritory/decorators/withEditTerritoryStore';
-import withFetchTerritories from './decorators/withFetchTerritories';
+import withTerritories from './decorators/withTerritories';
 import withHandleTerritoryClick, {
   WithHandleTerritoryClickProps
 } from './decorators/withHandleTerritoryClick';
-import withSelectedTerritory, {
-  WithSelectedTerritoryProps
-} from './decorators/withSelectedTerritory';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_ACCESS_TOKEN
@@ -41,13 +38,18 @@ const mapContainerStyle = {
   width: '100vw'
 };
 
-const MainMap: React.SFC<
-  TerritoriesToGeojsonProps &
-    WithEditingTerritoryProps &
-    WithEditTerritoryStoreProps &
-    WithHandleTerritoryClickProps &
-    WithSelectedTerritoryProps
-> = ({ geojson, handleTerritoryClick, isEditingTerritory, shapefile }) => (
+interface MainMapProps
+  extends TerritoriesToFCProps,
+    WithEditingTerritoryProps,
+    WithEditTerritoryStoreProps,
+    WithHandleTerritoryClickProps {}
+
+const MainMap: React.SFC<MainMapProps> = ({
+  featureCollection,
+  handleTerritoryClick,
+  isEditingTerritory,
+  shapefile
+}) => (
   <div>
     <StyledMap
       onClick={handleTerritoryClick}
@@ -75,7 +77,7 @@ const MainMap: React.SFC<
 
       {/* Add layer all territories. */}
       <GeoJSONLayer
-        data={geojson}
+        data={featureCollection}
         fillLayout={{ visibility: 'visible' }}
         fillPaint={{
           'fill-color': { type: 'identity', property: 'color' },
@@ -90,8 +92,7 @@ const MainMap: React.SFC<
 export default compose(
   withEditingTerritory,
   subscribe('withEditTerritoryStore'),
-  withFetchTerritories,
-  territoriesToGeojson,
-  withSelectedTerritory,
+  withTerritories,
+  territoriesToFC,
   withHandleTerritoryClick
 )(MainMap);
