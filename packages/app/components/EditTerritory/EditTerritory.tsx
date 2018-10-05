@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import CloseButton from './CloseButton';
 import UploadButton from './UploadButton';
-import loadCurrentTerritory from './decorators/loadCurrentTerritory';
 import SubmitButton from './SubmitButton';
 
 const Wrapper = styled.div`
@@ -27,4 +26,4 @@ const EditTerritory: React.SFC = () => (
   </Wrapper>
 );
 
-export default loadCurrentTerritory(EditTerritory);
+export default EditTerritory;

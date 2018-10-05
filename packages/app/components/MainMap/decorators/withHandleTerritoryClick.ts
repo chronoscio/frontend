@@ -23,14 +23,15 @@ export default withHandlers<WithEditingTerritoryProps, {}>({
     }
 
     // If the feature we clicked doesn't have a nation
-    if (!features[0].properties.nation) {
+    if (!features[0].properties.nationId) {
       return;
     }
 
-    // Navigate to the correct URL
     const { day, month, year } = Routes.Router.router.query;
     Routes.Router.pushRoute(
-      `/map/${year}/${month}/${day}/${features[0].properties.nation}`
+      `/map/${year}/${month}/${day}/${features[0].properties.nationId}`
     );
+
+    // Navigate to the correct URL
   }
 });

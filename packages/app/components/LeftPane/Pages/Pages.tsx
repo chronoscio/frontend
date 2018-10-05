@@ -9,18 +9,25 @@ import withCurrentNation, {
   WithCurrentNationProps
 } from '../../Nation/decorators/withCurrentNation';
 import Welcome from '../Welcome';
+import { MapProps } from '../../../pages/map';
 
-const Pages: React.SFC<WithCurrentNationProps & WithPageStoreProps> = ({
+interface PageProps
+  extends WithCurrentNationProps,
+    WithPageStoreProps,
+    MapProps {}
+
+const Pages: React.SFC<PageProps> = ({
   currentNation,
-  currentPage
+  currentPage,
+  entity
 }) => {
   if (currentPage === PAGES.NEW_NATION) {
     return <NewNation />;
   }
-  return currentNation ? <Nation /> : <Welcome />;
+  return currentNation ? <Nation entity={entity} /> : <Welcome />;
 };
 
-export default compose(
+export default compose<{}, MapProps>(
   subscribe('withPageStore'),
   withCurrentNation
 )(Pages);
