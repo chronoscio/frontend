@@ -11,8 +11,8 @@ export interface WithCurrentNationProps {
  */
 export default compose(
   withRouter,
-  mapProps(({ router: { query: { entityId } }, ...otherProps }) => ({
+  mapProps(({ router: { query: { nation } }, ...otherProps }) => ({
     ...otherProps,
-    currentNation: entityId
+    currentNation: nation
   }))
 );

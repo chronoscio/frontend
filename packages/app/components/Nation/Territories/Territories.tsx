@@ -1,90 +1,72 @@
 import * as React from 'react';
 import { compose } from 'recompose';
-import { feature, featureCollection } from '@turf/helpers';
 import { Icon, List, ListProps } from 'semantic-ui-react';
-import { subscribe } from 'react-contextual';
+import { withRouter, WithRouterProps } from 'next/router';
 
-import {
-  EXISTING_TERRITORY,
-  WithEditTerritoryStoreProps
-} from '../../EditTerritory/decorators/withEditTerritoryStore';
-import Routes from '../../../routes';
 import withAuth, { WithAuthProps } from '../../Login/decorators/withAuth';
+import mockData from '../../mockData';
+import Routes from '../../../routes';
 import withCurrentDate, {
   WithCurrentDateProps
 } from '../../CurrentDate/decorators/withCurrentDate';
 import withCurrentNation, {
   WithCurrentNationProps
 } from '../../Nation/decorators/withCurrentNation';
-import withTerritories, {
-  WithTerritoriesProps
-} from '../../MainMap/decorators/withTerritories';
 
-interface TerritoriesProps
-  extends ListProps,
-    WithAuthProps,
-    WithCurrentDateProps,
-    WithCurrentNationProps,
-    WithEditTerritoryStoreProps,
-    WithTerritoriesProps {}
-
-const Territories: React.SFC<TerritoriesProps> = ({
-  addShapefile,
+const Territories: React.SFC<
+  ListProps &
+    WithAuthProps &
+    WithCurrentDateProps &
+    WithCurrentNationProps &
+    WithRouterProps
+> = ({
   currentDate,
-  currentDateAsUrl,
   currentNation,
   isLoggedIn,
-  territories
+  router: {
+    query: { day, month, year }
+  }
 }) => (
   <List selection={true}>
-    {territories ? (
-      territories
-        .filter(({ nationId }) => nationId === currentNation)
-        .map(({ endDate: endDateFromData, geo, id, startDate }) => {
-          // If no endDate is specified, we consider it today
-          const endDate = endDateFromData ? endDateFromData : new Date();
+    {mockData
+      .filter(({ nation }) => nation === currentNation)
+      .map(({ endDate: endDateFromData, id, startDate }) => {
+        // If no endDate is specified, we consider it today
+        const endDate = endDateFromData ? endDateFromData : new Date();
 
-          // Get active territories
-          const isActive = currentDate >= startDate && currentDate <= endDate;
+        // Convert `startDate` to yyyy/mm/dd format
+        const url = startDate
+          .toISOString()
+          .split('T')[0]
+          .split('-')
+          .join('/');
 
-          return (
-            <Routes.Link
-              key={id}
-              route={`/map/${currentDateAsUrl}/${currentNation}`}
-            >
-              <List.Item>
-                <List.Header>
-                  {isActive && <Icon name="caret right" />}
-                  From {startDate.getFullYear()} to{' '}
-                  {endDateFromData ? endDate.getFullYear() : 'today'}
-                </List.Header>
-                {isActive && (
-                  <List.Content>
-                    Currently shown on map.{' '}
-                    {isLoggedIn && (
-                      <a
-                        onClick={() => {
-                          addShapefile({
-                            geojson: feature(geo),
-                            source: EXISTING_TERRITORY
-                          });
-                          Routes.Router.pushRoute(
-                            `/map/${currentDateAsUrl}/${currentNation}/edit`
-                          );
-                        }}
-                      >
-                        Edit
-                      </a>
-                    )}
-                  </List.Content>
-                )}
-              </List.Item>
-            </Routes.Link>
-          );
-        })
-    ) : (
-      <p>No territories to show.</p>
-    )}
+        const isActive = currentDate >= startDate && currentDate <= endDate;
+
+        return (
+          <Routes.Link key={id} route={`/map/${url}/${currentNation}`}>
+            <List.Item>
+              <List.Header>
+                {isActive && <Icon name="caret right" />}
+                From {startDate.getFullYear()} to{' '}
+                {endDateFromData ? endDate.getFullYear() : 'today'}
+              </List.Header>
+              {isActive && (
+                <List.Content>
+                  Currently shown on map.{' '}
+                  {isLoggedIn && (
+                    <Routes.Link
+                      route={`/map/${year}/${month}/${day}/${currentNation}/edit`}
+                    >
+                      <a>Edit</a>
+                    </Routes.Link>
+                  )}
+                </List.Content>
+              )}
+            </List.Item>
+          </Routes.Link>
+        );
+      })}
     {isLoggedIn && (
       <List.Item>
         <List.Header>
@@ -100,6 +82,5 @@ export default compose(
   withAuth,
   withCurrentDate,
   withCurrentNation,
-  withTerritories,
-  subscribe('withEditTerritoryStore')
+  withRouter
 )(Territories);
