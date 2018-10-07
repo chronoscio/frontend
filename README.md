@@ -7,7 +7,7 @@
 
 ## Getting Started
 1) Make sure that you have installed [yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable) and Node.js PPA. Default Node.js does not work as its version is too low for yarn install to work properly.
-2) Make a mapbox account and note the "default public" access token. You will need this in order to see the map.
+2) Make a mapbox account and note the "default public" [access token](https://www.mapbox.com/account/access-tokens). You will need this in order to see the map.
 3) Clone the repo, install, configure, and run.
 ```bash
 # Clone the repo if you have not already.
