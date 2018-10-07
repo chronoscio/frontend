@@ -7,7 +7,7 @@
 
 ## Getting Started
 1) Make sure that you have installed [yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable) and Node.js PPA. Default Node.js does not work as its version is too low for yarn install to work properly.
-2) Make a mapbox account and note the "default public" [access token](https://www.mapbox.com/account/access-tokens). You will need this in order to see the map.
+2) Make a mapbox account and create a private [access token](https://www.mapbox.com/account/access-tokens). The name does not matter. You will need this in order to see the map.
 3) Clone the repo, install, configure, and run.
 ```bash
 # Clone the repo if you have not already.
@@ -18,7 +18,7 @@ yarn install
 
 # Add secrets
 cp packages/app/now-secrets.example.json packages/app/now-secrets.json
-# Edit now-secrets.json to add the acces token you got earlier, as a string.
+# Edit now-secrets.json to add the access token you got earlier, as a string.
 
 # Run the ftont end.
 yarn start # The app will live-reload on save
