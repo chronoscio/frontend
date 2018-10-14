@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { api, Entity } from '@chronoscio/api';
+import { NextContext } from 'next';
 import dynamic from 'next/dynamic';
 import { Provider } from 'react-contextual';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'semantic-ui-css/semantic.min.css';
 
 import LeftPane from '../components/LeftPane';
+import Routes from '../routes';
 import { withEditTerritoryStore } from '../components/EditTerritory/decorators/withEditTerritoryStore';
 import { withErrorStore } from '../components/Errors/decorators/withErrorStore';
 
@@ -39,11 +41,24 @@ const Map: StatelessPage<MapProps> = ({ entity }) => (
   </Provider>
 );
 
-Map.getInitialProps = async ctx => {
-  const entityId = ctx.query.entityId;
+Map.getInitialProps = async (ctx: NextContext) => {
+  const { day, entityId, month, year } = ctx.query;
   if (entityId) {
-    const entity = await api.politicalEntities.get(entityId);
-    return { entity };
+    try {
+      const entity = await api.politicalEntities.get(entityId as string);
+      return { entity };
+    } catch (e) {
+      // Fails when we don't have an entity, we redirect
+      // https://github.com/zeit/next.js/wiki/Redirecting-in-%60getInitialProps%60
+      if (ctx.res) {
+        ctx.res.writeHead(302, {
+          Location: `/map/${year}/${month}/${day}`
+        });
+        ctx.res.end();
+      } else {
+        Routes.Router.pushRoute(`/map/${year}/${month}/${day}`);
+      }
+    }
   } else {
     return {};
   }
