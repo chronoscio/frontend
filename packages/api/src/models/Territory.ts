@@ -5,7 +5,7 @@ export class Territory {
   public endDate?: Date;
   public geo: Geometry;
   public id: number;
-  public nationId: string;
+  public polentId: string;
   public references: string[];
   public startDate: Date;
 
@@ -14,7 +14,7 @@ export class Territory {
     this.endDate = new Date(value.end_date);
     this.geo = value.geo;
     this.id = value.id;
-    this.nationId = value.nation;
+    this.polentId = value.nation;
     this.references = value.references;
     this.startDate = new Date(value.start_date);
   }
