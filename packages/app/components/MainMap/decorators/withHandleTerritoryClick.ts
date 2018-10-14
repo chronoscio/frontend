@@ -23,13 +23,13 @@ export default withHandlers<WithEditingTerritoryProps, {}>({
     }
 
     // If the feature we clicked doesn't have a nation
-    if (!features[0].properties.polentId) {
+    if (!features[0].properties.nationId) {
       return;
     }
 
     const { day, month, year } = Routes.Router.router.query;
     Routes.Router.pushRoute(
-      `/map/${year}/${month}/${day}/${features[0].properties.polentId}`
+      `/map/${year}/${month}/${day}/${features[0].properties.nationId}`
     );
 
     // Navigate to the correct URL

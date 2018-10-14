@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 import { PoliticalEntity } from '../models';
 
-const API_ENDPOINT = `${process.env.BACKEND_URL}/politicalentities/`;
+const API_ENDPOINT = `${process.env.BACKEND_URL}/nations/`;
 
 export const politicalEntities = {
   async get(id: string, config?: AxiosRequestConfig): Promise<PoliticalEntity> {

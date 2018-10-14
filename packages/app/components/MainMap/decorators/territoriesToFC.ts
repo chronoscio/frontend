@@ -18,7 +18,7 @@ export default withPropsOnChange<TerritoriesToFCProps, WithTerritoriesProps>(
       ? featureCollection(
           territories.map(territory => ({
             geometry: territory.geo,
-            properties: { polentId: territory.polentId },
+            properties: { nationId: territory.nationId },
             type: 'Feature' as 'Feature'
           }))
         )
