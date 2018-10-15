@@ -800,6 +800,10 @@
   version "10.11.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.4.tgz#e8bd933c3f78795d580ae41d86590bfc1f4f389d"
 
+"@types/pbf@^3.0.0":
+  version "3.0.0"
+  resolved "http://registry.npmjs.org/@types/pbf/-/pbf-3.0.0.tgz#861b8fca608a117295afc6f4a8a5b4bc8139c212"
+
 "@types/prop-types@*":
   version "15.5.6"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.6.tgz#9c03d3fed70a8d517c191b7734da2879b50ca26c"
@@ -1815,7 +1819,7 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-concat-stream@^1.4.10, concat-stream@^1.5.0, concat-stream@^1.6.1, concat-stream@~1.6.0:
+concat-stream@^1.4.10, concat-stream@^1.5.0, concat-stream@^1.6.1, concat-stream@^1.6.2, concat-stream@~1.6.0:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-1.6.2.tgz#904bdf194cd3122fc675c77fc4ac3d4ff0fd1a34"
   dependencies:
@@ -2853,6 +2857,14 @@ gauge@~2.7.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
+
+geobuf@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/geobuf/-/geobuf-3.0.1.tgz#1de4376f1d270c87ea7551a12b857cf89ae777ad"
+  dependencies:
+    concat-stream "^1.6.2"
+    pbf "^3.1.0"
+    shapefile "~0.6.6"
 
 geojson-flatten@~0.2.1:
   version "0.2.2"
@@ -4653,7 +4665,7 @@ path-type@^3.0.0:
   dependencies:
     pify "^3.0.0"
 
-pbf@^3.0.5:
+pbf@^3.0.5, pbf@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/pbf/-/pbf-3.1.0.tgz#f70004badcb281761eabb1e76c92f179f08189e9"
   dependencies:
@@ -5500,7 +5512,7 @@ shallowequal@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
 
-shapefile@^0.6.6:
+shapefile@^0.6.6, shapefile@~0.6.6:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/shapefile/-/shapefile-0.6.6.tgz#6fee152b9fb2b1c85f690285b692fb68c95a5f4f"
   dependencies:
