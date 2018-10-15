@@ -39,7 +39,7 @@ const Territories: React.SFC<TerritoriesProps> = ({
   <List selection={true}>
     {territories ? (
       territories
-        .filter(({ nationId }) => nationId === currentNation)
+        .filter(({ polentId }) => polentId === currentNation)
         .map(({ endDate: endDateFromData, geo, id, startDate }) => {
           // If no endDate is specified, we consider it today
           const endDate = endDateFromData ? endDateFromData : new Date();
