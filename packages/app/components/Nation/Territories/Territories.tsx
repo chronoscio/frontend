@@ -44,11 +44,13 @@ const Territories: React.SFC<TerritoriesProps> = ({
           // If no endDate is specified, we consider it today
           const endDate = endDateFromData ? endDateFromData : new Date();
 
-          // Get active territories
+          // Is current territory shown on map?
           const isActive = currentDate >= startDate && currentDate <= endDate;
 
+          const Wrapper = isActive ? 'div' : Routes.Link;
+
           return (
-            <Routes.Link
+            <Wrapper
               key={id}
               route={`/map/${currentDateAsUrl}/${currentNation}`}
             >
@@ -79,7 +81,7 @@ const Territories: React.SFC<TerritoriesProps> = ({
                   </List.Content>
                 )}
               </List.Item>
-            </Routes.Link>
+            </Wrapper>
           );
         })
     ) : (
