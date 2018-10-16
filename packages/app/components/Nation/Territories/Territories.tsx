@@ -19,10 +19,12 @@ import withCurrentNation, {
 import withTerritories, {
   WithTerritoriesProps
 } from '../../MainMap/decorators/withTerritories';
+import { WithPageStoreProps } from '../../LeftPane/decorators/withPageStore';
 
 interface TerritoriesProps
   extends ListProps,
     WithAuthProps,
+    WithPageStoreProps,
     WithCurrentDateProps,
     WithCurrentNationProps,
     WithEditTerritoryStoreProps,
@@ -34,7 +36,8 @@ const Territories: React.SFC<TerritoriesProps> = ({
   currentDateAsUrl,
   currentNation,
   isLoggedIn,
-  territories
+  territories,
+  goToAddTerritory
 }) => (
   <List selection={true}>
     {territories ? (
@@ -89,7 +92,7 @@ const Territories: React.SFC<TerritoriesProps> = ({
     )}
     {isLoggedIn && (
       <List.Item>
-        <List.Header>
+        <List.Header onClick={goToAddTerritory}>
           <Icon name="plus" />
           Add a new territory
         </List.Header>

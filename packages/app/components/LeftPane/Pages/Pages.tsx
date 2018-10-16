@@ -4,6 +4,7 @@ import { subscribe } from 'react-contextual';
 
 import Nation from '../../Nation';
 import NewNation from '../../Nation/NewNation';
+import NewTerritory from '../../Nation/Territories/NewTerritory';
 import { PAGES, WithPageStoreProps } from '../decorators/withPageStore';
 import withCurrentNation, {
   WithCurrentNationProps
@@ -21,8 +22,9 @@ const Pages: React.SFC<PageProps> = ({
   currentPage,
   entity
 }) => {
-  if (currentPage === PAGES.NEW_NATION) {
-    return <NewNation />;
+  switch (currentPage) {
+    case PAGES.NEW_NATION: return <NewNation />;
+    case PAGES.NEW_TERRITORY: return <NewTerritory />;
   }
   return currentNation ? <Nation entity={entity} /> : <Welcome />;
 };
