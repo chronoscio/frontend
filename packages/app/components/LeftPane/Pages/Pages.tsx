@@ -25,8 +25,8 @@ const Pages: React.SFC<PageProps> = ({
   switch (currentPage) {
     case PAGES.NEW_NATION: return <NewNation />;
     case PAGES.NEW_TERRITORY: return <NewTerritory />;
+    default: return currentNation ? <Nation entity={entity} /> : <Welcome />;
   }
-  return currentNation ? <Nation entity={entity} /> : <Welcome />;
 };
 
 export default compose<{}, MapProps>(
