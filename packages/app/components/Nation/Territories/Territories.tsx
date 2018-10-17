@@ -106,5 +106,6 @@ export default compose(
   withCurrentDate,
   withCurrentNation,
   withTerritories,
-  subscribe('withEditTerritoryStore')
+  subscribe('withEditTerritoryStore'),
+  subscribe('withPageStore')
 )(Territories);
