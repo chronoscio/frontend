@@ -92,7 +92,14 @@ const Territories: React.SFC<TerritoriesProps> = ({
     )}
     {isLoggedIn && (
       <List.Item>
-        <List.Header onClick={goToAddTerritory}>
+        <List.Header
+          onClick={() => {
+            Routes.Router.pushRoute(
+              `/map/${currentDateAsUrl}/${currentNation}/edit`
+            );
+            goToAddTerritory();
+          }}
+        >
           <Icon name="plus" />
           Add a new territory
         </List.Header>

@@ -11,9 +11,6 @@ import withHandleSubmit, {
   WithHandleSubmitProps
 } from './decorators/withHandleSubmit';
 
-const formatControlType = (value: string) => value === 'DT';
-const parseControlType = (value: boolean) => (value ? 'DT' : 'CC');
-
 const renderForm = ({
   form: {
     mutators: { push }
@@ -23,25 +20,14 @@ const renderForm = ({
 }: FormRenderProps) => (
   <SUIForm onSubmit={handleSubmit}>
     <BackButton />
-    <Header as="h1">New Political Entity</Header>
-    <Field autoFocus={true} name="name" placeholder="Political entity name" />
+    <Header as="h1">New Territory</Header>
     <Field
-      name="url_id"
-      placeholder="Unique identifier (please use Wikipedia's, if possible)"
+      autofocus={true}
+      as={() => <input type="date" />}
+      label="Start date:"
+      name="start_date"
     />
-    <Checkbox
-      format={formatControlType}
-      label="Disputed territory?"
-      name="control_type"
-      parse={parseControlType}
-      toggle={true}
-    />
-    <Field
-      as={TextArea}
-      name="description"
-      placeholder="Brief description of the political entity"
-    />
-    <ColorPicker name="color" />
+    <Field as={() => <input type="date" />} label="End date:" name="end_date" />
 
     <Header as="h2">
       References
@@ -86,42 +72,6 @@ const renderForm = ({
         content="Add another reference"
         icon="plus"
         onClick={() => push('references')}
-        size="mini"
-        type="button"
-      />
-    </SUIForm.Field>
-
-    <Header as="h2">
-      Links
-      <Header.Subheader>
-        If you wish to provide some other external links related to this
-        political entity, please do so here.
-      </Header.Subheader>
-    </Header>
-    <FieldArray name="links">
-      {({ fields }) =>
-        fields.map((link, index) => (
-          <SUIForm.Field key={link}>
-            <Field
-              as={TextArea}
-              label={
-                <span>
-                  Link #{index + 1} (
-                  <a onClick={() => fields.remove(index)}>Remove</a>)
-                </span>
-              }
-              name={link}
-              placeholder="External URL"
-            />
-          </SUIForm.Field>
-        ))
-      }
-    </FieldArray>
-    <SUIForm.Field>
-      <Button
-        content="Add link"
-        icon="plus"
-        onClick={() => push('links')}
         size="mini"
         type="button"
       />
