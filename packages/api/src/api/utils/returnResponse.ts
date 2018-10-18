@@ -1,3 +1,5 @@
+import { config } from '../../config';
+
 type Fn<T> = () => Promise<T>;
 
 /**
@@ -9,7 +11,6 @@ export function returnResponse<T>(fn: Fn<T>): Promise<T> {
   try {
     return fn();
   } catch (err) {
-    console.error(err);
-    throw err;
+    config.onError(err);
   }
 }
