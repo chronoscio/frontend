@@ -7,9 +7,9 @@ type Fn<T> = () => Promise<T>;
  *
  * @param fn - The function to run.
  */
-export function returnResponse<T>(fn: Fn<T>): Promise<T> {
+export async function returnResponse<T>(fn: Fn<T>): Promise<T> {
   try {
-    return fn();
+    return await fn();
   } catch (err) {
     config.onError(err);
   }

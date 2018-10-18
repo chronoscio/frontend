@@ -29,6 +29,7 @@ export default compose(
           }
         : {},
       onError: (err: Error) => {
+        console.error(err);
         addError(err);
       }
     });
