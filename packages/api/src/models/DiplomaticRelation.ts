@@ -1,20 +1,5 @@
 import * as yup from 'yup';
 
-const diploTypes = [
-  { name: 'A', description: 'Military Alliance' },
-  { name: 'D', description: 'Dual Monarchy' },
-  { name: 'M', description: 'Condominium' },
-  { name: 'T', description: 'Trade League' },
-  { name: 'W', description: 'At War' },
-  { name: 'P', description: 'State or Province' },
-  { name: 'CP', description: 'Client State - Puppet State' },
-  { name: 'CV', description: 'Client State - Vassal State' },
-  { name: 'CPU', description: 'Client State - Personal Union' },
-  { name: 'CCR', description: 'Client State - Colony - Royal' },
-  { name: 'CCP', description: 'Client State - Colony - Propreitary' },
-  { name: 'CCC', description: 'Client State - Colony - Charter' }
-];
-
 export class DiplomaticRelation {
   public childParties: string[];
   public endDate: Date;
@@ -35,9 +20,28 @@ export class DiplomaticRelation {
     this.startDate = new Date(value.start_date);
   }
 
+  static get Types() {
+    return [
+      { name: 'A', description: 'Military Alliance' },
+      { name: 'D', description: 'Dual Monarchy' },
+      { name: 'M', description: 'Condominium' },
+      { name: 'T', description: 'Trade League' },
+      { name: 'W', description: 'At War' },
+      { name: 'P', description: 'State or Province' },
+      { name: 'CP', description: 'Client State - Puppet State' },
+      { name: 'CV', description: 'Client State - Vassal State' },
+      { name: 'CPU', description: 'Client State - Personal Union' },
+      { name: 'CCR', description: 'Client State - Colony - Royal' },
+      { name: 'CCP', description: 'Client State - Colony - Propreitary' },
+      { name: 'CCC', description: 'Client State - Colony - Charter' }
+    ];
+  }
+
   static schema() {
     return yup.object().shape({
-      diplo_type: yup.string().oneOf(diploTypes.map(({ name }) => name)),
+      diplo_type: yup
+        .string()
+        .oneOf(DiplomaticRelation.Types.map(({ name }) => name)),
       end_date: yup.date().required(),
       references: yup
         .array()
