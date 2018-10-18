@@ -15,7 +15,7 @@ const diploTypes = [
   { name: 'CCC', description: 'Client State - Colony - Charter' }
 ];
 
-export abstract class DiplomaticRelation {
+export class DiplomaticRelation {
   public childParties: string[];
   public endDate: Date;
   public diploType: string;
